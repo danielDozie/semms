@@ -6,7 +6,7 @@ export default function FeaturedProducts() {
         <div className="w-full max-h-screen pb-28 bg-white dark:bg-black">
             <div className="w-[80%] md:max-w-5xl mx-auto mt-16 mb-8">
                 <h1 className="font-bold text-4xl text-gray-700 dark:text-gray-300 py-2">Featured</h1>
-                <p className="font-light text-xl text-gray-500 dark:text-myGray">Top selling products </p>
+                <p className="font-light text-lg text-gray-500 dark:text-gray-300">Top selling products </p>
             </div>
             <div className="grid grid-rows-1 grid-flow-col gap-4 max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden">
                 {products.map(product =>
@@ -19,11 +19,11 @@ export default function FeaturedProducts() {
                             </div>
                         </div>
                         <div className="justify-center items-center mx-auto text-center drop-shadow-md">
-                            <h1 className="font-medium text-[10px]  text-gray-400 dark:text-myGray my-2 uppercase">{product.brand}</h1>
+                            <h1 className="font-medium text-[10px]  text-gray-400 dark:text-gray-300 my-2 uppercase">{product.brand}</h1>
                             <StarRating rating={product.rating} />
-                            <p className="font-semibold text-sm text-gray-500 dark:text-myGray py-2">{product.name}</p>
-                            <p className="font-semibold text-sm text-gray-500 dark:text-myGray pb-3">{product.price}</p>
-                            <button className="bg-gold text-white dark:text-black font-semibold py-2 px-4 rounded-full text-sm">Add to cart</button>
+                            <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.name}</p>
+                            <p className="font-light text-sm text-gray-500 dark:text-gray-300 pb-3">{product.price}</p>
+                            <button className="bg-gold text-white dark:text-black font-light py-2 px-4 rounded-full text-sm">Add to cart</button>
                         </div>
                     </div>
                 )}
@@ -98,7 +98,7 @@ const products = [
         id: 1,
         brand: 'Semms',
         name: 'Red Lux Luggage',
-        price: '$100.00',
+        price: '$149.99 - $249.99',
         image: '/image/redbag.png',
         rating: 1,
     },
@@ -106,7 +106,7 @@ const products = [
         id: 2,
         brand: 'Semms',
         name: 'Hot Pink Lux Luggage',
-        price: '$100.00',
+        price: '$149.99 - $249.99',
         image: '/image/hotpinkbag.png',
         rating: 5,
     },
@@ -114,7 +114,7 @@ const products = [
         id: 3,
         brand: 'Semms',
         name: 'Brown Lux Luggage',
-        price: '$100.00',
+        price: '$149.99 - $249.99',
         image: '/image/brownbag.png',
         rating: 2,
     },
@@ -122,7 +122,7 @@ const products = [
         id: 4,
         brand: 'Semms',
         name: 'Light Pink Lux Luggage',
-        price: '$100.00',
+        price: '$149.99 - $249.99',
         image: '/image/lightPink.png',
         rating: 4,
     },

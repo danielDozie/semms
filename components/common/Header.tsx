@@ -51,14 +51,14 @@ export default function Header() {
     {/* mobilel header */}
     <div className="z-20 flex flex-auto mx-auto px-4 pt-8 pb-8 fixed h-[6em] w-full backdrop-blur-md justify-between md:hidden">
           <div className="text-gold">
-              <HiMenuAlt2 size={35} />
+              <HiMenuAlt2 size={30} />
           </div>
           <div>
             <img src="/image/semmsluxuries.svg" alt="logo" className="" width="150" />
           </div>
           <div>
           <a href="#" className="text-gold text-sm font-normal leading-none">
-              <CgShoppingBag size={34} className="inline-block" />
+              <CgShoppingBag size={29} className="inline-block" />
           </a>
           </div>
     </div>

@@ -15,78 +15,78 @@ export default function Footer() {
                 <img src="/image/semmsluxuries.svg" alt="semmsluxuries" />
               </div>
               <div className="flex text-gold gap-2 pb-3">
-                <MdLocationPin size="27" />
-                <p className="text-myGray font-normal text-[15px]">1810 First Oaks St, Richmond, TX 77406</p>
+                <MdLocationPin size="25" />
+                <p className="text-gray-300 font-light text-[15px]">1810 First Oaks St, Richmond, TX 77406</p>
               </div>
               <div className="flex text-gold gap-2 pb-3">
                 <MdOutlineAlternateEmail size="20" />
-                <p className="text-myGray font-normal text-[15px]">support@semmsluxury.com</p>
+                <p className="text-gray-300 font-light text-[15px]">support@semmsluxury.com</p>
               </div>
               <div className="flex text-gold gap-2 pb-3">
                 <MdSettingsPhone size="20" />
-                <p className="text-myGray font-normal text-[15px]">+1 (281)-762-7955</p>
+                <p className="text-gray-300 font-light text-[15px]">+1 (281)-762-7955</p>
               </div>
             </div>
             <div className="w-full md:w-[20%] mx-4 hidden md:block">
-              <h1 className="text-2xl font-bold text-myGray underline underline-offset-8 pt-6">
+              <h1 className="text-xl font-bold text-gray-300 underline underline-offset-8 pt-6">
                 Information
               </h1>
               <div className="mt-8">
                 <ul>
-                  <li className="text-myGray font-normal text-[15px] pb-2">
+                  <li className="text-gray-300 font-light text-[15px] pb-2">
                     <a href="#">About Us</a>
                   </li>
-                  <li className="text-myGray font-normal text-[15px] pb-2">
+                  <li className="text-gray-300 font-light text-[15px] pb-2">
                     <a href="#">Collections</a>
                   </li>
-                  <li className="text-myGray font-normal text-[15px] pb-2">
+                  <li className="text-gray-300 font-light text-[15px] pb-2">
                     <a href="#">Discover</a>
                   </li>
-                  <li className="text-myGray font-normal text-[15px] pb-2">
+                  <li className="text-gray-300 font-light text-[15px] pb-2">
                     <a href="#">Our Story</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="flex flex-auto bg-white dark:bg-black dark:text-myGray px-8 md:px-8 py-16 md:mx-auto justify-apart gap-x-20 md:gap-x-28">
-            <div className="min-w-[20%] text-gray-800 dark:text-myGray">
-              <h1 className="text-2xl font-bold  underline underline-offset-8 pt-6">
+          <div className="flex flex-auto bg-white dark:bg-black dark:text-gray-300 px-8 md:px-8 py-16 md:mx-auto justify-apart gap-x-20 md:gap-x-28">
+            <div className="min-w-[20%] text-gray-800 dark:text-gray-300">
+              <h1 className="text-xl font-bold  underline underline-offset-8 pt-6">
                 Useful Links
               </h1>
               <div className="mt-8">
                 <ul>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Account</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Delivery</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Privacy Policy</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Terms & Conditions</a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="text-gray-800 dark:text-myGray">
-              <h1 className="text-2xl font-bold  underline underline-offset-8 pt-6">
+            <div className="text-gray-800 dark:text-gray-300">
+              <h1 className="text-xl font-bold underline underline-offset-8 pt-6">
                 Supports
               </h1>
               <div className="mt-8">
                 <ul>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Contacts</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Returns</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Sitemap</a>
                   </li>
-                  <li className=" font-normal text-[15px] pb-2">
+                  <li className=" font-light text-[15px] pb-2">
                     <a href="#">Affiliates</a>
                   </li>
                 </ul>
@@ -94,7 +94,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row p-3 md:justify-between font-light text-gray-800 dark:text-myGray text-sm border-t-2 border-yellow-500">
+        <div className="flex flex-col-reverse md:flex-row p-3 md:justify-between font-light text-gray-800 dark:text-gray-300 text-sm border-t-2 border-yellow-500">
           <div className="mb-4 md:pl-20 text-center md:text-left">
             <p>Copyright &copy; {year}. SEMMS Luxury Luggages.</p>
           </div>
