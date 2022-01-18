@@ -8,10 +8,10 @@ export default function FeaturedProducts() {
                 <h1 className="font-bold text-4xl text-gray-700 dark:text-gray-300 py-2">Featured</h1>
                 <p className="font-light text-lg text-gray-500 dark:text-gray-300">Top selling products </p>
             </div>
-            <div className="grid grid-rows-1 grid-flow-col gap-4 max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden">
+            <div className="grid grid-rows-1 md:grid-rows-1 grid-flow-col gap-4 max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden carousel carousel-center">
                 {products.map(product =>
                     <div key={product.id}>
-                        <div className="bg-myGray dark:bg-gray-900 min-h-[280px] min-w-[250px]">
+                        <div className="bg-myGray dark:bg-gray-900 min-h-[280px] min-w-[250px] carousel-item">
                             <div className="p-4">
                                 <div>
                                     <img className="w-full" src={product.image} alt="red" />
@@ -22,13 +22,11 @@ export default function FeaturedProducts() {
                             <h1 className="font-medium text-[10px]  text-gray-400 dark:text-gray-300 my-2 uppercase">{product.brand}</h1>
                             <StarRating rating={product.rating} />
                             <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.name}</p>
-                            <p className="font-light text-sm text-gray-500 dark:text-gray-300 pb-3">{product.price}</p>
-                            <button className="bg-gold text-white dark:text-black font-light py-2 px-4 rounded-full text-sm">Add to cart</button>
+                            <p className="font-bold text-sm text-gray-900 dark:text-gray-300 pb-3">{product.price}</p>
+                            <button className="btn btn-xs btn-outline font-light dark:text-myGray">Add to cart</button>
                         </div>
                     </div>
                 )}
-                <div>
-                </div>
             </div>
         </div>
     </>)
