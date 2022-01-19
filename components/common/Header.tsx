@@ -4,18 +4,15 @@ import { CgShoppingBag } from 'react-icons/cg'
 import { HiMenuAlt2 , HiX} from 'react-icons/hi'
 import Link from 'next/link'
 import { FaUserCircle } from 'react-icons/fa';
+import useMobileNav from '../../store/store';
 
 /**
  * A client component that specifies the content of the header on the website
  */
 export default function Header() {
+    const isOpen = useMobileNav(state => state.isOpen);
+    const toggle = useMobileNav(state => state.toggle);
   
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
-  const navControl = (e:any) => {
-    e.preventDefault();
-    setIsMobileNavOpen(!isMobileNavOpen);
-  }
   return (
     <>
       {/* desktop header */}
@@ -56,9 +53,8 @@ export default function Header() {
 
       {/* mobilel header */}
       <div className="z-20 flex flex-auto mx-auto px-4 pt-8 pb-8 fixed h-[6em] w-full bg-white dark:bg-black justify-between md:hidden">
-        <div className="text-gold cursor-pointer" onClick={navControl}>
-          {isMobileNavOpen ? <HiX size={30} /> : <HiMenuAlt2 size={30} />}
-          {/* <HiMenuAlt2 size={30} /> */}
+        <div className="text-gold cursor-pointer" onClick={toggle}>
+          {isOpen ? <HiX size={30} /> : <HiMenuAlt2 size={30} />}
         </div>
         <div>
           <img src="/image/semmsluxuries.svg" alt="logo" className="" width="150" />
@@ -69,17 +65,18 @@ export default function Header() {
           </a>
         </div>
       </div>
-      <MobileMenu isMobileNavOpen={isMobileNavOpen} />
+      <MobileMenu isOpen={isOpen} />
     </>
   );
 }
 
 
 //Mobile menu
-export function MobileMenu({isMobileNavOpen}:any) {
+export function MobileMenu({isOpen}:any) {
+  const toggle = useMobileNav(state => state.toggle);
   return (
     <div>
-      <div className={`${isMobileNavOpen ? 'flex' : 'hidden'} z-20 flex-wrap w-[90%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden `}>
+      <div className={`${isOpen ? 'flex' : 'hidden'} z-20 flex-wrap w-[90%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
         <div className="mt-[4em] mx-8 overflow-auto">
           <div className="py-4">
             <div className="flex gap-x-2 pb-4">
@@ -91,12 +88,12 @@ export function MobileMenu({isMobileNavOpen}:any) {
             <p className="dark:text-gray-300 text-gray-800 text-sm font-normal leading-none">Let&apos;s get you started already</p>
           </div>
           <div className="my-4">
-            <input type="text" className="w-full py-2 px-4 border-2 border-gold rounded-lg" placeholder="Search for products" />
+            <input type="text" className="w-full py-2 px-4 border-2 border-gold text-gray-800 rounded-lg" placeholder="Search for products" />
           </div>
           <div className="my-4">
             <ul className="flex flex-col">
               {menuItem.map(menu =>
-                <li className="my-4" key={menu.id}>
+                <li className="my-4" key={menu.id} onClick={toggle}>
                   <div className="dark:text-gray-300 text-gray-800 text-lg font-light leading-none">
                     <Link href={menu.link}>
                       {menu.title}
@@ -107,12 +104,17 @@ export function MobileMenu({isMobileNavOpen}:any) {
             </ul>
           </div>
 
-          <div className="mt-12 font-bold text-sm gap-x-4 flex uppercase text-gray-800 dark:text-gray-300">
+          <div className="mt-12 font-semibold text-md gap-x-4 flex uppercase text-gray-800 dark:text-gray-300">
             <div>
-              <p>Login</p>
+              <Link href="#">
+              Login
+              </Link>
             </div>
             <div>
-              <p>Register</p>
+              <Link href="#">
+              Register
+              </Link>
+            
             </div>
           </div>
         </div>

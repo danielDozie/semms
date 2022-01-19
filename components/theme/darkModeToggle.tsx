@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaSun, FaMoon} from "react-icons/fa";
 import {ThemeContext}  from './darkMode';
 import {BsToggle2On, BsToggle2Off} from "react-icons/bs";
 

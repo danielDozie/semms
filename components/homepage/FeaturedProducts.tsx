@@ -19,11 +19,11 @@ export default function FeaturedProducts() {
                             </div>
                         </div>
                         <div className="justify-center items-center mx-auto text-center drop-shadow-md">
-                            <h1 className="font-medium text-[10px]  text-gray-400 dark:text-gray-300 my-2 uppercase">{product.brand}</h1>
+                            <h1 className="font-medium text-[10px]  text-gray-500 dark:text-gray-300 my-2 uppercase">{product.brand}</h1>
                             <StarRating rating={product.rating} />
                             <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.name}</p>
-                            <p className="font-bold text-sm text-gray-900 dark:text-gray-300 pb-3">{product.price}</p>
-                            <button className="btn btn-xs btn-outline font-light dark:text-myGray">Add to cart</button>
+                            <p className="font-bold text-sm text-gray-800 dark:text-gray-300 pb-3">{product.price}</p>
+                            <button className="btn btn-xs btn-outline font-light text-gray-800 dark:text-myGray">Add to cart</button>
                         </div>
                     </div>
                 )}
