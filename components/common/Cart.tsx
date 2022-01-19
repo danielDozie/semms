@@ -2,11 +2,10 @@
 
 //Cart
 export default function Cart({isCart, toggleCart}:any) {
-    console.log(isCart);
     return (
       <div>
         <div className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/60`} onClick={toggleCart}>
-        <div className={`z-40 w-[90%] md:w-[35%] justify-end right-0 h-screen fixed bg-white dark:bg-black`}>
+        <div className={`z-40 w-[80%] md:w-[35%] justify-end right-0 h-screen fixed bg-white dark:bg-black`}>
           <div className="mt-[4em] mx-8 overflow-auto">
             <div className="py-4">
               <div className="flex gap-x-2 pb-4">

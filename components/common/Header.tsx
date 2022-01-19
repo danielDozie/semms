@@ -112,7 +112,7 @@ export function MobileMenu({isMobileMenu}:any) {
   const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
   return (
     <div>
-      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[90%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
         <div className="mt-[4em] mx-8 overflow-auto">
           <div className="py-4">
             <div className="flex gap-x-2 pb-4">
