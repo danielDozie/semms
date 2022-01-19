@@ -1,22 +1,54 @@
-import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi'
 import { CgShoppingBag } from 'react-icons/cg'
 import { HiMenuAlt2 , HiX} from 'react-icons/hi'
 import Link from 'next/link'
 import { FaUserCircle } from 'react-icons/fa';
 import useMobileNav from '../../store/store';
+import {useCart} from '../../store/store';
+import Cart from './Cart';
+import { useEffect, useState } from 'react';
 
 /**
  * A client component that specifies the content of the header on the website
  */
 export default function Header() {
-    const isOpen = useMobileNav(state => state.isOpen);
-    const toggle = useMobileNav(state => state.toggle);
+    const isMobileMenu = useMobileNav(state => state.isMobileMenu);
+    const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
+    const isCart = useCart((state: { isCart: any; }) => state.isCart);
+    const toggleCart = useCart((state: { toggleCart: any; }) => state.toggleCart);
+    
+    //Disable scroll when menu is open
+    useEffect(() => {
+        if (isMobileMenu) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'visible';
+        }
+    }, [isMobileMenu]);
+    
+    //Disable scroll when cart is open
+    useEffect(() => {
+        if (isCart) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'visible';
+        }
+    }, [isCart]);
+    
+    //Display just one 
+    // useEffect(() => {
+    //   if(isCart){
+    //     toggleCart();
+    //   }
+    //   if(isMobileMenu){
+    //     toggleMobileMenu();
+    //   }
+    // }, [isCart, isMobileMenu]);
   
   return (
     <>
       {/* desktop header */}
-      <div className="z-20 fixed w-full backdrop-blur-md hidden md:block">
+      <div className="z-20 fixed w-full bg-white dark:bg-black hidden md:block">
         <div className="flex justify-between mx-auto px-16 h-10 py-12">
           <div>
             {/* logo */}
@@ -44,39 +76,43 @@ export default function Header() {
               <FiSearch size={20} className="inline-block mr-6" />
             </a>
             <a href="#" className="text-gold text-sm font-normal leading-none">
-              <CgShoppingBag size={20} className="inline-block mr-2" />
+              <CgShoppingBag size={20} className="inline-block mr-2" onClick={toggleCart}/>
             </a>
           </div>
         </div>
+          <Cart isCart={isCart} toggleCart={toggleCart} />
       </div>
       
-
+      
       {/* mobilel header */}
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/60 md:hidden overflow-hidden`} onClick={toggleMobileMenu}/>
       <div className="z-20 flex flex-auto mx-auto px-4 pt-8 pb-8 fixed h-[6em] w-full bg-white dark:bg-black justify-between md:hidden">
-        <div className="text-gold cursor-pointer" onClick={toggle}>
-          {isOpen ? <HiX size={30} /> : <HiMenuAlt2 size={30} />}
+        <div className="text-gold cursor-pointer" onClick={toggleMobileMenu}>
+          {isMobileMenu ? <HiX size={30} /> : <HiMenuAlt2 size={30} />}
         </div>
         <div>
           <img src="/image/semmsluxuries.svg" alt="logo" className="" width="150" />
         </div>
         <div>
           <a href="#" className="text-gold text-sm font-normal leading-none">
-            <CgShoppingBag size={29} className="inline-block" />
+            <CgShoppingBag size={29} className="inline-block" onClick={toggleCart} />
           </a>
         </div>
+        
       </div>
-      <MobileMenu isOpen={isOpen} />
+      <MobileMenu isMobileMenu={isMobileMenu} />
+      <Cart isCart={isCart} toggleCart={toggleCart} />
     </>
   );
 }
 
 
 //Mobile menu
-export function MobileMenu({isOpen}:any) {
-  const toggle = useMobileNav(state => state.toggle);
+export function MobileMenu({isMobileMenu}:any) {
+  const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
   return (
     <div>
-      <div className={`${isOpen ? 'flex' : 'hidden'} z-20 flex-wrap w-[90%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[90%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
         <div className="mt-[4em] mx-8 overflow-auto">
           <div className="py-4">
             <div className="flex gap-x-2 pb-4">
@@ -93,7 +129,7 @@ export function MobileMenu({isOpen}:any) {
           <div className="my-4">
             <ul className="flex flex-col">
               {menuItem.map(menu =>
-                <li className="my-4" key={menu.id} onClick={toggle}>
+                <li className="my-4" key={menu.id} onClick={toggleMobileMenu}>
                   <div className="dark:text-gray-300 text-gray-800 text-lg font-light leading-none">
                     <Link href={menu.link}>
                       {menu.title}
