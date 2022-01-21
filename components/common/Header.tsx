@@ -34,25 +34,17 @@ export default function Header() {
             document.body.style.overflow = 'visible';
         }
     }, [isCart]);
-    
-    //Display just one 
-    // useEffect(() => {
-    //   if(isCart){
-    //     toggleCart();
-    //   }
-    //   if(isMobileMenu){
-    //     toggleMobileMenu();
-    //   }
-    // }, [isCart, isMobileMenu]);
   
   return (
     <>
       {/* desktop header */}
       <div className="z-20 fixed w-full bg-white dark:bg-black hidden md:block">
         <div className="flex justify-between mx-auto px-16 h-10 py-12">
-          <div>
+          <div className="-mt-1">
             {/* logo */}
+            <Link href={`/`}>
             <img src="/image/semmsluxuries.svg" alt="logo" className="-mt-2 ml-2" width="125" />
+            </Link>
           </div>
           {/* menu */}
           <div className="mx-auto">
@@ -71,13 +63,13 @@ export default function Header() {
             </div>
           </div>
           {/* cart elements */}
-          <div>
-            <a href="#" className="text-gold text-sm font-normal leading-none">
-              <FiSearch size={20} className="inline-block mr-6" />
-            </a>
-            <a href="#" className="text-gold text-sm font-normal leading-none">
-              <CgShoppingBag size={20} className="inline-block mr-2" onClick={toggleCart}/>
-            </a>
+          <div className="-mt-1">
+            <span className="text-gold text-sm font-normal leading-none cursor-pointer">
+              <FiSearch size={23} className="inline-block mr-6" />
+            </span>
+            <span className="text-gold text-sm font-normal leading-none cursor-pointer">
+              <CgShoppingBag size={23} className="inline-block mr-2" onClick={toggleCart}/>
+            </span>
           </div>
         </div>
           <Cart isCart={isCart} toggleCart={toggleCart} />
@@ -85,18 +77,18 @@ export default function Header() {
       
       
       {/* mobilel header */}
-      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/60 md:hidden overflow-hidden`} onClick={toggleMobileMenu}/>
-      <div className="z-20 flex flex-auto mx-auto px-4 pt-8 pb-8 fixed h-[6em] w-full bg-white dark:bg-black justify-between md:hidden">
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/40 md:hidden overflow-hidden`} onClick={toggleMobileMenu}/>
+      <div className="z-20 flex flex-auto mx-auto px-4 pt-4 pb-8 fixed h-[4em] w-full bg-white dark:bg-black justify-between md:hidden">
         <div className="text-gold cursor-pointer" onClick={toggleMobileMenu}>
-          {isMobileMenu ? <HiX size={30} /> : <HiMenuAlt2 size={30} />}
+          {isMobileMenu ? <HiX size={25} /> : <HiMenuAlt2 size={25} />}
         </div>
         <div>
-          <img src="/image/semmsluxuries.svg" alt="logo" className="" width="150" />
+          <img src="/image/semmsluxuries.svg" alt="logo" className="" width="120" />
         </div>
         <div>
-          <a href="#" className="text-gold text-sm font-normal leading-none">
-            <CgShoppingBag size={29} className="inline-block" onClick={toggleCart} />
-          </a>
+          <div className="text-gold text-sm font-normal leading-none cursor-pointer">
+            <CgShoppingBag size={24} className="inline-block" onClick={toggleCart} />
+          </div>
         </div>
         
       </div>
@@ -112,7 +104,7 @@ export function MobileMenu({isMobileMenu}:any) {
   const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
   return (
     <div>
-      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[5.5em] md:hidden`}>
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[3.8em] md:hidden`}>
         <div className="mt-[4em] mx-8 overflow-auto">
           <div className="py-4">
             <div className="flex gap-x-2 pb-4">
