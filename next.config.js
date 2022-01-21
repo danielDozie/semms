@@ -5,6 +5,12 @@ const nextConfig = {
   images: {
     domains: ['semmslux.com'],
   },
+  env: {
+    SiteTitle: 'Semms Luxury',
+    SiteDescription: 'Semms Luxury',
+    SiteKeywords: 'Semms Luxury', // comma separated
+    SiteAuthor: 'Semms Luxury',
+  },
 }
 
 module.exports = nextConfig

@@ -7,6 +7,7 @@ import useMobileNav from '../../store/store';
 import {useCart} from '../../store/store';
 import Cart from './Cart';
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 
 /**
  * A client component that specifies the content of the header on the website
@@ -37,6 +38,9 @@ export default function Header() {
   
   return (
     <>
+      <Head>
+        <title>{process.env.SiteTitle}</title>
+      </Head>
       {/* desktop header */}
       <div className="z-20 fixed w-full bg-white dark:bg-black hidden md:block">
         <div className="flex justify-between mx-auto px-16 h-10 py-12">

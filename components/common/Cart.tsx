@@ -4,13 +4,14 @@ import { HiX } from "react-icons/hi";
 import {MdClose} from "react-icons/md";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import {AiOutlineMinus} from "react-icons/ai";
-
+import {motion} from "framer-motion";
+import { cartAnimation } from "./commonAnimation";
 
 //Cart
 export default function Cart({ isCart, toggleCart }: any) {
     return (
         <>
-        <div className="w-full" >
+        <motion.div className="w-full" >
             <div className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/40 overflow-hidden`} onClick={toggleCart} />
             <div className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[35%] justify-end right-0 h-screen fixed bg-white dark:bg-black mt-[3.5em] md:mt-[6em]`}>
                 <div className="w-full h-[100vh] mt-10 md:mt-[1em] mx-8 overflow-auto">
@@ -48,7 +49,7 @@ export default function Cart({ isCart, toggleCart }: any) {
                             </div>
                             
                             <div className="border-b border-gray-800 mt-2 dark:border-myGray"/>
-                            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                            <div className="flex justify-between text-gold font-light text-[15px] mt-2">
                                 <p className="font-bold">Total</p>
                                 <p className="font-bold">${`289.80`}</p>
                             </div>
@@ -62,7 +63,7 @@ export default function Cart({ isCart, toggleCart }: any) {
                     {/* <CartEmpty /> */}
                 </div>
             </div>
-        </div>
+        </motion.div>
     </>)
 }
 
@@ -84,7 +85,7 @@ export function ItemSection(){
                             </div>
                         </div>
                         <div className="-mt-2 md:mt-0">
-                            <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gray-800 dark:text-gray-300">$149.99</p>
+                            <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">$149.99</p>
                         </div>
                     </div>
                     
