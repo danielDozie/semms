@@ -24,40 +24,42 @@ export default function Cart({ isCart, toggleCart }: any) {
                     </div>
                     
                     {/* item section */}
-                    <div className="flex flex-col max-h-[45%] overflow-y-scroll">
-                    <ItemSection />
-                    <ItemSection />
-                    <ItemSection />
-                    </div>
+                        {/* <div className="flex flex-col max-h-[45%] overflow-y-scroll">
+                        <ItemSection />
+                        <ItemSection />
+                        <ItemSection />
+                        </div> */}
                     {/* item section end */}
-                    <div className="border-b-4 border-black dark:border-myGray"/>
+                        {/* <div className="border-b-4 border-black dark:border-myGray"/> */}
                     
-                    {/* <CartEmpty /> */}
-                    
-                    <div className="pt-1">
-                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                            <p>Subtotal</p>
-                            <p>${`289.80`}</p>
-                        </div>
-                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                            <p>Taxes</p>
-                            <p>Calculated at checkout</p>
-                        </div>
-                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                            <p>Shipping</p>
-                            <p className="font-bold">Free</p>
-                        </div>
+                    {/* Bottom Section */}
+                        {/* <div className="pt-1">
+                            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                                <p>Subtotal</p>
+                                <p>${`289.80`}</p>
+                            </div>
+                            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                                <p>Taxes</p>
+                                <p>Calculated at checkout</p>
+                            </div>
+                            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                                <p>Shipping</p>
+                                <p className="font-bold">Free</p>
+                            </div>
 
-                        <div className="border-b border-gray-800 mt-2 dark:border-myGray"/>
-                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                            <p className="font-bold">Total</p>
-                            <p className="font-bold">${`289.80`}</p>
-                        </div>
+                            <div className="border-b border-gray-800 mt-2 dark:border-myGray"/>
+                            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                                <p className="font-bold">Total</p>
+                                <p className="font-bold">${`289.80`}</p>
+                            </div>
 
-                        <div>
-                            <button className="w-full h-10 bg-black dark:bg-myGray text-white dark:text-gray-900 font-semibold text-sm py-2 px-4 mt-4 uppercase">Proceed to Checkout</button>
-                        </div>
-                    </div>
+                            <div>
+                                <button className="w-full h-10 bg-black dark:bg-myGray text-white dark:text-gray-900 font-semibold text-sm py-2 px-4 mt-4 uppercase">Proceed to Checkout</button>
+                            </div>
+                        </div> */}
+                    {/* Bottom Section End */}
+
+                    <CartEmpty />
                 </div>
             </div>
         </div>
