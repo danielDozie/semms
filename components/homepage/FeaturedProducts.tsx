@@ -23,7 +23,7 @@ export default function FeaturedProducts() {
                             <StarRating rating={product.rating} />
                             <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.name}</p>
                             <p className="font-bold text-sm text-gray-800 dark:text-gray-300 pb-3">{product.price}</p>
-                            <button className="btn btn-xs btn-outline font-light text-gray-800 dark:text-myGray">Add to cart</button>
+                            <button className="btn btn-xs btn-outline bg-white dark:bg-black font-light text-gray-800 dark:text-myGray">Add to cart</button>
                         </div>
                     </div>
                 )}

@@ -24,16 +24,16 @@ export default function Cart({ isCart, toggleCart }: any) {
                     </div>
                     
                     {/* item section */}
-                        {/* <div className="flex flex-col max-h-[45%] overflow-y-scroll">
+                        <div className="flex flex-col max-h-[45%] overflow-y-scroll no-scrollbar">
                         <ItemSection />
                         <ItemSection />
                         <ItemSection />
-                        </div> */}
+                        </div>
                     {/* item section end */}
-                        {/* <div className="border-b-4 border-black dark:border-myGray"/> */}
+                        <div className="border-b-4 border-black dark:border-myGray"/>
                     
                     {/* Bottom Section */}
-                        {/* <div className="pt-1">
+                        <div className="pt-1">
                             <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
                                 <p>Subtotal</p>
                                 <p>${`289.80`}</p>
@@ -46,25 +46,27 @@ export default function Cart({ isCart, toggleCart }: any) {
                                 <p>Shipping</p>
                                 <p className="font-bold">Free</p>
                             </div>
-
+                            
                             <div className="border-b border-gray-800 mt-2 dark:border-myGray"/>
                             <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
                                 <p className="font-bold">Total</p>
                                 <p className="font-bold">${`289.80`}</p>
                             </div>
-
+                            
                             <div>
                                 <button className="w-full h-10 bg-black dark:bg-myGray text-white dark:text-gray-900 font-semibold text-sm py-2 px-4 mt-4 uppercase">Proceed to Checkout</button>
                             </div>
-                        </div> */}
+                        </div>
                     {/* Bottom Section End */}
-
-                    <CartEmpty />
+                    
+                    {/* <CartEmpty /> */}
                 </div>
             </div>
         </div>
     </>)
 }
+
+
 
 
 

@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   darkMode: "class",
   content: [
@@ -33,5 +35,18 @@ module.exports = {
   },
   plugins: [
     require('daisyui'),
+    plugin(function({ addUtilities }) {
+      addUtilities({
+      '.no-scrollbar::-webkit-scrollbar' :{
+        'display': 'none',
+      },
+
+      '.no-scrollbar': {
+        '-ms-overflow-style': 'none',  /* IE and Edge */
+        'scrollbar-width': 'none', /* Firefox */
+      }
+      
+      })
+    })
   ],
 }
