@@ -14,6 +14,6 @@ export const useProductStore = create<ProductStore>(set => ({
         const {data} = await client.query({
             query: PRODUCTS
           });
-        set({products: data.products.edges})
+        set({products: data.PRODUCTS.edges})
     }
 }))

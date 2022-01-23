@@ -4,11 +4,13 @@ import { useProductStore } from '../../store/productStore';
 
 export default function FeaturedProducts() {
     const products = useProductStore(state => state.products);
-   const setProducts = useProductStore(state => state.setProducts);
+    const setProducts = useProductStore(state => state.setProducts);
     useEffect(() => {
         setProducts();
     }, []);
-    
+    // console.log(products[0].node.images.edges[0].node.src);
+
+
     return (<>
         <div className="w-full max-h-screen pb-28 bg-white dark:bg-black">
             <div className="w-[80%] md:max-w-5xl mx-auto mt-16 mb-8">
@@ -20,8 +22,8 @@ export default function FeaturedProducts() {
                     <div key={product.node.id}>
                         <div className="bg-myGray dark:bg-gray-900 min-h-[280px] min-w-[250px] carousel-item">
                             <div className="p-4">
-                                <div>
-                                    <img className="w-full" src={product.image} alt="red" />
+                                <div className="drop-shadow-md">
+                                    <img className="w-full" src={product.node.media.edges[0].node.previewImage.src} alt={product.node.media.edges[0].node.previewImage.altText} />
                                 </div>
                             </div>
                         </div>
