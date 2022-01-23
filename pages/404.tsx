@@ -4,7 +4,7 @@ import React from 'react'
 export default function Index() {
     return (<>
         <Head>
-            <title>Page Not Found | {process.env.siteTitle}</title>
+            <title>Page Not Found | {process.env.SiteTitle}</title>
         </Head>
         <div className="flex justify-center items-center h-screen">
             <div className="w-full max-w-md">   

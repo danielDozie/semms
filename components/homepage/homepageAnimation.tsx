@@ -95,4 +95,13 @@ export const hightlightVariants = {
             fade: "fadeIn",
         }
     },
+    line: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: 2.5,
+            duration: 1,
+            fade: "fadeIn",
+        }
+    },
 }

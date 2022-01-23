@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { VscStarFull, VscStarEmpty } from 'react-icons/vsc'
+import { useProductStore } from '../../store/productStore';
 
 export default function FeaturedProducts() {
+    const products = useProductStore(state => state.products);
+   const setProducts = useProductStore(state => state.setProducts);
+    useEffect(() => {
+        setProducts();
+    }, []);
+    
     return (<>
         <div className="w-full max-h-screen pb-28 bg-white dark:bg-black">
             <div className="w-[80%] md:max-w-5xl mx-auto mt-16 mb-8">
@@ -10,7 +17,7 @@ export default function FeaturedProducts() {
             </div>
             <div className="grid grid-rows-1 md:grid-rows-1 grid-flow-col gap-4 max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden carousel carousel-center">
                 {products.map(product =>
-                    <div key={product.id}>
+                    <div key={product.node.id}>
                         <div className="bg-myGray dark:bg-gray-900 min-h-[280px] min-w-[250px] carousel-item">
                             <div className="p-4">
                                 <div>
@@ -19,11 +26,11 @@ export default function FeaturedProducts() {
                             </div>
                         </div>
                         <div className="justify-center items-center mx-auto text-center drop-shadow-md">
-                            <h1 className="font-medium text-[10px]  text-gray-500 dark:text-gray-300 my-2 uppercase">{product.brand}</h1>
+                            <h1 className="font-medium text-[10px]  text-gray-500 dark:text-gray-300 my-2 uppercase">{product.node.vendor}</h1>
                             <StarRating rating={product.rating} />
-                            <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.name}</p>
-                            <p className="font-bold text-sm text-gray-800 dark:text-gray-300 pb-3">{product.price}</p>
-                            <button className="btn btn-xs btn-outline bg-white dark:bg-black font-light text-gray-800 dark:text-myGray">Add to cart</button>
+                            <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.node.title}</p>
+                            <p className="font-bold text-sm text-gray-800 dark:text-gray-300 pb-3">${product.node.priceRange.minVariantPrice.amount} - ${product.node.priceRange.maxVariantPrice.amount}</p>
+                            <button className="btn btn-xs btn-outline  dark:bg-black font-light text-gray-800 dark:text-myGray">Buy Now</button>
                         </div>
                     </div>
                 )}
@@ -90,38 +97,3 @@ export function StarRating(props: { rating: any }) {
     }
 
 }
-
-const products = [
-    {
-        id: 1,
-        brand: 'Semms',
-        name: 'Red Lux Luggage',
-        price: '$149.99 - $249.99',
-        image: '/image/redbag.png',
-        rating: 1,
-    },
-    {
-        id: 2,
-        brand: 'Semms',
-        name: 'Hot Pink Lux Luggage',
-        price: '$149.99 - $249.99',
-        image: '/image/hotpinkbag.png',
-        rating: 5,
-    },
-    {
-        id: 3,
-        brand: 'Semms',
-        name: 'Brown Lux Luggage',
-        price: '$149.99 - $249.99',
-        image: '/image/brownbag.png',
-        rating: 2,
-    },
-    {
-        id: 4,
-        brand: 'Semms',
-        name: 'Light Pink Lux Luggage',
-        price: '$149.99 - $249.99',
-        image: '/image/lightPink.png',
-        rating: 4,
-    },
-]

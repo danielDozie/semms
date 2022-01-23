@@ -1,5 +1,5 @@
 import React from 'react';
-import { animate, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { titleVariants, boxVariants, hightlightVariants } from './homepageAnimation';
 
 export default function Hero() {
@@ -28,9 +28,9 @@ export default function Hero() {
                                     <h3 className="text-gray-500 dark:text-gray-400 pt-2 md:pt-12 text-sm"><span className="text-2xl font-bold">5+ </span>Unique Styles</h3>
                                 </motion.div>
 
-                                <div>
+                                <motion.div initial="hidden" animate="line" variants={hightlightVariants}>
                                     <h3 className="text-gray-500 dark:text-gray-400 pt-2 md:pt-12 text-sm"><span className="text-2xl font-semibold">| </span></h3>
-                                </div>
+                                </motion.div>
                                 
                                 <motion.div initial="hidden" animate="highlight2" variants={hightlightVariants}>
                                     <h3 className="text-gray-500 dark:text-gray-400 pt-2 md:pt-12 text-sm"><span className="text-2xl font-bold">Top </span> Grain Leather</h3>
@@ -39,8 +39,8 @@ export default function Hero() {
                         </div>
                         {/* Slide Images */}
                         <div className="flex gap-x-4 pt-24 md:pt-12 md:flex md:flex-wrap md:pl-16">
-                            {slideImage.map(({image, title, cls, animate, index}:any) => 
-                            <motion.div initial="hidden" animate={animate} variants={boxVariants} className={cls} key={index}>
+                            {slideImage.map(({image, title, cls, animate}:any) => 
+                            <motion.div initial="hidden" animate={animate} variants={boxVariants} className={cls} key={animate}>
                                 <img src={image} alt={title} className="md:-mt-2 md:ml-2" width="170" />
                             </motion.div>
                             )}
