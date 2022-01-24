@@ -105,3 +105,26 @@ export const hightlightVariants = {
         }
     },
 }
+
+export const productImageVariant = {
+    initial: {
+        opacity: 1,
+    },
+    animate:{
+        opacity: 1,
+    },
+    hover: {
+        opacity: 1,
+        scale: 0.8,
+        transition: {
+            duration: 0.2,
+            rotate: "rotate(4deg)",
+        }
+    }
+}
+
+export const productHover ={
+    initial:{opacity: 0, y:-50} ,
+    animate:{opacity: 1,}, 
+    hover:{opacity: 0, y:0, transition:{duration: 1, ease: 'easeInOut', delay: 1}}
+}
