@@ -6,12 +6,12 @@ export default function Index() {
         <Head>
             <title>Page Not Found | {process.env.SiteTitle}</title>
         </Head>
-        <div className="flex justify-center items-center h-screen">
-            <div className="w-full max-w-md">   
-                <div className="bg-white dark:bg-black rounded-lg shadow-lg p-8">
+        <div className="flex justify-center items-center h-full pt-24">
+            <div className="w-full max-w-md py-24">   
+                <div className="bg-white dark:bg-black p-8">
                     <h1 className="text-center text-2xl font-bold text-gold">Oops!</h1>
                     <p className="text-center text-gray-800 dark:text-gray-300">Page not found</p>
-                    <p className="text-center text-gray-800 dark:text-gray-300 my-4">I am working on it. Check back soon.</p>
+                    <p className="text-center text-gray-800 dark:text-gray-300 my-4">We're are working on some other features.</p>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ export default function Cart({ isCart, toggleCart }: any) {
         <>
         <motion.div className="w-full" >
             <div className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/40 overflow-hidden`} onClick={toggleCart} />
-            <div className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[35%] justify-end right-0 h-screen fixed bg-white dark:bg-black mt-[3.5em] md:mt-[6em]`}>
+            <div className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[35%] justify-end right-0 h-full fixed bg-white dark:bg-black mt-[3.5em] md:mt-[6em]`}>
                 <div className="w-full h-[100vh] mt-10 md:mt-[1em] mx-8 overflow-auto">
                     <div className="flex justify-between">
                         <div className="flex gap-x-2 pb-4">

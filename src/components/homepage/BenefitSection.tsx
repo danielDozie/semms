@@ -5,7 +5,7 @@ import {CgDesignmodo} from 'react-icons/cg'
 export default function BenefitSection() {
     return (
         <>
-            <div className="w-full min-h-screen bg-gold dark:bg-black">
+            <div className="max-w-7xl h-full bg-gold dark:bg-black pb-24">
                 <div className="flex flex-col md:flex-row flex-wrap w-[80%] mx-auto">
                     <div className="my-20 w-full md:w-[50%]">
                         <h1 className="text-left text-3xl md:text-4xl font-bold text-gray-800 dark:text-myGray">

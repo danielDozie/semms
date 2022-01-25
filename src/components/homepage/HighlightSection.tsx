@@ -6,7 +6,7 @@ import {CgDesignmodo} from 'react-icons/cg'
 export default function Highlights(){
     return (
         <>
-            <div className="w-ful min-h-full bg-myGray dark:bg-black">  
+            <div className="max-w-7xl h-full bg-myGray dark:bg-black">  
                 <div className="container mx-auto px-4 py-24">
                     <div className="flex flex-wrap">
                         <div className="w-full md:w-1/2 lg:w-1/3 p-3">

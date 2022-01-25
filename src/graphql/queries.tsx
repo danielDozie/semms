@@ -20,15 +20,21 @@ export const PRODUCTS = gql `
         priceRange{
           minVariantPrice{
             amount
+            currencyCode
           },
           maxVariantPrice{
             amount
+            currencyCode
           }
         },
         images(first:10){
           edges{
             node{
+              id
             	src
+              width
+              height
+              altText
             }
           }
         },
@@ -44,7 +50,7 @@ export const PRODUCTS = gql `
         }
         tags
         handle
-        variants(first: 5){
+        variants(first: 5, reverse:true){
           edges{
             node{
               id

@@ -5,7 +5,7 @@ import { titleVariants, boxVariants, hightlightVariants } from './homepageAnimat
 export default function Hero() {
     return (
     <>
-        <div className="w-full min-h-screen bg-gradient-to-t from-gray-900 to-black bg-blend-multiply">
+        <div className="max-w-7xl h-full bg-gradient-to-t from-gray-900 to-black bg-blend-multiply">
             <div className="flex justify-center w-full pb-24">
                 <div className="mt-16">
                     <div className="flex flex-col md:flex-row mt-20 md:mt-48 w-[80%] mx-auto">
