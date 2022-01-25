@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useRef} from 'react'
 import { VscStarFull, VscStarEmpty } from 'react-icons/vsc'
 import { useProductStore } from '../../store/productStore';
 import {motion} from 'framer-motion';
 import { productImageVariant } from './homepageAnimation';
+import {useRouter} from 'next/router';
+
 
 export default function FeaturedProducts() {
     const productsData = useProductStore(state => state.products);
@@ -11,11 +13,19 @@ export default function FeaturedProducts() {
     useEffect(() => {
         setProducts();
     }, []);
-    
     const [showButton, setShowButton] = React.useState(false);
+
+    const router = useRouter();
+    
+
+    const productPage = (e:any) => {
+        e.preventDefault();
+        const slug =  `/products/${e.currentTarget.id}`;
+        router.push(slug);
+    }
     
     return (<>
-        <div className="w-full max-h-screen pb-28 bg-white dark:bg-black">
+        <div className="max-w-7xl h-full pb-28 bg-white dark:bg-black">
             <div className="w-[80%] md:max-w-5xl mx-auto mt-16 mb-8">
                 <h1 className="font-bold text-4xl text-gray-700 dark:text-gray-300 py-2">Featured</h1>
                 <p className="font-light text-lg text-gray-500 dark:text-gray-300">Top selling products </p>
@@ -23,7 +33,7 @@ export default function FeaturedProducts() {
             <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden carousel carousel-center">
                 {products.map(product =>
                     <div key={product.node.id}>
-                        <motion.div onHoverStart={() => setShowButton(true)} onHoverEnd={() => setShowButton(false)} className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md">
+                        <motion.div onHoverStart={() => setShowButton(true)} onHoverEnd={() => setShowButton(false)} className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
                             <div className="p-4">
                                 <motion.div initial="initial" animate="animate" whileHover="hover" variants={productImageVariant} className="drop-shadow-md">
                                     <img className="w-full" src={product.node.media.edges[0].node.previewImage.src} alt={product.node.media.edges[0].node.previewImage.altText} />
@@ -33,7 +43,7 @@ export default function FeaturedProducts() {
                                     <h1 className="font-medium text-[10px] text-gold my-2 uppercase">{product.node.vendor}</h1>
                                     <StarRating rating={product.rating} />
                                     <p className="font-light text-sm text-gray-500 dark:text-gray-300 py-2">{product.node.title}</p>
-                                    <p className="font-bold text-sm text-gray-500 dark:text-gray-300 pb-3">${product.node.priceRange.minVariantPrice.amount} - ${product.node.priceRange.maxVariantPrice.amount}</p>
+                                    <p className="font-bold text-sm text-gray-500 dark:text-gray-300 pb-3">${product.node.priceRange.minVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode} - ${product.node.priceRange.maxVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
                                     {/* <motion.button animate={showButton ? {transition:{duration:.3, fade:'fadeIn'}}: {transition:{duration: .3, fade: 'fadeOut'}}} className={`${showButton ? 'inline-block' : 'hidden'} btn btn-xs btn-outline rounded-sm  dark:bg-black font-light text-gray-800 dark:text-myGray`}>View Product</motion.button> */}
                                 </div>
                             </div>

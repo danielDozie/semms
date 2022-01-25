@@ -4,8 +4,8 @@ const parallax = "https://images.unsplash.com/photo-1457972657980-4c9fddebec8d?i
 
 export default function ParallaxSection() {
     return (
-        <div className="bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: `url(${parallax})` }}>
-            <div className="bg-black bg-opacity-50 h-screen pt-20 w-full">
+        <div className="max-w-7xl bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: `url(${parallax})` }}>
+            <div className="bg-black bg-opacity-50 h-full pt-20 w-full">
 
                 <div className="w-[80%] mx-auto px-0 md:px-4 py-16">
                     <div className="flex flex-col">
@@ -26,7 +26,7 @@ We offer a diverse range of products to suit all, as well as offering great deal
                             </p>
 
                             <div className="pt-8">
-                            <button className="bg-gray-800 hover:bg-star hover:text-gray-800 text-gray-300 font-light text-sm py-2 px-4 rounded-md">
+                            <button className="bg-gray-800 hover:bg-star hover:text-gray-800 text-white font-light text-sm py-2 px-4 rounded-md">
                                 Learn More
                             </button>
                             </div>
