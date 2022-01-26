@@ -42,12 +42,12 @@ export default function Header() {
         <title>{process.env.SiteTitle}</title>
       </Head>
       {/* desktop header */}
-      <div className="z-20 fixed w-full bg-white dark:bg-black hidden md:block">
-        <div className="flex justify-between mx-auto px-16 h-10 py-12">
+      <div className="fixed z-20 hidden w-full bg-white dark:bg-black md:block">
+        <div className="flex justify-between h-10 px-16 py-12 mx-auto">
           <div className="-mt-1">
             {/* logo */}
             <Link href={`/`}>
-            <img src="/image/semmsluxuries.svg" alt="logo" className="-mt-2 ml-2" width="125" />
+            <img src="/image/semmsluxuries.svg" alt="logo" className="ml-2 -mt-2 cursor-pointer" width="125" />
             </Link>
           </div>
           {/* menu */}
@@ -56,7 +56,7 @@ export default function Header() {
               <ul className="flex uppercase">
                 {menuItem.map(menu =>
                   <li className="mr-6" key={menu.id}>
-                    <div className="text-gold text-sm font-normal leading-none">
+                    <div className="text-sm font-normal leading-none text-gold">
                       <Link href={menu.link}>
                         {menu.title}
                       </Link>
@@ -68,10 +68,10 @@ export default function Header() {
           </div>
           {/* cart elements */}
           <div className="-mt-1">
-            <span className="text-gold text-sm font-normal leading-none cursor-pointer">
+            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <FiSearch size={23} className="inline-block mr-6" />
             </span>
-            <span className="text-gold text-sm font-normal leading-none cursor-pointer">
+            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag size={23} className="inline-block mr-2" onClick={toggleCart}/>
             </span>
           </div>
@@ -81,16 +81,16 @@ export default function Header() {
       
       
       {/* mobilel header */}
-      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/40 md:hidden overflow-hidden`} onClick={toggleMobileMenu}/>
+      <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/40 md:hidden overflow-hidden`} onClick={toggleMobileMenu} />
       <div className="z-20 flex flex-auto mx-auto px-4 pt-4 pb-8 fixed h-[4em] w-full bg-white dark:bg-black justify-between md:hidden">
-        <div className="text-gold cursor-pointer" onClick={toggleMobileMenu}>
+        <div className="cursor-pointer text-gold" onClick={toggleMobileMenu}>
           {isMobileMenu ? <HiX size={25} /> : <HiMenuAlt2 size={25} />}
         </div>
         <div>
           <img src="/image/semmsluxuries.svg" alt="logo" className="" width="120" />
         </div>
         <div>
-          <div className="text-gold text-sm font-normal leading-none cursor-pointer">
+          <div className="text-sm font-normal leading-none cursor-pointer text-gold">
             <CgShoppingBag size={24} className="inline-block" onClick={toggleCart} />
           </div>
         </div>
@@ -111,22 +111,22 @@ export function MobileMenu({isMobileMenu}:any) {
       <div className={`${isMobileMenu ? 'flex' : 'hidden'} z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[3.8em] md:hidden`}>
         <div className="mt-[4em] mx-8 overflow-auto">
           <div className="py-4">
-            <div className="flex gap-x-2 pb-4">
-              <h1 className="text-2xl font-light text-gray-800 dark:text-gray-300 my-4">Hello Guest</h1>
+            <div className="flex pb-4 gap-x-2">
+              <h1 className="my-4 text-2xl font-light text-gray-800 dark:text-gray-300">Hello Guest</h1>
               <div >
-                <FaUserCircle className="btn btn-circle btn-sm mt-4 bg-gradient-to-r from-gray-800 to-gray-400 hover:text-black" />
+                <FaUserCircle className="mt-4 btn btn-circle btn-sm bg-gradient-to-r from-gray-800 to-gray-400 hover:text-black" />
               </div>
             </div>
-            <p className="dark:text-gray-300 text-gray-800 text-sm font-normal leading-none">Let&apos;s get you started already</p>
+            <p className="text-sm font-normal leading-none text-gray-800 dark:text-gray-300">Let&apos;s get you started already</p>
           </div>
           <div className="my-4">
-            <input type="text" className="w-full py-2 px-4 border-2 border-gold text-gray-800 rounded-lg" placeholder="Search for products" />
+            <input type="text" className="w-full px-4 py-2 text-gray-800 border-2 rounded-lg border-gold" placeholder="Search for products" />
           </div>
           <div className="my-4">
             <ul className="flex flex-col">
               {menuItem.map(menu =>
                 <li className="my-4" key={menu.id} onClick={toggleMobileMenu}>
-                  <div className="dark:text-gray-300 text-gray-800 text-lg font-light leading-none">
+                  <div className="text-lg font-light leading-none text-gray-800 dark:text-gray-300">
                     <Link href={menu.link}>
                       {menu.title}
                     </Link> 
@@ -136,7 +136,7 @@ export function MobileMenu({isMobileMenu}:any) {
             </ul>
           </div>
 
-          <div className="mt-12 font-semibold text-md gap-x-4 flex uppercase text-gray-800 dark:text-gray-300">
+          <div className="flex mt-12 font-semibold text-gray-800 uppercase text-md gap-x-4 dark:text-gray-300">
             <div>
               <Link href="#">
               Login
