@@ -6,7 +6,7 @@ import { RelatedProducts } from './RelatedProducts';
 export const DesktopImages = ({ product }: any) => {
     return (
         <>
-            <div className="hidden flex-col max-w-[100%] md:w-3/5 md:flex h-full mr-8">
+            <div className="hidden flex-col max-w-[100%] md:w-3/5 md:flex h-full mr-8 bg-myGray dark:bg-gray-900">
                 <div className="h-[full] overflow-auto no-scrollbar">
                     <div className="items-center justify-center min-w-full">
                         {product.node.images.edges.map((image: any) =>
@@ -28,7 +28,7 @@ export const DesktopImages = ({ product }: any) => {
 
 export const MobileImages = ({ product }: any) => {
     return (
-        <div className="relative h-[400px] md:hidden overflow-y-auto mt-12">
+        <div className="relative h-[400px] md:hidden overflow-y-auto mt-12 bg-myGray dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center overflow-y-auto">
                 {product.node.images.edges.map((image: any) =>
                     <div className="" key={image.node.id}>

@@ -16,8 +16,8 @@ export default function Cart({ isCart, toggleCart }: any) {
                 <AnimatePresence>
                     {
                         isCart && (<>
-                            <motion.div initial="hide" animate="overlay" exit="exitOverlay" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-black/80 overflow-hidden cursor-crosshair bottom-0`} onClick={toggleCart} />
-                            <motion.div initial="hide" animate="show" exit="exit" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[37%] justify-end right-0 h-full fixed bg-white dark:bg-gray-900 mt-[3.5em] md:mt-[6em] bottom-0`}>
+                            <motion.div initial="hide" animate="overlay" exit="exitOverlay" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-gray-900/80 overflow-hidden cursor-crosshair bottom-0`} onClick={toggleCart} />
+                            <motion.div initial="hide" animate="show" exit="exit" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[37%] justify-end right-0 h-full fixed bg-white dark:bg-black mt-[3.5em] md:mt-[6em] bottom-0`}>
                                 <div className="w-full h-[100vh] mt-10 md:mt-[1em] mx-8 overflow-auto">
                                     <div className="flex justify-between">
                                         <div className="flex gap-x-2 pb-4">
@@ -107,7 +107,7 @@ export function ItemSection() {
 
             <div className="flex flex-row">
                 <div className="flex h-8 border border-gray-300 mx-auto items-center text-center justify-center text-sm text-gray-800 rounded-sm mr-2">
-                    <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-gray-900 " value={1} disabled />
+                    <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-black " value={1} disabled />
                 </div>
                 <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1">
                     <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />

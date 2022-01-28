@@ -17,7 +17,7 @@ export default function Highlights(){
                                     </div>
                                     <div className="ml-4">
                                         <h5 className="font-bold uppercase text-gray-600 dark:text-gray-300">Free Shipping</h5>
-                                        <p className="text-gray-800 dark:text-gray-300 font-light">Free shipping on all orders over $800</p>
+                                        <p className="text-gray-800 dark:text-gray-300 font-light">Free on all orders over $800</p>
                                     </div>
                                 </div>
                             </div>

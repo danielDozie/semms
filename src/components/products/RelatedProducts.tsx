@@ -34,7 +34,7 @@ export function RelatedProducts({ product }: any) {
                 <div className="grid grid-flow-row grid-cols-2 md:flex md:flex-auto md:mx-8 md:mb-24 mb-8">
                     {relatedProducts.map((product: any) =>
                         <div className="w-full md:w-[300px] max-h-[150px] cursor-pointer mb-24" key={product.node.id} onClick={()=> router.push('/products/'+product.node.handle )}>
-                            <div className="bg-myGray dark:bg-gray-900 rounded-lg shadow-lg mr-6">
+                            <div className="bg-myGray md:bg-white dark:bg-gray-900 md:dark:bg-black rounded-lg shadow-lg mr-6">
                                 <div className="px-6 py-4">
                                     <div className="font-regular text-center text-xs mb-2 text-gray-800 dark:text-myGray capitalize">{product.node.title}</div>
 
