@@ -81,7 +81,9 @@ const togglerVariants = {
                     </div>
                 </div>
                 {/* for mobile position */}
-                <RelatedProducts product={product} />
+                <div className="md:hidden">
+                    <RelatedProducts product={product} />
+                </div>
             </div>
     
     )
