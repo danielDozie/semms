@@ -14,66 +14,69 @@ export default function BenefitSection() {
                         <p className="text-gray-800 dark:text-myGray py-6 text-md font-light">We make top luggages, handbags, accessories, kids collections, and more. With a wide variety of brands, thousands of products, and customer-generated ratings and reviews, we are committed to helping our customers with the best travel bags and accessories.</p>
                     </div>
                     <div className="flex w-full md:my-20 md:pl-12 md:w-[50%] md:pt-12 gap-x-4">
-                        <div className="bg-white dark:bg-gray-900 mx-auto  drop-shadow-md rounded-md md:max-h-24 min-w-[50%]">
+                        <div className="bg-white dark:bg-gray-900 mx-auto  drop-shadow-md rounded-md md:max-h-24 w-[50%]">
                             <div className="p-4">
                                 <h1 className="text-center text-md md:text-sm font-bold text-gray-800 dark:text-myGray">
                                     Quality  Assurance
                                 </h1>
-                                <h1 className="text-center text-2xl font-semibold text-green-700 py-2 ">
+                                <h1 className="text-center text-2xl font-semibold text-gold py-2 ">
                                     95% <span className="text-sm font-light text-gray-800 dark:text-myGray">Avg. Rating</span>
                                 </h1>
                             </div>
                         </div>
-                        <div className="bg-gray-800  drop-shadow-md rounded-md md:max-h-24 min-w-[50%]">
+                        <div className="bg-gray-800  drop-shadow-md rounded-md md:max-h-24 w-[50%]">
                             <div className="p-4">
                                 <h1 className="text-center text-md md:text-sm font-bold text-white ">
-                                    Excellent Materials
+                                    Quality Materials
                                 </h1>
-                                <h1 className="text-center text-2xl font-semibold text-green-700 py-2 ">
-                                    100% <span className="text-sm font-light text-white">User Reviews </span>
+                                <h1 className="text-center text-2xl font-semibold text-gold py-2 ">
+                                    90% <span className="text-sm font-light text-white">User Reviews </span>
                                 </h1>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex flex-col py-12 md:py-0 md:flex-row md:gap-x-4 gap-y-4">
-                        <div className="bg-white dark:bg-gray-900 drop-shadow-xl rounded-md h-40 w-full md:min-w-[30%]">
+                        {banners.map((banner, index) => (
+                            <div className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
+                            <div className="bg-gray-900/80 w-full h-full rounded-md">
                             <div className="p-4">
-                                <h1 className="text-center text-lg font-bold text-gray-800 dark:text-myGray">
-                                    Enjoy Massive Sale
+                                <h1 className="text-center text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-gold to-gray-200 drop-shadow-lg">
+                                    {banner.title}
                                 </h1>
                                 <span className="py-8">
-                                 <FaPercent className="text-green-700 mx-auto my-2" size="38"/>
+                                 {banner.icon}
                                 </span>
-                                <p className="text-center text-sm font-light text-gray-500 dark:text-gray-300">Watch out for our biggest ever sale, with items up to 30% off!</p>
+                                <p className="text-center text-sm font-light text-myGray drop-shadow-lg">{banner.description}</p>
                             </div>
                         </div>
-                        <div className="bg-white dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[30%]">
-                            <div className="p-4">
-                                <h1 className="text-center text-lg font-bold text-gray-800 dark:text-myGray">
-                                    Ship To Contiguous U.S.A
-                                </h1>
-                                <span className="py-8">
-                                 <FaShippingFast className="text-green-700 mx-auto my-2" size="40"/>
-                                </span>
-                                <p className="text-center text-sm font-light text-gray-500 dark:text-gray-300">Watch out for our biggest ever sale, with items up to 30% off!</p>
-                            </div>
                         </div>
-                        <div className="bg-white dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[30%]">
-                            <div className="p-4">
-                                <h1 className="text-center text-lg font-bold text-gray-800 dark:text-myGray">
-                                    Personalization On Request
-                                </h1>
-                                <span className="py-8">
-                                 <CgDesignmodo className="text-green-700 mx-auto my-2" size="40"/>
-                                </span>
-                                <p className="text-center text-sm font-light text-gray-500 dark:text-gray-300">Watch out for our biggest ever sale, with items up to 30% off!</p>
-                            </div>
-                        </div>
+                        )
+                        )}
                     </div>
-
                 </div>
             </div>
         </>
     )
 }
+
+const banners = [
+    {
+        image: 'https://images.unsplash.com/photo-1459257831348-f0cdd359235f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+        title: 'Enjoy Massive Sale',
+        description: 'Save More With SEMMS Luxury',
+        icon: <FaPercent className="text-gold mx-auto my-2 drop-shadow-lg" size="36"/>
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1604131853518-4415773bd126?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+        title: 'Ship To Contiguous U.S.A',
+        description: 'Hassle Free, Fast & Reliable',
+        icon: <FaShippingFast className="text-gold mx-auto my-2 drop-shadow-lg" size="40"/>
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1639598003170-acfd39fcd7b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80',
+        title: 'Personalization On Request',
+        description: 'We Can Do A Little Extra',
+        icon: <CgDesignmodo className="drop-shadow-lg text-gold mx-auto my-2" size="40"/>
+    }
+]
