@@ -1,6 +1,7 @@
 import React from 'react'
 import {FaShippingFast, FaPercent} from 'react-icons/fa'
 import {CgDesignmodo} from 'react-icons/cg'
+import { motion } from 'framer-motion'
 
 export default function BenefitSection() {
     return (
@@ -38,7 +39,7 @@ export default function BenefitSection() {
 
                     <div className="flex flex-col py-12 md:py-0 md:flex-row md:gap-x-4 gap-y-4">
                         {banners.map((banner, index) => (
-                            <div className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
+                            <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
                             <div className="bg-gray-900/80 w-full h-full rounded-md">
                             <div className="p-4">
                                 <h1 className="text-center text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-gold to-gray-200 drop-shadow-lg">
@@ -50,7 +51,7 @@ export default function BenefitSection() {
                                 <p className="text-center text-sm font-light text-myGray drop-shadow-lg">{banner.description}</p>
                             </div>
                         </div>
-                        </div>
+                        </motion.div>
                         )
                         )}
                     </div>
