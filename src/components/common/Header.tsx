@@ -42,7 +42,7 @@ export default function Header() {
         <title>{process.env.SiteTitle}</title>
       </Head>
       {/* desktop header */}
-      <div className="fixed z-20 hidden w-full bg-white dark:bg-black md:block">
+      <div className="container max-w-7xl fixed z-20 hidden  bg-white dark:bg-black md:block mx-auto">
         <div className="flex justify-between h-10 px-16 py-12 mx-auto">
           <div className="-mt-1">
             {/* logo */}

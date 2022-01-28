@@ -13,8 +13,7 @@ export default function FeaturedProducts() {
     useEffect(() => {
         setProducts();
     }, []);
-    const [showButton, setShowButton] = React.useState(false);
-
+    
     const router = useRouter();
     
 
@@ -33,7 +32,7 @@ export default function FeaturedProducts() {
             <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden carousel carousel-center">
                 {products.map(product =>
                     <div key={product.node.id}>
-                        <motion.div onHoverStart={() => setShowButton(true)} onHoverEnd={() => setShowButton(false)} className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
+                        <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
                             <div className="p-4">
                                 <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
                                     <img className="w-full" src={product.node.media.edges[0].node.previewImage.src} alt={product.node.media.edges[0].node.previewImage.altText} />
@@ -47,7 +46,7 @@ export default function FeaturedProducts() {
                                     {/* <motion.button animate={showButton ? {transition:{duration:.3, fade:'fadeIn'}}: {transition:{duration: .3, fade: 'fadeOut'}}} className={`${showButton ? 'inline-block' : 'hidden'} btn btn-xs btn-outline rounded-sm  dark:bg-black font-light text-gray-800 dark:text-myGray`}>View Product</motion.button> */}
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </div> 
                 )}
             </div>

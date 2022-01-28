@@ -8,6 +8,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // cursor: {'close': 'url(hand.cur), cross-hair',},
       colors: {
         'gold': '#dda409',
         'myGray': '#F6F8FC',
@@ -34,7 +35,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('daisyui'),
     plugin(function({ addUtilities }) {
       addUtilities({
       '.no-scrollbar::-webkit-scrollbar' :{

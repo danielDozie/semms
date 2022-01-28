@@ -1,12 +1,53 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
-export const PRODUCTS = gql `
+export const DATA = gql`
   query{
   SHOP:shop{
     name,
     description
   },
-  PRODUCTS:products (first: 6){
+  COLLECTIONS: collections(first: 20){
+    edges{
+      node{
+        id
+        title
+        description
+        image{
+          src
+        }
+        products(first:20){
+          edges{
+            node{
+              id
+              title
+              handle
+              priceRange{
+                maxVariantPrice{
+                  amount
+                },
+                minVariantPrice{
+                  amount
+                }
+              },
+              media(first:1){
+                edges{
+                  node{
+                    previewImage{
+                      src,
+                      altText,
+                      width
+                      height
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  PRODUCTS:products (first: 20){
     pageInfo{
       hasNextPage
       hasPreviousPage
