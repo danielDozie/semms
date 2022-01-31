@@ -4,11 +4,16 @@ import { DATA as products } from '../../src/graphql/queries'
 import { client } from '../../src/utils/apolloClient'
 import {DesktopImages, MobileImages } from '../../src/components/products/ProductImages';
 import {ProductDetails} from '../../src/components/products/ProductDetails';
+import Head from 'next/head';
 
 
 export default function Index({ product }: any) {
     
     return (<>
+        <Head>
+            <title>{product.node.title} - {process.env.storename}</title>
+        </Head>
+
         <div className="container flex flex-col md:flex-row w-full h-full mx-auto">
                 <DesktopImages product={product} />
                 <MobileImages product={product} />

@@ -49,3 +49,23 @@ export const cartAnimation = {
     
     },
 }
+
+
+
+export const togglerVariants = {
+    close: {
+        opacity: 0,
+        transition: {
+            duration: .5,
+            ease: "easeInOut",
+        }
+    },
+    open: {
+        opacity: 1,
+
+        transition: {
+            duration: .5,
+            ease: "easeInOut",
+        }
+    },
+}
