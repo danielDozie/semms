@@ -97,7 +97,7 @@ export function ItemSection() {
                 <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">$149.99</p>
             </div>
         </div>
-
+        
         <div className="flex flex-row justify-between my-4">
             <div className="flex">
                 <button className="flex h-8 w-10 mx-auto items-center text-center justify-center text-sm mr-4 border border-gray-300 rounded-sm">
