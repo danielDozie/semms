@@ -6,6 +6,7 @@ import { ThemeProvider } from '../src/components/theme/darkMode'
 import {ApolloProvider} from '@apollo/client'
 import {client} from '../src/utils/apolloClient'
 
+
 function Semms({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>

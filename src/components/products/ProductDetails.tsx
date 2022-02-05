@@ -6,6 +6,9 @@ import { RelatedProducts } from './RelatedProducts';
 import { togglerVariants } from '../common/commonAnimation'
 import { FiPlus } from 'react-icons/fi';
 import { useProductStore } from '../../store/productStore';
+import {useCart} from '../../store/store';
+import { useCartStore } from '../../store/cartStore';
+import toast from 'react-hot-toast';
 
 
 export function ProductDetails({ product }: any) {
@@ -17,17 +20,18 @@ export function ProductDetails({ product }: any) {
     
     const [variants] = useState(product.node.variants.edges)
     const [variantPrice] = useState(variants[0].node.price)
-    const [selectedOption, setSelectedOption] = useState([
-        {
-            node: {
-                price: variantPrice,
-            }
-        }
-    ])
+    const [selectedOption, setSelectedOption] = useState<any[]>([])
+    const addToCart = useCartStore(state => state.addToCart)
+    const lineItems = useCartStore(state => state.lineItems)
+    const isCart = useCart(state => state.isCart)
+    const toggleCart = useCart(state => state.toggleCart)
     
-    const [active, setActive] = useState(false);
-
-
+    //adding class to the size option, referencing the id of the button
+    const [isActive, setIsActive] = useState({
+        id: null,
+        isActive: false
+    });
+    
     const variantHandler = (e: any) => {
         e.preventDefault();
         const selected = e.currentTarget.innerText
@@ -37,26 +41,12 @@ export function ProductDetails({ product }: any) {
             return selected === option.node.title
         },
         )
+        const clickedButtonId = e.currentTarget.id
         setSelectedOption(data)
-        //setActive(!active)
-        const d = e.currentTarget
-        
-        const c = () => {
-            variants.map((variant: any) => {
-                if (d.id !== variant.node.id) {
-                    d.classList.remove('bg-gray-900', 'text-myGray', 'dark:bg-myGray', 'dark:text-gray-900');
-                    alert("Remove Reached")
-                }
-                else {
-                    d.classList.add('bg-gray-900', 'text-myGray', 'dark:bg-myGray', 'dark:text-gray-900');
-                    alert("Add Reached")
-                }
-            })
-        }
-        c()//run the function
+        setIsActive({id: clickedButtonId, isActive: true})
     }
-
-
+    
+    //Disable the minus button on the product details page if the quantity is 1
     useEffect(() => {
         if (quantity === 1) {
             setIsDisabled(true)
@@ -65,11 +55,38 @@ export function ProductDetails({ product }: any) {
         }
     }, [quantity])
 
-
+    //Trigger the care section on the product details page
     const careToggler = (e: any) => {
         e.preventDefault();
         setIsCare(!isCare);
     }
+    
+
+    //get cart item & price
+    const selectedProduct = selectedOption[0]?.node
+    const q = quantity.toString() //convert to string due to graphql strict type
+    const totalPrice = (selectedProduct?.price * quantity).toString() // convert to string due to graphql strict type incase of floating point numbers
+    
+    const lineItem ={ ...selectedProduct, name: product.node.title, quantity: q, totalPrice: totalPrice }
+    
+    const addtoCart = (e: any) => {
+        e.preventDefault()
+        
+        if(isActive.isActive === false){
+            toast.error('Please select a size');
+        }
+        else if (lineItems.find((item: { id: any; title: string}) => item.id === lineItem?.id && item.title === lineItem?.title)){ 
+            toast.error(`Item already in cart`) 
+         }
+        else{
+            addToCart(lineItem)
+            toast.success(`Item added to your cart`);
+            isCart ? toggleCart() : toggleCart()
+        }    
+    }
+    
+    
+    
 
     
     return (<>
@@ -82,7 +99,7 @@ export function ProductDetails({ product }: any) {
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
                     <div className="flex flex-row ">
-                        {variants.map((variant: any) => <button className={`${active === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900": "inactive"} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
+                        {variants.map((variant: any) => <button className={`${isActive.isActive && isActive.id === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900": ""} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
                         )}
                     </div>
                 </div>
@@ -106,7 +123,7 @@ export function ProductDetails({ product }: any) {
                 </div>
 
 
-                <div className="my-8 text-center">
+                <div className="my-8 text-center" onClick={addtoCart} >
                     <Button buttonText="Add to Cart" />
                 </div>
                 <div className="my-4 text-gray-800 dark:text-myGray">

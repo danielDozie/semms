@@ -2,14 +2,20 @@ import Image from "next/image";
 import { CgShoppingBag } from "react-icons/cg";
 import { HiX } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
-import { FiMinus, FiPlus } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import { AiOutlineMinus } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { cartAnimation } from "./commonAnimation";
 import Button from "./Button";
+import { useCartStore } from "../../store/cartStore";
+import { useEffect } from "react";
+import _ from "lodash";
+import toast from "react-hot-toast";
 
 //Cart
 export default function Cart({ isCart, toggleCart }: any) {
+    const lineItems = useCartStore(state => state.lineItems);
+
     return (
         <>
             <div className="w-full" >
@@ -27,50 +33,11 @@ export default function Cart({ isCart, toggleCart }: any) {
                                             <span className=" text-sm font-light leading-none cursor-pointer">Close</span><HiX size={15} className="cursor-pointer" />
                                         </div>
                                     </div>
-
-                                    {/* item section */}
-                                    <div className="flex flex-col max-h-[50%] overflow-y-scroll no-scrollbar">
-                                        <ItemSection />
-                                        <ItemSection />
-                                        <ItemSection />
-                                    </div>
-                                    {/* item section end */}
-                                    <div className="border-b-4 border-black dark:border-myGray" />
-
-                                    {/* Bottom Section */}
-                                    <div className="pt-8">
-                                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                                            <p>Subtotal</p>
-                                            <p>${`289.80`}</p>
-                                        </div>
-                                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                                            <p>Taxes</p>
-                                            <p>Calculated at checkout</p>
-                                        </div>
-                                        <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
-                                            <p>Shipping</p>
-                                            <p className="font-bold">Free</p>
-                                        </div>
-
-                                        <div className="border-b border-gray-800 mt-2 dark:border-myGray" />
-                                        <div className="flex justify-between text-gold font-light text-[15px] mt-2">
-                                            <p className="font-bold">Total</p>
-                                            <p className="font-bold">${`289.80`}</p>
-                                        </div>
-
-                                        <div className="text-center font-semibold uppercase mt-4 text-sm">
-                                            <Button buttonText="Proceed to Checkout" />
-                                        </div>
-                                    </div>
-                                    {/* Bottom Section End */}
-
-                                    {/* <CartEmpty /> */}
+                                    {lineItems.length > 0 ? <CartContent /> : <CartEmpty />}
                                 </div>
                             </motion.div>
                         </>)
-                    
                     }
-
                 </AnimatePresence>
             </div>
         </>)
@@ -79,46 +46,121 @@ export default function Cart({ isCart, toggleCart }: any) {
 
 
 
+export function CartContent() {
+    const lineItems = useCartStore(state => state.lineItems);
+    const total = lineItems.map((item:any) => {
+        return parseFloat(item.totalPrice)
+    })
+    const totalPrice = _.sum(total);
+    
+    return (<>
+        {/* item section */}
+        <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar">
+            <ItemSection />
+        </div>
+        {/* item section end */}
+        <div className="border-b-4 border-black dark:border-myGray" />
+
+        {/* Bottom Section */}
+        <div className="pt-8 bottom">
+            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                <p>Subtotal</p>
+                <p>${totalPrice}</p>
+            </div>
+            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                <p>Taxes</p>
+                <p>Calculated at checkout</p>
+            </div>
+            <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
+                <p>Shipping</p>
+                <p className="font-bold">Options at checkout</p>
+            </div>
+
+            <div className="border-b border-gray-800 mt-2 dark:border-myGray" />
+            <div className="flex justify-between text-gold font-light text-[15px] mt-2">
+                <p className="font-bold">Total</p>
+                <p className="font-bold">${totalPrice}</p>
+            </div>
+
+            <div className="text-center font-semibold uppercase mt-4 text-sm">
+                <Button buttonText="Proceed to Checkout" />
+            </div>
+        </div>
+        {/* Bottom Section End */}
+    </>);
+}
+
 
 export function ItemSection() {
+    const lineItems = useCartStore(state => state.lineItems);
+    const removeItem = useCartStore(state => state.removeItem);
+    //const productCount = useCartStore(state => state.productCount);
+    const setProductCount = useCartStore(state => state.setProductCount);
+
+    const totalCount = lineItems.map((item:any) => {
+        return parseFloat(item.quantity)
+    })
+    const count = _.sum(totalCount)
+
+
+    const removeCartItem = (e:any) => {
+        e.preventDefault();
+        const id =  e.currentTarget.id
+        removeItem(id);
+        toast.success(`Item removed from cart.`) 
+ 
+        lineItems.length === 0 < 1 ? setProductCount(0) : setProductCount(count)
+
+    }    
+    useEffect(() =>{
+        setProductCount(count);
+        },[lineItems, count])
+    
+    
     return (<>
-        <div className="flex flex-col md:flex-row justify-between mt-8">
-            <div className="flex gap-x-4">
-                <Image src="https://semmslux.com/wp-content/uploads/2021/07/2027-21-RED-20inch-PNG-600x606.png" alt="product_image" className="rounded-md bg-gray-800 dark:bg-myGray" height="65px" width="65px" />
-                <div className="flex flex-col gap-y-1">
-                    <h1 className="text-[15px] md:text-[16px] font-regular text-gray-800 dark:text-gray-300">Red Lux Luggage</h1>
-                    <div className="flex">
-                        <p className="text-[12px] md:text-[14px] mr-2 font-light text-gray-800 dark:text-gray-300">Size</p>
-                        <div className="badge badge-outline badge-xs md:badge-sm mt-1 font-regular text-gray-800 dark:text-gray-300">sm</div>
+        {lineItems.map((product: any) =>
+            <>
+                <div className="flex flex-col md:flex-row justify-between mt-8" key={product.id} id={product.id}>
+                    <div className="flex gap-x-4">
+                        <div className="min-w-[65px] min-h-[65px] fit">
+                        <Image src={product.image.src} alt="product_image" className="rounded-md bg-gray-800 dark:bg-myGray" height="65px" width="65px" />
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                            <div className="w-[80%]">
+                            <h1 className="text-[10px] md:text-[12px] font-semibold text-gray-800 dark:text-gray-300">{product.name}</h1>
+                            </div>
+                            <div className="flex">
+                                <p className="text-[12px] md:text-[14px] mr-2 font-light text-gray-800 dark:text-gray-300">Size</p>
+                                <div className="mt-1  font-regular dark:text-gray-800 text-[10px] bg-gray-900 dark:bg-myGray text-myGray rounded-full px-1">{product.title}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="-mt-2 md:mt-0">
+                        <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">${product.totalPrice}</p>
                     </div>
                 </div>
-            </div>
-            <div className="-mt-2 md:mt-0">
-                <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">$149.99</p>
-            </div>
-        </div>
-        
-        <div className="flex flex-row justify-between my-4">
-            <div className="flex">
-                <button className="flex h-8 w-10 mx-auto items-center text-center justify-center text-sm mr-4 border border-gray-300 rounded-sm">
-                    <MdClose className="text-gray-900 dark:text-myGray" size="14" />
-                </button>
-            </div>
 
-            <div className="flex flex-row">
-                <div className="flex h-8 border border-gray-300 mx-auto items-center text-center justify-center text-sm text-gray-800 rounded-sm mr-2">
-                    <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-black " value={1} disabled />
+                <div className="flex flex-row justify-between my-4">
+                    <div className="flex">
+                        <button className="flex h-8 w-10 mx-auto items-center text-center justify-center text-sm mr-4 border border-gray-300 rounded-sm" id={product.id} onClick={removeCartItem}>
+                            <MdClose className="text-gray-900 dark:text-myGray" size="14" />
+                        </button>
+                    </div>
+
+                    <div className="flex flex-row">
+                        <div className="flex h-8 border border-gray-300 mx-auto items-center text-center justify-center text-sm text-gray-800 rounded-sm mr-2">
+                            <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-black " value={product.quantity} placeholder="" disabled />
+                        </div>
+                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1" onClick={()=> product.quantity--}>
+                            <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
+                        </button>
+                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm" onClick={()=> product.quantity + 1}>
+                            <FiPlus className="text-gray-900 dark:text-myGray" size="14" />
+                        </button>
+                    </div>
                 </div>
-                <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1">
-                    <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
-                </button>
-                <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm">
-                    <FiPlus className="text-gray-900 dark:text-myGray" size="14" />
-                </button>
-            </div>
-        </div>
-        <div className="border-b border-gray-300 pt-4 dark:border-gray-600" />
-    </>)
+                <div className="border-b border-gray-300 pt-4 dark:border-gray-600" />
+            </>)}</>)
 }
 
 export function CartEmpty() {
@@ -132,3 +174,4 @@ export function CartEmpty() {
         </div>
     )
 }
+
