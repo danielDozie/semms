@@ -11,7 +11,7 @@ export default function Index() {
                 <div className="bg-white dark:bg-black p-8">
                     <h1 className="text-center text-2xl font-bold text-gold">Oops!</h1>
                     <p className="text-center text-gray-800 dark:text-gray-300">Page not found</p>
-                    <p className="text-center text-gray-800 dark:text-gray-300 my-4">We're are working on some other features.</p>
+                    <p className="text-center text-gray-800 dark:text-gray-300 my-4">We're are working on this page, please re-visit.</p>
                 </div>
             </div>
         </div>

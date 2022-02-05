@@ -8,11 +8,16 @@ import {useCart} from '../../store/store';
 import Cart from './Cart';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { useCartStore } from '../../store/cartStore';
+import _ from 'lodash';
 
 /**
  * A client component that specifies the content of the header on the website
  */
 export default function Header() {
+
+    const productCount = useCartStore(state => state.productCount)
+
     const isMobileMenu = useMobileNav(state => state.isMobileMenu);
     const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
     const isCart = useCart((state: { isCart: any; }) => state.isCart);
@@ -73,6 +78,9 @@ export default function Header() {
             </span>
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag size={23} className="inline-block mr-2" onClick={toggleCart}/>
+              <span className="h-4 w-4 bg-gold absolute rounded-full text-center -ml-4">
+                <span className="font-light text-[10px] text-myGray dark:text-black">{productCount}</span>
+                </span>
             </span>
           </div>
         </div>
@@ -92,6 +100,9 @@ export default function Header() {
         <div>
           <div className="text-sm font-normal leading-none cursor-pointer text-gold">
             <CgShoppingBag size={24} className="inline-block" onClick={toggleCart} />
+            <span className="h-4 w-4 bg-gold absolute rounded-full text-center -ml-2 mt-3">
+                <span className="font-light text-[10px] text-myGray dark:text-black">{productCount}</span>
+                </span>
           </div>
         </div>
         
