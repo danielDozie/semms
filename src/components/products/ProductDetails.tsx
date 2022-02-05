@@ -20,7 +20,7 @@ export function ProductDetails({ product }: any) {
     
     const [variants] = useState(product.node.variants.edges)
     const [variantPrice] = useState(variants[0].node.price)
-    const [selectedOption, setSelectedOption] = useState([])
+    const [selectedOption, setSelectedOption] = useState<any[]>([])
     const addToCart = useCartStore(state => state.addToCart)
     const lineItems = useCartStore(state => state.lineItems)
     const isCart = useCart(state => state.isCart)
