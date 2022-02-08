@@ -9,6 +9,11 @@ interface Cart {
     toggleCart: () => void
 }
 
+interface LoginForm {
+    isLoginForm: boolean
+    toggleLoginForm: () => void
+}
+
 const useMobileNav = create<MobileNav>(set => ({
     isMobileMenu: false,
     toggleMobileMenu: () => set(state => ({ isMobileMenu: !state.isMobileMenu }))
@@ -19,5 +24,10 @@ const useCart = create<Cart>(set => ({
     toggleCart: () => set(state => ({ isCart: !state.isCart }))
 }))
 
+const useLoginStore = create<LoginForm>(set => ({
+    isLoginForm: false,
+    toggleLoginForm: () => set(state => ({ isLoginForm: !state.isLoginForm }))
+}))
+
 export default useMobileNav;
-export {useCart};
+export {useCart, useLoginStore};
