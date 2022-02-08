@@ -13,7 +13,7 @@ import _ from "lodash";
 import toast from "react-hot-toast";
 
 //Cart
-export default function Cart({ isCart, toggleCart }: any) {
+export default function Cart({ isCart, cartToggle }: any) {
     const lineItems = useCartStore(state => state.lineItems);
 
     return (
@@ -22,14 +22,14 @@ export default function Cart({ isCart, toggleCart }: any) {
                 <AnimatePresence>
                     {
                         isCart && (<>
-                            <motion.div initial="hide" animate="overlay" exit="exitOverlay" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-gray-900/80 overflow-hidden cursor-crosshair bottom-0`} onClick={toggleCart} />
+                            <motion.div initial="hide" animate="overlay" exit="exitOverlay" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-35 w-full h-screen fixed bg-gray-900/80 overflow-hidden cursor-crosshair bottom-0`} onClick={cartToggle} />
                             <motion.div initial="hide" animate="show" exit="exit" variants={cartAnimation} className={`${isCart ? 'flex' : 'hidden'} z-20 block w-[80%] md:w-[37%] justify-end right-0 h-full fixed bg-white dark:bg-black mt-[3.5em] md:mt-[6em] bottom-0`}>
                                 <div className="w-full h-[100vh] mt-10 md:mt-[1em] mx-8 overflow-auto">
                                     <div className="flex justify-between">
                                         <div className="flex gap-x-2 pb-4">
                                             <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-300">My Cart</h1>
                                         </div>
-                                        <div className="flex flex-row mt-3 text-black dark:text-gray-300" onClick={toggleCart} >
+                                        <div className="flex flex-row mt-3 text-black dark:text-gray-300" onClick={cartToggle} >
                                             <span className=" text-sm font-light leading-none cursor-pointer">Close</span><HiX size={15} className="cursor-pointer" />
                                         </div>
                                     </div>
