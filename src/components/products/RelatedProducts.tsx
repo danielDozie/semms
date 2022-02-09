@@ -3,8 +3,6 @@ import { useCollectionStore } from "../../store/collectionStore";
 import Image from 'next/image'
 import {useRouter} from "next/router";
 import { useEffect } from "react";
-import router from 'next/router';
-import Link from "next/link";
 
 
 export function RelatedProducts({ product }: any) {
@@ -37,17 +35,15 @@ export function RelatedProducts({ product }: any) {
             <div className="">
                 <div className="grid grid-flow-row grid-cols-2 gap-4 md:gap-0 md:flex md:flex-auto md:mx-8 md:mb-24 mb-8">
                     {relatedProducts?.map((product: any) =>
-                    <Link href={'/products/' + product.node.handle} key={product.node.id}>
-                        <div className="w-full md:w-[300px] min-h-full cursor-pointer">
+                        <div className="w-full md:w-[300px] min-h-full cursor-pointer" key={product.node.id} onClick={() => window.location.href = '/products/' + product.node.handle}>
                             <div className="bg-myGray md:bg-white dark:bg-gray-900 md:dark:bg-black rounded-lg shadow-lg md:mr-6">
                                 <div className="px-6 py-4">
                                     <div className="font-light text-center text-sm md:text-[10px] mb-2 text-gray-500 dark:text-myGray">{product.node.title}</div>
-
                                     <Image className="p-8" src={product.node.media.edges[0]?.node.previewImage.src} width={product.node.media.edges[0]?.node.previewImage.width} height={product.node.media.edges[0]?.node.previewImage.height} alt={product.node.media.edges[0]?.node.previewImage.altText} />
                                 </div>
                             </div>
                         </div>
-                        </Link>)}
+                    )}
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { DATA } from '../graphql/queries';
+import { COLLECTIONS } from '../graphql/collectionsQuery';
 import { client } from '../utils/apolloClient';
 
 
@@ -12,7 +12,7 @@ export const useCollectionStore = create<CollectionStore>(set => ({
     collections: [],
     setCollections: async () => {
         const {data} = await client.query({
-            query: DATA
+            query: COLLECTIONS
           });
         set({collections: data.COLLECTIONS.edges})
     }

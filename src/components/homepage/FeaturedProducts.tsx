@@ -3,20 +3,18 @@ import { VscStarFull, VscStarEmpty } from 'react-icons/vsc'
 import { useProductStore } from '../../store/productStore';
 import {motion} from 'framer-motion';
 import { productImageVariant } from './homepageAnimation';
-import {useRouter} from 'next/router';
+import router from 'next/router';
 
 
 export default function FeaturedProducts() {
     const productsData = useProductStore(state => state.products);
     const products = productsData.slice(0, 4);
     const setProducts = useProductStore(state => state.setProducts);
+    
     useEffect(() => {
         setProducts();
-    }, []);
+    }, [products]);
     
-    const router = useRouter();
-    
-
     const productPage = (e:any) => {
         e.preventDefault();
         const slug =  `/products/${e.currentTarget.id}`;
@@ -42,8 +40,12 @@ export default function FeaturedProducts() {
                                     <h1 className="font-medium text-[10px] text-gold my-2 uppercase">{product.node.vendor}</h1>
                                     <StarRating rating={product.rating} />
                                     <p className="py-2 text-sm font-light text-gray-500 dark:text-gray-300">{product.node.title}</p>
-                                    <p className="pb-3 text-sm font-bold text-gray-500 dark:text-gray-300">${product.node.priceRange.minVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode} - ${product.node.priceRange.maxVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
-                                    {/* <motion.button animate={showButton ? {transition:{duration:.3, fade:'fadeIn'}}: {transition:{duration: .3, fade: 'fadeOut'}}} className={`${showButton ? 'inline-block' : 'hidden'} btn btn-xs btn-outline rounded-sm  dark:bg-black font-light text-gray-800 dark:text-myGray`}>View Product</motion.button> */}
+                                    <p className="pb-3 text-xs font-bold text-gray-500 dark:text-gray-300">${product.node.priceRange.minVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode} - ${product.node.priceRange.maxVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                                    <div>
+                                        <button className="bg-gray-900 dark:bg-myGray to-gray-600 shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-900 dark:hover:bg-gold dark:hover:text-gray-900 font-normal py-1 px-2 rounded-md text-xs">
+                                            Add to cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

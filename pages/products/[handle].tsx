@@ -1,26 +1,26 @@
 import React from 'react'
 import { GetStaticPaths } from 'next'
-import { DATA as products } from '../../src/graphql/queries'
+import { PRODUCTS as products } from '../../src/graphql/productsQuery'
 import { client } from '../../src/utils/apolloClient'
-import {DesktopImages, MobileImages } from '../../src/components/products/ProductImages';
-import {ProductDetails} from '../../src/components/products/ProductDetails';
+import { DesktopImages, MobileImages } from '../../src/components/products/ProductImages';
+import { ProductDetails } from '../../src/components/products/ProductDetails';
 import Head from 'next/head';
 
 
 export default function Index({ product }: any) {
-    
+
     return (<>
         <Head>
             <title>{product.node.title} - {process.env.storename}</title>
         </Head>
 
         <div className="container flex flex-col md:flex-row w-full h-full mx-auto">
-                <DesktopImages product={product} />
-                <MobileImages product={product} />
-                <ProductDetails product={product} />
+            <DesktopImages product={product} />
+            <MobileImages product={product} />
+            <ProductDetails product={product} />
         </div>
-        
-        </>
+
+    </>
     )
 }
 
@@ -49,7 +49,7 @@ export const getStaticProps = async ({ params }: any) => {
     })
     const allProducts = data.PRODUCTS.edges
     const product = allProducts.find((product: { node: { handle: string } }) => product.node.handle === params.handle)
-
+    
     return {
         props: {
             product: product

@@ -10,7 +10,7 @@ export default function Hero() {
                 <div className="mt-16">
                     <div className="flex flex-col md:flex-row mt-20 md:mt-48 w-[80%] mx-auto">
                         <div className="flex-auto text-left md:max-w-[55%]">
-                            <motion.h1 initial="hidden" animate="h1" variants={titleVariants} className="text-white text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-gold to-yellow-300 uppercase">
+                            <motion.h1 initial="hidden" animate="h1" variants={titleVariants} className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-gold to-yellow-300 uppercase">
                                 SEMMS Luxury Collections
                             </motion.h1>
                             <motion.p initial="hidden" animate="p" variants={titleVariants} className="bg-clip-text text-transparent bg-gradient-to-b from-yellow-300 to-yellow-100 font-normal text-lg md:text-2xl py-8 uppercase">Feel Luxury. Your Travel Contents Are as Important as You Are. Own One that suits your personality.
