@@ -6,7 +6,7 @@ import {
 
 import { setContext } from "@apollo/client/link/context";
 
-const httpLink = createHttpLink({ uri: 'https://semmslux.myshopify.com/api/graphql'})
+const httpLink = createHttpLink({ uri: 'https://semmslux.myshopify.com/api/2022-01/graphql.json' });
 
 const middlewareLink = setContext(() => ({
   headers: {

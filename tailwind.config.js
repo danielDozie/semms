@@ -14,6 +14,9 @@ module.exports = {
         'myGray': '#F6F8FC',
         'star': '#FCB502',
       },
+      backdropBlur: {
+        xs: '2px',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {

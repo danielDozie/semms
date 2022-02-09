@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { DATA } from '../graphql/queries';
+import { PRODUCTS } from '../graphql/productsQuery';
 import { client } from '../utils/apolloClient';
 
 
@@ -15,7 +15,7 @@ export const useProductStore = create<ProductStore>(set => ({
     products: [],
     setProducts: async () => {
         const {data} = await client.query({
-            query: DATA
+            query: PRODUCTS
           });
         set({products: data.PRODUCTS.edges})
     },

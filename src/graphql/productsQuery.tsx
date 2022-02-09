@@ -1,52 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const DATA = gql`
-  query{
-  SHOP:shop{
-    name,
-    description
-  },
-  COLLECTIONS: collections(first: 20){
-    edges{
-      node{
-        id
-        title
-        description
-        image{
-          src
-        }
-        products(first:20){
-          edges{
-            node{
-              id
-              title
-              handle
-              priceRange{
-                maxVariantPrice{
-                  amount
-                },
-                minVariantPrice{
-                  amount
-                }
-              },
-              media(first:1){
-                edges{
-                  node{
-                    previewImage{
-                      src,
-                      altText,
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+export const PRODUCTS = gql`
+  query {
   PRODUCTS:products (first: 20){
     pageInfo{
       hasNextPage
@@ -107,7 +62,5 @@ export const DATA = gql`
       }
     }
   }
-
-
 }
 `

@@ -66,8 +66,16 @@ export default function Header() {
     }
     toggleCart()
   }
-          
 
+  useEffect(() => {
+    if(isLoginForm){
+      document.body.style.overflow = 'hidden';
+    }else{
+      document.body.style.overflow = 'visible';
+    }
+  },[isLoginForm])
+          
+  
   return (
     <>
       <Head>
@@ -103,7 +111,7 @@ export default function Header() {
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <FiSearch size={23} className="inline-block mr-6" />
             </span>
-            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
+            <span className="text-sm font-normal leading-none cursor-pointer text-gold" onClick={toggleLoginForm}>
               <FiUser size={23} className="inline-block mr-6" />
             </span>
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">

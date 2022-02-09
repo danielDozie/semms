@@ -4,21 +4,27 @@ import { FiUserPlus } from 'react-icons/fi';
 import Image from 'next/image'
 import { motion } from 'framer-motion';
 import { useLoginStore } from '../../store/store';
+import { HiX } from 'react-icons/hi';
+
 
 export default function LoginRegister() {
     const isLoginForm = useLoginStore(state => state.isLoginForm)
     return <>
-        <div className={`${isLoginForm ? 'flex' : 'hidden'} container w-full h-screen fixed bg-gray-900/95 z-20`}>
+        <div className={`${isLoginForm ? '' : 'hidden'} container w-full h-screen fixed bg-gray-900/95 z-20`}>
             <LoginForm isLoginForm={isLoginForm} />
         </div>
     </>;
 }
 
 export const LoginForm = ({ isLoginForm }: any) => {
+    const toggleLoginForm = useLoginStore(state => state.toggleLoginForm)
     return <>
-        <motion.div className={`${isLoginForm ? 'flex' : 'hidden'} flex flex-col justify-center items-center h-full`}>
+        <motion.div className={`${isLoginForm ? '' : 'hidden'} flex flex-col justify-center items-center h-full`}>
             <div className="w-full max-w-sm">
                 <div className="bg-white dark:bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <div className="flex justify-end mb-4 cursor-pointer" onClick={toggleLoginForm}>
+                        <span className="text-gray-900 dark:text-myGray"><HiX/></span>
+                    </div> 
                     <div className="mb-4 text-center">
                         {/* <h1 className="text-center text-2xl font-bold">Login</h1> */}
                         <Image src="/image/semmsluxuries.svg" width="150px" height="40px" alt="login logo" />
@@ -37,7 +43,7 @@ export const LoginForm = ({ isLoginForm }: any) => {
                         </label>
                     </div>
                     <div className="mb-6">
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray" type="password" placeholder="******************" />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray" type="password" placeholder="Password" />
                     </div>
                     <div className="flex items-center justify-between">
                         <h3 className="text-gray-700 text-sm font-light">
