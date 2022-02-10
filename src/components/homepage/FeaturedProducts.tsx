@@ -4,6 +4,7 @@ import { useProductStore } from '../../store/productStore';
 import {motion} from 'framer-motion';
 import { productImageVariant } from './homepageAnimation';
 import router from 'next/router';
+import Image from 'next/image';
 
 
 export default function FeaturedProducts() {
@@ -33,17 +34,20 @@ export default function FeaturedProducts() {
                         <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
                             <div className="p-4">
                                 <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
-                                    <img className="w-full" src={product.node.media.edges[0].node.previewImage.src} alt={product.node.media.edges[0].node.previewImage.altText} />
+                                    <div className="w-full mx-auto justify-center items-center text-center">
+                                    <Image className="" src={product?.node.media.edges[0].node.previewImage.src} alt={product?.node.media.edges[0].node.previewImage.altText} height="250" width="250" />
+                                    </div>
                                 </motion.div>
                                 {/* bottom half */}
                                 <div className="items-center justify-center pt-8 pb-2 mx-auto text-center">
                                     <h1 className="font-medium text-[10px] text-gold my-2 uppercase">{product.node.vendor}</h1>
                                     <StarRating rating={product.rating} />
                                     <p className="py-2 text-sm font-light text-gray-500 dark:text-gray-300">{product.node.title}</p>
-                                    <p className="pb-3 text-xs font-bold text-gray-500 dark:text-gray-300">${product.node.priceRange.minVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode} - ${product.node.priceRange.maxVariantPrice.amount} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                                    
+                                    <p className="pb-3 text-sm font-bold text-gray-900 dark:text-gray-300"><span className="text-[10px] italic text-gray-500 font-light">From </span>${product?.node.priceRange.minVariantPrice.amount} {product?.node.priceRange.maxVariantPrice.currencyCode}</p>
                                     <div>
-                                        <button className="bg-gray-900 dark:bg-myGray to-gray-600 shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-900 dark:hover:bg-gold dark:hover:text-gray-900 font-normal py-1 px-2 rounded-md text-xs">
-                                            Add to cart
+                                        <button className="bg-gray-900 dark:bg-myGray to-gray-600 shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-900 dark:hover:bg-gold dark:hover:text-gray-900 font-normal py-1 px-2 rounded-full text-xs">
+                                            View Details
                                         </button>
                                     </div>
                                 </div>
