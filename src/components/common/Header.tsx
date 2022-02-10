@@ -160,7 +160,7 @@ export default function Header() {
 //Mobile menu
 export function MobileMenu({ isMobileMenu }: any) {
   const toggleMobileMenu = useMobileNav(state => state.toggleMobileMenu);
-
+  const toggleLoginForm = useLoginStore(state => state.toggleLoginForm)
 
   return (
     <div>
@@ -203,7 +203,7 @@ export function MobileMenu({ isMobileMenu }: any) {
               </div>
 
               <div className="flex mt-12 font-semibold text-gray-800 uppercase text-sm gap-x-4 dark:text-gray-300">
-                <div>
+                <div onClick={toggleLoginForm}>
                   <Link href="#">
                     Login
                   </Link>
