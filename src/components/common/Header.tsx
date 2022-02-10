@@ -111,8 +111,8 @@ export default function Header() {
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <FiSearch size={23} className="inline-block mr-6" />
             </span>
-            <span className="text-sm font-normal leading-none cursor-pointer text-gold" onClick={toggleLoginForm}>
-              <FiUser size={23} className="inline-block mr-6" />
+            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
+              <FiUser size={23} className="inline-block mr-6" onClick={toggleLoginForm} />
             </span>
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag size={23} className="inline-block mr-2" onClick={cartToggle} />
