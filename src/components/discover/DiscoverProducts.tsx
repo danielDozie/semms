@@ -46,8 +46,8 @@ export default function DiscoverProducts() {
           </div>
         )}
       </div>
-      <div>
-          Load more.
+      <div className="mx-auto text-center my-12">
+          <button className="bg-gold py-2 px-4 rounded-md text-myGray dark:text-gray-900 text-xs font-normal">Load more</button>
         </div>
     </>
   )
