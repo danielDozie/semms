@@ -244,8 +244,8 @@ const menuItem = [
   },
   {
     id: 4,
-    title: 'Story',
-    link: '/story',
+    title: 'About',
+    link: '/about',
   },
   {
     id: 6,

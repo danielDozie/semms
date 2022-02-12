@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { GetStaticPaths, GetStaticProps } from 'next/types';
+import { GetStaticProps } from 'next/types';
 import React from 'react';
 import Collections from '../../src/components/collections/Collections';
 import Breadcrumbs from '../../src/components/common/Breadcrumbs';
@@ -30,10 +30,6 @@ const crumbmenus = [
     {
         name: 'Home',
         link: '/'
-    },
-    {
-        name: '/',
-        link: ''
     },
     {
         name: 'Collections',

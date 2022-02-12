@@ -1,30 +1,43 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { StarRating } from '../homepage/FeaturedProducts'
 import { productImageVariant } from '../homepage/homepageAnimation'
-import { useProductStore } from '../../store/productStore'
-import router from 'next/router'
+import {useRouter} from 'next/router'
 
-export default function DiscoverProducts() {
-  const productsData = useProductStore(state => state.products);
-  const products = productsData
-  const setProducts = useProductStore(state => state.setProducts);
-
+export default function DiscoverProducts({data}:any) {
+  const router = useRouter()
+  
+  var start = 0, end = 6;
+  const products = data.slice(start, end)
+  const [productsToShow, setProductsToShow] = useState<any[]>();
+  
   useEffect(() => {
-    setProducts();
-  }, [products]);
-
-  const productPage = (e: any) => {
+    setProductsToShow(products);
+  },[]);
+  
+  const productPage = (e: { preventDefault: () => void; currentTarget: { id: any } }) => {
     e.preventDefault();
     const slug = `/products/${e.currentTarget.id}`;
     router.push(slug);
   }
-
+  
+  const buttonRef = useRef<any>(null);
+  
+  const loadMore = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    end = end + 6;
+    setProductsToShow(data.slice(start, end));
+    if(data.length <= end){
+      buttonRef.current.style.display = 'none';
+    }
+  }
+  
+  
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6">
-        {products?.map((product: any) =>
+        {productsToShow?.map((product: any) =>
           <div className="bg-myGray dark:bg-gray-900 h-full w-full cursor-pointer" key={product.node.id} id={product?.node.handle} onClick={productPage}>
             <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
               <div className="w-full mx-auto mt-4 justify-center items-center text-center">
@@ -38,7 +51,7 @@ export default function DiscoverProducts() {
               <p className="py-2 text-[10px] md:text-sm font-normal text-gray-500 dark:text-gray-300 md:px-4">{product?.node.title}</p>
               <p className="pb-3 text-xl font-bold text-gray-900 dark:text-gray-300 hidden md:inline-block"><span className="text-[10px] italic text-gray-500 font-light">From </span>${product?.node.priceRange.minVariantPrice.amount} {product?.node.priceRange.maxVariantPrice.currencyCode}</p>
               <div className="pb-4 md:pb-8">
-                <button className="bg-gray-900 dark:bg-myGray shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-[10px] md:text-sm rounded-full">
+                <button className="bg-gray-900 dark:bg-myGray shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-[10px] md:text-sm rounded-full || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300">
                   View Details
                 </button>
               </div>
@@ -47,7 +60,7 @@ export default function DiscoverProducts() {
         )}
       </div>
       <div className="mx-auto text-center my-12">
-          <button className="bg-gold py-2 px-4 rounded-md text-myGray dark:text-gray-900 text-xs font-normal">Load more</button>
+          <button className="py-2 px-4 rounded-md text-myGray dark:text-gray-900 text-xs font-normal || transition ease-in-out delay-50 bg-gold hover:-translate-y-1 hover:scale-105 hover:bg-gold duration-300" ref={buttonRef} onClick={loadMore}>Load more</button>
         </div>
     </>
   )

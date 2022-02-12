@@ -48,11 +48,11 @@ export default function Cart({ isCart, cartToggle }: any) {
 
 export function CartContent() {
     const lineItems = useCartStore(state => state.lineItems);
-    const total = lineItems.map((item:any) => {
+    const total = lineItems.map((item: any) => {
         return parseFloat(item.totalPrice)
     })
     const totalPrice = _.sum(total);
-    
+
     return (<>
         {/* item section */}
         <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar">
@@ -97,37 +97,65 @@ export function ItemSection() {
     //const productCount = useCartStore(state => state.productCount);
     const setProductCount = useCartStore(state => state.setProductCount);
 
-    const totalCount = lineItems.map((item:any) => {
+    const totalCount = lineItems.map((item: any) => {
         return parseFloat(item.quantity)
     })
     const count = _.sum(totalCount)
 
 
-    const removeCartItem = (e:any) => {
+    const removeCartItem = (e: any) => {
         e.preventDefault();
-        const id =  e.currentTarget.id
+        const id = e.currentTarget.id
         removeItem(id);
-        toast.success(`Item removed from cart.`) 
- 
+        toast.success(`Item removed from cart.`)
+
         lineItems.length === 0 < 1 ? setProductCount(0) : setProductCount(count)
 
-    }    
-    useEffect(() =>{
-        setProductCount(count);
-        },[lineItems, count])
+    }
     
+    const increaseQuantity = (e: any) => {
+        e.preventDefault()
+        const id = e.currentTarget.id
+        const item = lineItems.find((item: any) => item.id === id)
+        const newQuantity = parseFloat(item.quantity) + 1
+        setProductCount(count + 1)
+        item.quantity = (newQuantity).toString()
+        item.totalPrice = item.price * newQuantity
+    }
+    
+    const decreaseQuantity = (e: any) => {
+        e.preventDefault()
+        const id = e.currentTarget.id
+        const item = lineItems.find((item: any) => item.id === id)
+        const newQuantity = parseFloat(item.quantity) - 1
+        setProductCount(count - 1)
+        item.quantity = (newQuantity).toString()
+        item.totalPrice = item.price * newQuantity
+
+        if (newQuantity === 1) {
+            removeItem(id)
+            toast.error(`Item removed from cart.`)
+            lineItems.length === 0 < 1 ? setProductCount(0) : setProductCount(count)
+        }
+    
+    }
+    
+    useEffect(() => {
+        setProductCount(count);
+    }, [lineItems, count])
+
     
     return (<>
         {lineItems.map((product: any) =>
-            <>
-                <div className="flex flex-col md:flex-row justify-between mt-8" key={product.id} id={product.id}>
+            <div key={product.id} id={product.id}>
+                <div className="flex flex-col md:flex-row justify-between mt-8">
                     <div className="flex gap-x-4">
                         <div className="min-w-[65px] min-h-[65px] fit">
-                        <Image src={product.image.src} alt="product_image" className="rounded-md bg-gray-800 dark:bg-myGray" height="65px" width="65px" />
+                            <Image src={product.image.src} alt="product_image" className="rounded-md bg-gray-800 dark:bg-myGray" height="65px" width="65px" />
                         </div>
                         <div className="flex flex-col gap-y-1">
                             <div className="w-[80%]">
-                            <h1 className="text-[10px] md:text-[12px] font-semibold text-gray-800 dark:text-gray-300">{product.name}</h1>
+                                <h1 className="text-[10px] md:text-[12px] font-semibold text-gray-800 dark:text-gray-300">{product.name}</h1>
                             </div>
                             <div className="flex">
                                 <p className="text-[12px] md:text-[14px] mr-2 font-light text-gray-800 dark:text-gray-300">Size</p>
@@ -151,16 +179,18 @@ export function ItemSection() {
                         <div className="flex h-8 border border-gray-300 mx-auto items-center text-center justify-center text-sm text-gray-800 rounded-sm mr-2">
                             <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-black " value={product.quantity} placeholder="" disabled />
                         </div>
-                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1" onClick={()=> product.quantity--}>
+                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1" id={product.id} onClick={decreaseQuantity}>
                             <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
                         </button>
-                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm" onClick={()=> product.quantity + 1}>
+                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm" id={product.id} onClick={increaseQuantity}>
                             <FiPlus className="text-gray-900 dark:text-myGray" size="14" />
                         </button>
                     </div>
                 </div>
                 <div className="border-b border-gray-300 pt-4 dark:border-gray-600" />
-            </>)}</>)
+            </div>
+            )}
+        </>)
 }
 
 export function CartEmpty() {

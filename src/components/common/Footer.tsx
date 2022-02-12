@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {MdLocationPin,MdOutlineAlternateEmail,MdSettingsPhone} from 'react-icons/md'
 import Toggle from '../theme/darkModeToggle';
 /**
@@ -34,16 +35,16 @@ export default function Footer() {
               <div className="mt-8">
                 <ul>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <a href="#">About Us</a>
+                    <Link href="/about">About Us</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <a href="#">Collections</a>
+                    <Link href="/collections">Collections</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <a href="#">Discover</a>
+                    <Link href="/discover">Discover</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <a href="#">Our Story</a>
+                    <Link href="/story">Our Story</Link>
                   </li>
                 </ul>
               </div>
