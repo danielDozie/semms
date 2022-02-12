@@ -18,7 +18,7 @@ export const useCartStore = create<any>(persist(devtools(
         productCount: 0,
         setProductCount: (count: number) => {
             set((state: { productCount: number }) => ({
-                productCount: count
+                productCount: state.productCount = count
             }))
         },
         

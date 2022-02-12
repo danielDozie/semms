@@ -9,7 +9,7 @@ import { cartAnimation } from "./commonAnimation";
 import Button from "./Button";
 import { useCartStore } from "../../store/cartStore";
 import { useEffect } from "react";
-import _ from "lodash";
+import _, { parseInt } from "lodash";
 import toast from "react-hot-toast";
 
 //Cart
@@ -43,15 +43,15 @@ export default function Cart({ isCart, cartToggle }: any) {
         </>)
 }
 
-
-
-
+//Cart Content
 export function CartContent() {
     const lineItems = useCartStore(state => state.lineItems);
     const total = lineItems.map((item: any) => {
         return parseFloat(item.totalPrice)
     })
-    const totalPrice = _.sum(total);
+
+    const sum = _.sum(total);
+    const totalPrice = _.ceil(sum, 2);
 
     return (<>
         {/* item section */}
@@ -94,7 +94,7 @@ export function CartContent() {
 export function ItemSection() {
     const lineItems = useCartStore(state => state.lineItems);
     const removeItem = useCartStore(state => state.removeItem);
-    //const productCount = useCartStore(state => state.productCount);
+    const productCount = useCartStore(state => state.productCount);
     const setProductCount = useCartStore(state => state.setProductCount);
 
     const totalCount = lineItems.map((item: any) => {
@@ -102,17 +102,21 @@ export function ItemSection() {
     })
     const count = _.sum(totalCount)
 
-
     const removeCartItem = (e: any) => {
-        e.preventDefault();
         const id = e.currentTarget.id
-        removeItem(id);
-        toast.success(`Item removed from cart.`)
+        e.preventDefault();
+        const itemCount = lineItems.find((item: any) => item.id === id)
+        const removedCount = parseInt(itemCount.quantity);
 
-        lineItems.length === 0 < 1 ? setProductCount(0) : setProductCount(count)
-
+        if (lineItems.length === 0) {
+            setProductCount(0);
+        } else {
+            setProductCount(productCount - removedCount);
+            removeItem(id);
+            toast.success(`Item removed from cart.`)
+        }
     }
-    
+
     const increaseQuantity = (e: any) => {
         e.preventDefault()
         const id = e.currentTarget.id
@@ -122,7 +126,7 @@ export function ItemSection() {
         item.quantity = (newQuantity).toString()
         item.totalPrice = item.price * newQuantity
     }
-    
+
     const decreaseQuantity = (e: any) => {
         e.preventDefault()
         const id = e.currentTarget.id
@@ -132,19 +136,18 @@ export function ItemSection() {
         item.quantity = (newQuantity).toString()
         item.totalPrice = item.price * newQuantity
 
-        if (newQuantity === 1) {
-            removeItem(id)
-            toast.error(`Item removed from cart.`)
-            lineItems.length === 0 < 1 ? setProductCount(0) : setProductCount(count)
-        }
-    
+        // if (newQuantity === 1) {
+        //     setProductCount(newQuantity)
+        //     // removeItem(id)
+        //     // toast.error(`Item removed from cart.`)
+        //     // lineItems.length < 1 ? setProductCount(0) : setProductCount(count)
+        // }
     }
-    
     useEffect(() => {
         setProductCount(count);
-    }, [lineItems, count])
+    }, [count, productCount])
 
-    
+
     return (<>
         {lineItems.map((product: any) =>
             <div key={product.id} id={product.id}>
@@ -189,8 +192,8 @@ export function ItemSection() {
                 </div>
                 <div className="border-b border-gray-300 pt-4 dark:border-gray-600" />
             </div>
-            )}
-        </>)
+        )}
+    </>)
 }
 
 export function CartEmpty() {
