@@ -15,7 +15,7 @@ import { mobileMenuAnimation } from "./commonAnimation";
  * A client component that specifies the content of the header on the website
  */
 export default function Header() {
-
+  
   const productCount = useCartStore(state => state.productCount)
   const [hasProducts, setHasProducts] = useState(false)
   const isMobileMenu = useMobileNav(state => state.isMobileMenu);
@@ -24,16 +24,18 @@ export default function Header() {
   const toggleCart = useCart((state: { toggleCart: any; }) => state.toggleCart);
   const isLoginForm = useLoginStore(state => state.isLoginForm);
   const toggleLoginForm = useLoginStore(state => state.toggleLoginForm);
-
+  
+  const [count, setCount] = useState(0)
   
   //hide the cart icon if there are no products in the cart
   useEffect(() => {
+    setCount(productCount)
     if (productCount === 0) {
       setHasProducts(false)
     } else {
       setHasProducts(true)
     }
-  }, [productCount])
+  }, [productCount, hasProducts])
 
   //Disable scroll when menu is open
   useEffect(() => {
@@ -74,7 +76,6 @@ export default function Header() {
       document.body.style.overflow = 'visible';
     }
   },[isLoginForm])
-          
   
   return (
     <>
@@ -117,14 +118,14 @@ export default function Header() {
             <span className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag size={23} className="inline-block mr-2" onClick={cartToggle} />
               <span className={`${hasProducts ? '' : 'hidden'} h-4 w-4 bg-gold absolute rounded-full text-center -ml-4`}>
-                <span className="font-light text-[10px] text-myGray dark:text-black">{productCount}</span>
+                <span className="font-light text-[10px] text-myGray dark:text-black">{count}</span>
               </span>
             </span>
           </div>
         </div>
         <Cart isCart={isCart} cartToggle={cartToggle} />
       </div>
-
+      
 
       {/* mobile header */}
       <AnimatePresence>
@@ -145,7 +146,7 @@ export default function Header() {
           <div className="text-sm font-normal leading-none cursor-pointer text-gold">
             <CgShoppingBag size={24} className="inline-block" onClick={cartToggle} />
             <span className={`${hasProducts ? '' : 'hidden'} h-4 w-4 bg-gold absolute rounded-full text-center -ml-2 mt-3`}>
-              <span className="font-light text-[10px] text-myGray dark:text-black">{productCount}</span>
+              <span className="font-light text-[10px] text-myGray dark:text-black">{count}</span>
             </span>
           </div>
         </div>
