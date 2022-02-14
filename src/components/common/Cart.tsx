@@ -9,7 +9,7 @@ import { cartAnimation } from "./commonAnimation";
 import Button from "./Button";
 import { useCartStore } from "../../store/cartStore";
 import { useEffect, useState } from "react";
-import _, { parseInt } from "lodash";
+import _ from "lodash";
 import toast from "react-hot-toast";
 
 //Cart
@@ -56,7 +56,7 @@ export default function Cart({ isCart, cartToggle }: any) {
                       <HiX size={15} className="cursor-pointer" />
                     </div>
                   </div>
-                  {lineItems.length > 0 ? <CartContent /> : <CartEmpty />}
+                  {lineItems.length > 0 ? <CartContent /> : <CartEmpty cartToggle={cartToggle} />}
                 </div>
               </motion.div>
             </>
@@ -131,7 +131,7 @@ export function ItemSection() {
     const id = e.currentTarget.id;
     e.preventDefault();
     const itemCount = lineItems.find((item: any) => item.id === id);
-    const removedCount = parseInt(itemCount.quantity);
+    const removedCount = _.parseInt(itemCount.quantity);
 
     if (lineItems.length === 0) {
       setProductCount(0);
@@ -205,11 +205,11 @@ export function ItemSection() {
             </div>
             <div className="-mt-2 md:mt-0">
               <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">
-                ${product.totalPrice}
+                ${_.ceil(product.totalPrice, 2)}
               </p>
             </div>
           </div>
-
+          
           <div className="flex flex-row justify-between my-4">
             <div className="flex">
               <button
@@ -261,7 +261,7 @@ export function ItemSection() {
   );
 }
 
-export function CartEmpty() {
+export function CartEmpty({cartToggle}:any) {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mt-32 font-semibold text-md gap-x-4 flex bg-black dark:bg-white h-28 w-28 rounded-full">
@@ -276,6 +276,7 @@ export function CartEmpty() {
       <p className="text-gray-500 dark:text-gray-300  text-md font-light text-sm mt-2 text-center">
         Continue shopping to add items to your cart
       </p>
+      <p className={`mt-12 text-md text-sm font-bold rounded-sm py-1 px-4 cursor-pointer dark:text-myGray hover:underline underline-offset-4`} onClick={cartToggle}>Continue Shopping</p>
     </div>
   );
 }
