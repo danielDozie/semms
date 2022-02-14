@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cartAnimation } from "./commonAnimation";
 import Button from "./Button";
 import { useCartStore } from "../../store/cartStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import _, { parseInt } from "lodash";
 import toast from "react-hot-toast";
 
@@ -126,6 +126,8 @@ export function ItemSection() {
         item.quantity = (newQuantity).toString()
         item.totalPrice = item.price * newQuantity
     }
+    
+    const [isDisabled, setIsDisabled] = useState(false)
 
     const decreaseQuantity = (e: any) => {
         e.preventDefault()
@@ -135,14 +137,25 @@ export function ItemSection() {
         setProductCount(count - 1)
         item.quantity = (newQuantity).toString()
         item.totalPrice = item.price * newQuantity
-
-        // if (newQuantity === 1) {
-        //     setProductCount(newQuantity)
-        //     // removeItem(id)
-        //     // toast.error(`Item removed from cart.`)
-        //     // lineItems.length < 1 ? setProductCount(0) : setProductCount(count)
+       
+        // if(id === item.id && item.quantity !== '1'){
+        //     setIsDisabled(false)
         // }
+        // else if(id === item.id && item.quantity === '1'){
+        //     setIsDisabled(true)
+        // }
+        // else{
+        //     setIsDisabled(false)
+        // }
+        // console.log(item.quantity, id, item.quantity)
+        console.dir(e.target)
     }
+    
+    useEffect(() => {
+        setIsDisabled(false)
+    }, [productCount, isDisabled])
+
+    
     useEffect(() => {
         setProductCount(count);
     }, [count, productCount])
@@ -182,9 +195,11 @@ export function ItemSection() {
                         <div className="flex h-8 border border-gray-300 mx-auto items-center text-center justify-center text-sm text-gray-800 rounded-sm mr-2">
                             <input type="text" className="w-full text-gray-800 dark:text-myGray p-1 bg-white dark:bg-black " value={product.quantity} placeholder="" disabled />
                         </div>
-                        <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1" id={product.id} onClick={decreaseQuantity}>
+                        
+                        <button className={`${isDisabled ? 'opacity-50' : ''} flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-1`} id={product.id} onClick={decreaseQuantity} disabled={isDisabled}>
                             <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
                         </button>
+
                         <button className="flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm" id={product.id} onClick={increaseQuantity}>
                             <FiPlus className="text-gray-900 dark:text-myGray" size="14" />
                         </button>
