@@ -85,17 +85,15 @@ export function ProductDetails({ product }: any) {
         }    
     }
     
-    
-    
-
-    
+    const defaultPrice = 149.99 //used as a placeholder for the price of the product before size is selected. 
+    //Because price is dependent on the size of the product, the price is set to a default value of 149.99 being the minimum price of the products.
     return (<>
         <div className="mx-4 md:mx-auto max-w-[100%] md:w-[35%] h-full bg-white md:sticky top-0 dark:bg-black ">
             <div className="mt-16">
                 <h1 className="pt-8 pb-2 text-sm font-light text-gray-400 uppercase">{product.node.vendor}<span className="text-xl font-bold text-gold">.</span> </h1>
                 <h1 className="text-2xl text-gray-800 font-regular dark:text-myGray">{product.node.title}</h1>
-                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
-
+                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? selectedOption[0]?.node.price * quantity : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
                     <div className="flex flex-row ">
@@ -108,7 +106,7 @@ export function ProductDetails({ product }: any) {
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-6 font-semibold">Quantity</p>
                     <div className="flex flex-row justify-between my-2">
                         <div className="flex flex-row">
-
+                            
                             <button className={` ${isDisabled ? 'opacity-50' : ''} flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-2`} onClick={decreaseQuantity} disabled={isDisabled}>
                                 <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
                             </button>
