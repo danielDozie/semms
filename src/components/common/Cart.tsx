@@ -138,7 +138,7 @@ export function ItemSection() {
     } else {
       setProductCount(productCount - removedCount);
       removeItem(id);
-      toast.success(`Item removed from cart.`);
+      toast.error(`Item removed from cart`);
     }
   };
 
