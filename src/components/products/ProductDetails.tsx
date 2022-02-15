@@ -65,7 +65,7 @@ export function ProductDetails({ product }: any) {
 
     //get cart item & price
     const selectedProduct = selectedOption[0]?.node
-    const q = quantity.toString() //convert to string due to graphql strict type
+    const q = quantity //.toString    //convert to string due to graphql strict type
     const totalPrice = (selectedProduct?.price * quantity).toString() // convert to string due to graphql strict type incase of floating point numbers
 
     const lineItem = { ...selectedProduct, name: product.node.title, quantity: q, totalPrice: totalPrice }

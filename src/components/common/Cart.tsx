@@ -11,6 +11,8 @@ import { useCartStore } from "../../store/cartStore";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import toast from "react-hot-toast";
+import { CHECKOUT } from "../../graphql/checkoutMutation";
+import { useMutation } from "@apollo/client";
 
 //Cart
 export default function Cart({ isCart, cartToggle }: any) {
@@ -76,7 +78,19 @@ export function CartContent() {
 
   const sum = _.sum(total);
   const totalPrice = _.ceil(sum, 2);
-
+  
+  const [checkout, {data, loading, error }] = useMutation(CHECKOUT, {
+    variables: {
+      input: {
+        lineItems: lineItems,
+      }
+    }
+  });
+  (loading) ? 'Submitting...' : '';
+  (error) ? `Submission error! ${error.message}` : '';
+  if (error) {
+    console.log(error.message);
+  }
   return (
     <>
       {/* item section */}
@@ -108,7 +122,7 @@ export function CartContent() {
         </div>
 
         <div className="text-center font-semibold uppercase mt-4 text-sm">
-          <Button buttonText="Proceed to Checkout" />
+          <Button buttonText="Proceed to Checkout" onClick={checkout} />
         </div>
       </div>
       {/* Bottom Section End */}
@@ -172,6 +186,9 @@ export function ItemSection() {
   useEffect(() => {
     setProductCount(count);
   }, [count, productCount]);
+  
+
+  
   return (
     <>
       {lineItems.map((product: any) => (
