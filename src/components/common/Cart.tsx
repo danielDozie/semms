@@ -17,7 +17,6 @@ import { useMutation } from "@apollo/client";
 //Cart
 export default function Cart({ isCart, cartToggle }: any) {
   const lineItems = useCartStore((state) => state.lineItems);
-
   return (
     <>
       <div className="w-full">
@@ -75,28 +74,33 @@ export function CartContent() {
   const total = lineItems.map((item: any) => {
     return parseFloat(item.totalPrice);
   });
-
   const sum = _.sum(total);
-  const totalPrice = _.ceil(sum, 2);
-  
-  const [checkout, {data, loading, error }] = useMutation(CHECKOUT, {
+  const totalPrice = (sum).toFixed(2);
+  const [checkout, { data, loading, error }]: any = useMutation(CHECKOUT, {
     variables: {
-      input: {
-        lineItems: lineItems,
+      "input": {
+        "lineItems": lineItems.map((item: any) => {
+          return {
+            "variantId": item.id,
+            "quantity": parseInt(item.quantity)
+          }
+        }),
       }
     }
   });
-  (loading) ? 'Submitting...' : '';
-  (error) ? `Submission error! ${error.message}` : '';
-  if (error) {
-    console.log(error.message);
-  }
+  (loading) ? "Loading..." :
+    (error) ? error.message :
+      (data) ? window.location.href = data?.checkoutCreate.checkout?.webUrl : null;
+
+
   return (
     <>
       {/* item section */}
       <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar">
         <ItemSection />
       </div>
+
+      <p className="absolute bg-gold dark:bg-gray-600 dark:text-myGray text-gray-900 mx-auto text-[10px] right-0 mr-[35%] font-light rounded-full px-2 py-1 text-center top-[53%] md:top-[55%] drop-shadow-xl">Scroll to view more items</p>
       {/* item section end */}
       <div className="border-b-4 border-black dark:border-myGray" />
 
@@ -121,8 +125,8 @@ export function CartContent() {
           <p className="font-bold">${totalPrice}</p>
         </div>
 
-        <div className="text-center font-semibold uppercase mt-4 text-sm">
-          <Button buttonText="Proceed to Checkout" onClick={checkout} />
+        <div className="text-center font-semibold uppercase mt-4 text-sm ?|| transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-101 duration-300" onClick={checkout}>
+          <Button buttonText="Proceed to Checkout" />
         </div>
       </div>
       {/* Bottom Section End */}
@@ -145,7 +149,7 @@ export function ItemSection() {
     const id = e.currentTarget.id;
     e.preventDefault();
     const itemCount = lineItems.find((item: any) => item.id === id);
-    const removedCount = _.parseInt(itemCount.quantity);
+    const removedCount = parseInt(itemCount.quantity);
 
     if (lineItems.length === 0) {
       setProductCount(0);
@@ -164,7 +168,7 @@ export function ItemSection() {
     setProductCount(newQuantity);
     item.quantity = newQuantity.toString();
     item.totalPrice = item.price * newQuantity;
-    
+
     (item.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
 
   };
@@ -186,9 +190,9 @@ export function ItemSection() {
   useEffect(() => {
     setProductCount(count);
   }, [count, productCount]);
-  
 
-  
+
+
   return (
     <>
       {lineItems.map((product: any) => (
@@ -222,11 +226,11 @@ export function ItemSection() {
             </div>
             <div className="-mt-2 md:mt-0">
               <p className="text-[12px] ml-[70%] md:ml-0 md:text-[14px] font-semibold text-gold">
-                ${_.ceil(product.totalPrice, 2)}
+                ${product.totalPrice}
               </p>
             </div>
           </div>
-          
+
           <div className="flex flex-row justify-between my-4">
             <div className="flex">
               <button
@@ -278,7 +282,7 @@ export function ItemSection() {
   );
 }
 
-export function CartEmpty({cartToggle}:any) {
+export function CartEmpty({ cartToggle }: any) {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mt-32 font-semibold text-md gap-x-4 flex bg-black dark:bg-white h-28 w-28 rounded-full">

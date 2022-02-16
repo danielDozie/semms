@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 
-
 export const CHECKOUT = gql`
   mutation checkout($input: CheckoutCreateInput!) {
       checkoutCreate(input: $input) {
