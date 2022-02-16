@@ -19,7 +19,7 @@ export const DesktopImages = ({ product }: any) => {
                     </div>
                 </div>
                 {/* desktop position */}
-                <RelatedProducts product={product} />
+                <RelatedProducts product={product} /> 
             </div>
         </>
     )

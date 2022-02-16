@@ -13,13 +13,11 @@ export default function Index({ product }: any) {
         <Head>
             <title>{product.node.title} - {process.env.storename}</title>
         </Head>
-
         <div className="container flex flex-col md:flex-row w-full h-full mx-auto">
             <DesktopImages product={product} />
             <MobileImages product={product} />
             <ProductDetails product={product} />
         </div>
-
     </>
     )
 }
