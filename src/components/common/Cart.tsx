@@ -91,19 +91,32 @@ export function CartContent() {
   (loading) ? "Loading..." :
     (error) ? error.message :
       (data) ? window.location.href = data?.checkoutCreate.checkout?.webUrl : null;
+  
 
-
+      //scroll instructions
+      const [scrollToView, setScrollToView] = useState(false);
+      useEffect(() => {
+        if(lineItems.length >= 3) {
+          setScrollToView(true);
+        }
+      },[])
+      const scrollView = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        setScrollToView(false);
+      }
+      
+  
   return (
     <>
       {/* item section */}
-      <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar">
+      <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar" onScroll={scrollView}>
         <ItemSection />
       </div>
 
-      <p className="absolute bg-gold dark:bg-gray-600 dark:text-myGray text-gray-900 mx-auto text-[10px] right-0 mr-[35%] font-light rounded-full px-2 py-1 text-center top-[53%] md:top-[55%] drop-shadow-xl">Scroll to view more items</p>
+      <p className={`${scrollToView ? "flex": "hidden"} absolute bg-gold dark:bg-white dark:text-black text-gray-900 mx-auto text-[10px] right-0 mr-[35%] font-light rounded-full px-2 py-1 text-center top-[54%] md:top-[55%] drop-shadow-xl || motion-safe:animate-bounce `}> Scroll to view more items</p>
       {/* item section end */}
       <div className="border-b-4 border-black dark:border-myGray" />
-
+      
       {/* Bottom Section */}
       <div className="pt-8 bottom">
         <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
@@ -170,7 +183,6 @@ export function ItemSection() {
     item.totalPrice = item.price * newQuantity;
 
     (item.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
-
   };
 
   const decreaseQuantity = (e: any) => {

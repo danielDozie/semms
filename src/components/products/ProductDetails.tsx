@@ -93,7 +93,7 @@ export function ProductDetails({ product }: any) {
             <div className="mt-16">
                 <h1 className="pt-8 pb-2 text-sm font-light text-gray-400 uppercase">{product.node.vendor}<span className="text-xl font-bold text-gold">.</span> </h1>
                 <h1 className="text-2xl text-gray-800 font-regular dark:text-myGray">{product.node.title}</h1>
-                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? (selectedOption[0]?.node.price * quantity, 2).toFixed(2) : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? (selectedOption[0]?.node.price * quantity).toFixed(2) : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
                 
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
