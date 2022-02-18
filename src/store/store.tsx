@@ -14,6 +14,11 @@ interface LoginForm {
     toggleLoginForm: () => void
 }
 
+interface RegisterForm{
+    isRegisterForm: boolean
+    toggleRegisterForm: () => void
+}
+
 const useMobileNav = create<MobileNav>(set => ({
     isMobileMenu: false,
     toggleMobileMenu: () => set(state => ({ isMobileMenu: !state.isMobileMenu }))
@@ -29,5 +34,10 @@ const useLoginStore = create<LoginForm>(set => ({
     toggleLoginForm: () => set(state => ({ isLoginForm: !state.isLoginForm }))
 }))
 
+const useRegisterStore = create<RegisterForm>(set => ({
+    isRegisterForm: false,
+    toggleRegisterForm: () => set(state => ({ isRegisterForm: !state.isRegisterForm }))
+}))
+
 export default useMobileNav;
-export {useCart, useLoginStore};
+export {useCart, useLoginStore, useRegisterStore};
