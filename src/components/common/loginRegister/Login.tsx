@@ -1,11 +1,15 @@
-import { useForm } from "react-hook-form";
-import { BiLogInCircle } from "react-icons/bi";
-import { FiUserPlus } from "react-icons/fi";
-import { HiX } from "react-icons/hi";
+import React from 'react'
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginStore, useRegisterStore } from "../../../store/store";
-import Image from 'next/image'
 import { ILoginForm, FormInput } from "../../Types";
+import { useMutation } from "@apollo/client";
+import { CREATE_CUSTOMER_ACCESS_TOKEN } from "../../../graphql/customerMutation";
+import { BiLogInCircle } from 'react-icons/bi';
+import { FiUserPlus } from 'react-icons/fi';
+import { HiX } from 'react-icons/hi';
+import Image from  'next/image'
 const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
+
 
 
 export const LoginForm = ({ isLoginForm}: ILoginForm) => {
@@ -13,14 +17,36 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
   const toggleRegisterForm = useRegisterStore(
     (state) => state.toggleRegisterForm
   );
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
   const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
-  const onSubmit = (data: Object) => console.log(JSON.stringify(data));
-
+  const onSubmit: SubmitHandler<FormInput> = data => setFormData(data);
+  
   const showReg = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     toggleLoginForm()
     toggleRegisterForm();
   }
+  
+  const [customerAccessToken, { loading, error,data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
+    variables:{
+      input:{
+        email: formData.email,
+        password: formData.password,
+      }
+    }
+  });
+  (loading)? "Loading...": 
+  (error)? error.message:
+  (data)? console.log(data): null
+
+  const onSubmitLogin = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    customerAccessToken()
+  }
+  
   return (
     <>
       <div
@@ -33,7 +59,7 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
             } flex flex-col justify-center items-center h-full `}
         >
           <div className="w-full max-w-sm no-scrollbar">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} >
               <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md dark:bg-black">
                 <div
                   className="flex justify-end mb-4 cursor-pointer"
@@ -67,6 +93,7 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
                   <input
                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                     type="email"
+                    autoComplete="off"
                     placeholder="Email"
                     {...register("email", {
                       required: true, pattern:
@@ -109,7 +136,7 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
                   </h3>
                   <button
                     type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900"
+                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" onClick={onSubmitLogin}
                   >
                     Login
                     <BiLogInCircle className="inline-block w-4 h-4 ml-2" />

@@ -113,7 +113,7 @@ export function CartContent() {
         <ItemSection />
       </div>
 
-      <p className={`${scrollToView ? "flex": "hidden"} absolute bg-gold dark:bg-white dark:text-black text-gray-900 mx-auto text-[10px] right-0 mr-[35%] font-light rounded-full px-2 py-1 text-center top-[54%] md:top-[55%] drop-shadow-xl || motion-safe:animate-bounce `}> Scroll to view more items</p>
+      <p className={`${scrollToView ? "flex": "hidden"} absolute bg-gold dark:bg-white dark:text-black text-gray-900 mx-auto text-[10px] right-0 mr-[30%] md:mr-[35%] font-light rounded-full px-2 py-1 text-center top-[54%] md:top-[55%] drop-shadow-xl || motion-safe:animate-bounce `}> Scroll to view more items</p>
       {/* item section end */}
       <div className="border-b-4 border-black dark:border-myGray" />
       

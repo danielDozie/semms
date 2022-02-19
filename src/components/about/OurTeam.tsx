@@ -12,12 +12,9 @@ export function OurTeam() {
                         <div className="pt-8">
                             <Link href="/contact">
                             <button className="w-[50%] md:w-[30%] h-10 bg-myGray shadow-md text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-sm md:text-sm rounded-md || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300">
-                                See our collections
-                            </button>
-                            </Link>
-                            <button className="w-[50%] md:w-[30%] h-10 bg-gray-900 dark:bg-myGray shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-sm md:text-sm rounded-md || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300">
                                 Get in touch
                             </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

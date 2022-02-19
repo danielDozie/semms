@@ -21,9 +21,8 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
     lastname: "",
     email: "",
     phone: "",
-    password: "",
   })
-
+  
   const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
   const onSubmit: SubmitHandler<FormInput> = data => setFormData(data);
   
@@ -39,14 +38,18 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
         "lastName": formData.lastname,
         "email": formData.email,
         "phone": formData.phone,
-        "password": formData.password,
       }
     }
   });
   (loading) ? "Loading..." :
     (error) ? error.message :
       (data) ? console.log(data) : null;
-
+  
+  const onSubmitRegister = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    createCustomer()
+  }
+  
   return (
     <>
       <div
@@ -80,7 +83,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     Register
                   </h1>
                 </div>
-
+                
                 <div className="mb-4">
                   <label
                     htmlFor="firstname"
@@ -149,7 +152,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     {errors.email?.type === "required" && "Email is required"}
                   </p>
                 </div>
-
+                
                 <div className="mb-4">
                   <label
                     htmlFor="phone"
@@ -174,7 +177,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   </p>
                 </div>
 
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-semibold text-gray-900 dark:text-myGray"
@@ -193,7 +196,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     {errors.password?.type === "required" &&
                       "Password is required"}
                   </p>
-                </div>
+                </div> */}
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-light text-gray-700">
                     {/* <a href="#" className="no-underline text-gold hover:underline">
@@ -202,7 +205,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   </h3>
                   <button
                     type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" onClick={createCustomer}
+                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" onClick={onSubmitRegister}
                   >
                     Create account
                     <FiUserPlus className="inline-block w-4 h-4 ml-2" />

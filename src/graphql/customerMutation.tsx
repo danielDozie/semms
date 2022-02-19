@@ -8,7 +8,6 @@ mutation customerCreate($input: CustomerCreateInput!) {
       lastName
       email
       phone
-      password
     },
     customerUserErrors{
       message
@@ -16,3 +15,13 @@ mutation customerCreate($input: CustomerCreateInput!) {
   }
 }
 `;
+
+export const CREATE_CUSTOMER_ACCESS_TOKEN = gql`
+mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+  customerAccessTokenCreate(input: $input) {
+    customerAccessToken {
+      email,
+      password
+    }
+  }
+}`;
