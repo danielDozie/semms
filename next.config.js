@@ -5,6 +5,6 @@ module.exports = {
     images: {
         domains: ['semmslux.com', 'cdn.shopify.com', 'res.cloudinary.com'],
       },
-    basePath: '',
+    basePath: '', 
   }
 

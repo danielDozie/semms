@@ -2,8 +2,8 @@ import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginStore, useRegisterStore } from "../../../store/store";
 import { ILoginForm, FormInput } from "../../Types";
-import { useMutation } from "@apollo/client";
-import { CREATE_CUSTOMER_ACCESS_TOKEN } from "../../../graphql/customerMutation";
+// import { useMutation } from "@apollo/client";
+// import { CREATE_CUSTOMER_ACCESS_TOKEN } from "../../../graphql/customerMutation";
 import { BiLogInCircle } from 'react-icons/bi';
 import { FiUserPlus } from 'react-icons/fi';
 import { HiX } from 'react-icons/hi';
@@ -30,22 +30,22 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
     toggleRegisterForm();
   }
   
-  const [customerAccessToken, { loading, error,data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
-    variables:{
-      input:{
-        email: formData.email,
-        password: formData.password,
-      }
-    }
-  });
-  (loading)? "Loading...": 
-  (error)? error.message:
-  (data)? console.log(data): null
-
-  const onSubmitLogin = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    customerAccessToken()
-  }
+  // const [customerAccessToken, { loading, error,data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
+  //   variables:{
+  //     input:{
+  //       email: formData.email,
+  //       password: formData.password,
+  //     }
+  //   }
+  // });
+  // (loading)? "Loading...": 
+  // (error)? error.message:
+  // (data)? console.log(data): null
+  
+  // const onSubmitLogin = (e: { preventDefault: () => void; }) => {
+  //   e.preventDefault();
+  //   customerAccessToken()
+  // }
   
   return (
     <>
@@ -136,8 +136,7 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
                   </h3>
                   <button
                     type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" onClick={onSubmitLogin}
-                  >
+                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
                     Login
                     <BiLogInCircle className="inline-block w-4 h-4 ml-2" />
                   </button>

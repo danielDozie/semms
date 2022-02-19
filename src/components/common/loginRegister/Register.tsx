@@ -5,8 +5,8 @@ import { HiX } from "react-icons/hi";
 import { useLoginStore, useRegisterStore } from "../../../store/store";
 import Image from "next/image";
 import { RegForm, FormInput } from "../../Types";
-import { useMutation } from "@apollo/client";
-import { CREATE_CUSTOMER } from "../../../graphql/customerMutation";
+// import { useMutation } from "@apollo/client";
+// import { CREATE_CUSTOMER } from "../../../graphql/customerMutation";
 import { useState } from "react";
 const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 
@@ -31,24 +31,24 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
     toggleRegisterForm();
     toggleLoginForm();
   };
-  const [createCustomer, { loading, error, data }] = useMutation(CREATE_CUSTOMER, {
-    variables: {
-      "input": {
-        "firstName": formData.firstname,
-        "lastName": formData.lastname,
-        "email": formData.email,
-        "phone": formData.phone,
-      }
-    }
-  });
-  (loading) ? "Loading..." :
-    (error) ? error.message :
-      (data) ? console.log(data) : null;
+  // const [createCustomer, { loading, error, data }] = useMutation(CREATE_CUSTOMER, {
+  //   variables: {
+  //     "input": {
+  //       "firstName": formData.firstname,
+  //       "lastName": formData.lastname,
+  //       "email": formData.email,
+  //       "phone": formData.phone,
+  //     }
+  //   }
+  // });
+  // (loading) ? "Loading..." :
+  //   (error) ? error.message :
+  //     (data) ? console.log(data) : null;
   
-  const onSubmitRegister = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    createCustomer()
-  }
+  // const onSubmitRegister = (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   createCustomer()
+  // }
   
   return (
     <>
@@ -205,8 +205,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   </h3>
                   <button
                     type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" onClick={onSubmitRegister}
-                  >
+                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
                     Create account
                     <FiUserPlus className="inline-block w-4 h-4 ml-2" />
                   </button>
