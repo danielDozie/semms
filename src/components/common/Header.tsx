@@ -2,7 +2,7 @@ import { FiSearch, FiUser } from "react-icons/fi";
 import { CgShoppingBag } from "react-icons/cg";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
 import Link from "next/link";
-import useMobileNav, { useLoginStore } from "../../store/store";
+import useMobileNav, { useLoginStore, useRegisterStore } from "../../store/store";
 import { useCart } from "../../store/store";
 import Cart from "./Cart";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import { useCartStore } from "../../store/cartStore";
 import _ from "lodash";
 import { motion, AnimatePresence } from "framer-motion";
 import { mobileMenuAnimation } from "./commonAnimation";
+const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 /**
  * A client component that specifies the content of the header on the website
  */
@@ -23,7 +24,7 @@ export default function Header() {
   const toggleCart = useCart((state: { toggleCart: any }) => state.toggleCart);
   const isLoginForm = useLoginStore((state) => state.isLoginForm);
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
-
+  const isRegisterForm = useRegisterStore((state) => state.isRegisterForm)
   const [count, setCount] = useState(0);
 
   //hide the cart icon if there are no products in the cart
@@ -76,19 +77,27 @@ export default function Header() {
     }
   }, [isLoginForm]);
 
+  useEffect(() => {
+    if (isRegisterForm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [isRegisterForm]);
+
   return (
     <>
       <Head>
         <title>{process.env.SiteTitle}</title>
       </Head>
       {/* desktop header */}
-      <div className="container max-w-7xl fixed z-20 hidden  bg-white dark:bg-black md:block mx-auto">
+      <div className="container fixed z-20 hidden mx-auto bg-white max-w-7xl dark:bg-black md:block">
         <div className="flex justify-between h-10 px-16 py-12 mx-auto">
           <div className="-mt-1">
             {/* logo */}
             <Link href={`/`}>
               <img
-                src="/image/semmsluxuries.svg"
+                src={logo}
                 alt="logo"
                 className="ml-2 -mt-2 cursor-pointer"
                 width="125"
@@ -164,7 +173,7 @@ export default function Header() {
         <div>
           <Link href="/" passHref>
             <img
-              src="/image/semmsluxuries.svg"
+              src={logo}
               alt="logo"
               className="cursor-pointer"
               width="120"
@@ -200,6 +209,7 @@ export default function Header() {
 export function MobileMenu({ isMobileMenu }: any) {
   const toggleMobileMenu = useMobileNav((state) => state.toggleMobileMenu);
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
+  const toggleRegisterForm = useRegisterStore(state => state.toggleRegisterForm)
 
   return (
     <div>
@@ -222,7 +232,7 @@ export function MobileMenu({ isMobileMenu }: any) {
                       Hello Guest
                     </h1>
                     <div>
-                      <div className="h-5 w-5 mt-5 rounded-full bg-gradient-to-r from-yellow-800 to-gold" />
+                      <div className="w-5 h-5 mt-5 rounded-full bg-gradient-to-r from-yellow-800 to-gold" />
                     </div>
                   </div>
                   <p className="text-sm font-normal leading-none text-gray-800 dark:text-gray-300">
@@ -230,12 +240,12 @@ export function MobileMenu({ isMobileMenu }: any) {
                   </p>
                 </div>
                 <div className="my-4">
-                  {/* <input type="text" className="w-full p-2 text-gray-800 border-2 rounded-md border-gold text-sm font-light" id="search" placeholder="Search for products" /> */}
+                  {/* <input type="text" className="w-full p-2 text-sm font-light text-gray-800 border-2 rounded-md border-gold" id="search" placeholder="Search for products" /> */}
                   <div className="relative text-myGray dark:text-gray-900 focus-within:text-gray-400">
                     <input
                       type="search"
                       name="search"
-                      className="py-2 text-sm text-white bg-gray-900 dark:bg-myGray rounded-md pl-4 focus:outline-none dark:focus:bg-white dark:focus:text-gray-900 focus:text-myGray w-full"
+                      className="w-full py-2 pl-4 text-sm text-white bg-gray-900 rounded-md dark:bg-myGray focus:outline-none dark:focus:bg-white dark:focus:text-gray-900 focus:text-myGray"
                       placeholder="Search products"
                     />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -266,7 +276,7 @@ export function MobileMenu({ isMobileMenu }: any) {
                         key={menu.id}
                         onClick={toggleMobileMenu}
                       >
-                        <div className="text-md font-light leading-none text-gray-800 dark:text-gray-300 hover:underline underline-offset-4 decoration-2 decoration-gold">
+                        <div className="font-light leading-none text-gray-800 text-md dark:text-gray-300 hover:underline underline-offset-4 decoration-2 decoration-gold">
                           <Link href={menu.link}>{menu.title}</Link>
                         </div>
                       </li>
@@ -274,11 +284,11 @@ export function MobileMenu({ isMobileMenu }: any) {
                   </ul>
                 </div>
 
-                <div className="flex mt-12 font-semibold text-gray-800 uppercase text-sm gap-x-4 dark:text-gray-300">
+                <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
                   <div onClick={toggleLoginForm}>
                     <Link href="#">Login</Link>
                   </div>
-                  <div>
+                  <div onClick={toggleRegisterForm}>
                     <Link href="#">Register</Link>
                   </div>
                 </div>

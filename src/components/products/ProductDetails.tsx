@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { AiOutlineMinus, AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import Button from '../common/Button';
@@ -65,8 +65,8 @@ export function ProductDetails({ product }: any) {
 
     //get cart item & price
     const selectedProduct = selectedOption[0]?.node
-    const q = quantity //.toString    //convert to string due to graphql strict type
-    const totalPrice = (selectedProduct?.price * quantity).toString() // convert to string due to graphql strict type incase of floating point numbers
+    const q = quantity 
+    const totalPrice = (selectedProduct?.price * quantity).toFixed(2)
 
     const lineItem = { ...selectedProduct, name: product.node.title, quantity: q, totalPrice: totalPrice }
 
@@ -85,16 +85,16 @@ export function ProductDetails({ product }: any) {
             isCart ? toggleCart() : toggleCart()
         }
     }
-
+    
     const defaultPrice = 149.99 //used as a placeholder for the price of the product before size is selected. 
     //Because price is dependent on the size of the product, the price is set to a default value of 149.99 being the minimum price of the products.
     return (<>
-        <div className="mx-4 md:mx-auto max-w-[100%] md:w-[40%] w-full h-full bg-white md:sticky top-0 dark:bg-black px-8">
+        <div className="mx-4 md:mx-auto max-w-[100%] md:w-[40%] h-full bg-white md:sticky top-0 dark:bg-black px-8">
             <div className="mt-16">
                 <h1 className="pt-8 pb-2 text-sm font-light text-gray-400 uppercase">{product.node.vendor}<span className="text-xl font-bold text-gold">.</span> </h1>
                 <h1 className="text-2xl text-gray-800 font-regular dark:text-myGray">{product.node.title}</h1>
-                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? _.ceil(selectedOption[0]?.node.price * quantity, 2) : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
-
+                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? (selectedOption[0]?.node.price * quantity).toFixed(2) : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
                     <div className="flex flex-row ">
@@ -102,7 +102,7 @@ export function ProductDetails({ product }: any) {
                         )}
                     </div>
                 </div>
-
+                
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-6 font-semibold">Quantity</p>
                     <div className="flex flex-row justify-between my-2">
