@@ -9,13 +9,14 @@ import { cartAnimation } from "./commonAnimation";
 import Button from "./Button";
 import { useCartStore } from "../../store/cartStore";
 import { useEffect, useState } from "react";
-import _, { parseInt } from "lodash";
+import _ from "lodash";
 import toast from "react-hot-toast";
+import { CHECKOUT } from "../../graphql/checkoutMutation";
+import { useMutation } from "@apollo/client";
 
 //Cart
 export default function Cart({ isCart, cartToggle }: any) {
   const lineItems = useCartStore((state) => state.lineItems);
-
   return (
     <>
       <div className="w-full">
@@ -56,7 +57,7 @@ export default function Cart({ isCart, cartToggle }: any) {
                       <HiX size={15} className="cursor-pointer" />
                     </div>
                   </div>
-                  {lineItems.length > 0 ? <CartContent /> : <CartEmpty />}
+                  {lineItems.length > 0 ? <CartContent /> : <CartEmpty cartToggle={cartToggle} />}
                 </div>
               </motion.div>
             </>
@@ -73,19 +74,49 @@ export function CartContent() {
   const total = lineItems.map((item: any) => {
     return parseFloat(item.totalPrice);
   });
-
   const sum = _.sum(total);
-  const totalPrice = _.ceil(sum, 2);
+  const totalPrice = (sum).toFixed(2);
+  const [checkout, { data, loading, error }]: any = useMutation(CHECKOUT, {
+    variables: {
+      "input": {
+        "lineItems": lineItems.map((item: any) => {
+          return {
+            "variantId": item.id,
+            "quantity": parseInt(item.quantity)
+          }
+        }),
+      }
+    }
+  });
+  (loading) ? "Loading..." :
+    (error) ? error.message :
+      (data) ? window.location.href = data?.checkoutCreate.checkout?.webUrl : null;
+  
 
+      //scroll instructions
+      const [scrollToView, setScrollToView] = useState(false);
+      useEffect(() => {
+        if(lineItems.length >= 3) {
+          setScrollToView(true);
+        }
+      },[])
+      const scrollView = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        setScrollToView(false);
+      }
+      
+  
   return (
     <>
       {/* item section */}
-      <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar">
+      <div className="flex flex-col min-h-[50%] max-h-[50%] overflow-y-scroll no-scrollbar" onScroll={scrollView}>
         <ItemSection />
       </div>
+
+      <p className={`${scrollToView ? "flex": "hidden"} absolute bg-gold dark:bg-white dark:text-black text-gray-900 mx-auto text-[10px] right-0 mr-[30%] md:mr-[35%] font-light rounded-full px-2 py-1 text-center top-[54%] md:top-[55%] drop-shadow-xl || motion-safe:animate-bounce `}> Scroll to view more items</p>
       {/* item section end */}
       <div className="border-b-4 border-black dark:border-myGray" />
-
+      
       {/* Bottom Section */}
       <div className="pt-8 bottom">
         <div className="flex justify-between text-gray-800 dark:text-myGray font-light text-[15px] mt-2">
@@ -107,7 +138,7 @@ export function CartContent() {
           <p className="font-bold">${totalPrice}</p>
         </div>
 
-        <div className="text-center font-semibold uppercase mt-4 text-sm">
+        <div className="text-center font-semibold uppercase mt-4 text-sm ?|| transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-101 duration-300" onClick={checkout}>
           <Button buttonText="Proceed to Checkout" />
         </div>
       </div>
@@ -150,9 +181,8 @@ export function ItemSection() {
     setProductCount(newQuantity);
     item.quantity = newQuantity.toString();
     item.totalPrice = item.price * newQuantity;
-    
-    (item.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
 
+    (item.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
   };
 
   const decreaseQuantity = (e: any) => {
@@ -172,6 +202,9 @@ export function ItemSection() {
   useEffect(() => {
     setProductCount(count);
   }, [count, productCount]);
+
+
+
   return (
     <>
       {lineItems.map((product: any) => (
@@ -261,7 +294,7 @@ export function ItemSection() {
   );
 }
 
-export function CartEmpty() {
+export function CartEmpty({ cartToggle }: any) {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mt-32 font-semibold text-md gap-x-4 flex bg-black dark:bg-white h-28 w-28 rounded-full">
@@ -276,6 +309,7 @@ export function CartEmpty() {
       <p className="text-gray-500 dark:text-gray-300  text-md font-light text-sm mt-2 text-center">
         Continue shopping to add items to your cart
       </p>
+      <p className={`mt-12 text-md text-sm font-bold rounded-sm py-1 px-4 cursor-pointer dark:text-myGray hover:underline underline-offset-4`} onClick={cartToggle}>Continue Shopping</p>
     </div>
   );
 }

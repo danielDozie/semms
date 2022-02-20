@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { AiOutlineMinus, AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import Button from '../common/Button';
@@ -6,9 +6,10 @@ import { RelatedProducts } from './RelatedProducts';
 import { togglerVariants } from '../common/commonAnimation'
 import { FiPlus } from 'react-icons/fi';
 import { useProductStore } from '../../store/productStore';
-import {useCart} from '../../store/store';
+import { useCart } from '../../store/store';
 import { useCartStore } from '../../store/cartStore';
 import toast from 'react-hot-toast';
+import _ from 'lodash';
 
 
 export function ProductDetails({ product }: any) {
@@ -17,7 +18,7 @@ export function ProductDetails({ product }: any) {
     const quantity = useProductStore(state => state.quantity)
     const increaseQuantity = useProductStore(state => state.increaseQuantity)
     const decreaseQuantity = useProductStore(state => state.decreaseQuantity)
-    
+
     const [variants] = useState(product.node.variants.edges)
     const [variantPrice] = useState(variants[0].node.price)
     const [selectedOption, setSelectedOption] = useState<any[]>([])
@@ -25,13 +26,13 @@ export function ProductDetails({ product }: any) {
     const lineItems = useCartStore(state => state.lineItems)
     const isCart = useCart(state => state.isCart)
     const toggleCart = useCart(state => state.toggleCart)
-    
+
     //adding class to the size option, referencing the id of the button
     const [isActive, setIsActive] = useState({
         id: null,
         isActive: false
     });
-    
+
     const variantHandler = (e: any) => {
         e.preventDefault();
         const selected = e.currentTarget.innerText
@@ -43,9 +44,9 @@ export function ProductDetails({ product }: any) {
         )
         const clickedButtonId = e.currentTarget.id
         setSelectedOption(data)
-        setIsActive({id: clickedButtonId, isActive: true})
+        setIsActive({ id: clickedButtonId, isActive: true })
     }
-    
+
     //Disable the minus button on the product details page if the quantity is 1
     useEffect(() => {
         if (quantity === 1) {
@@ -60,53 +61,53 @@ export function ProductDetails({ product }: any) {
         e.preventDefault();
         setIsCare(!isCare);
     }
-    
+
 
     //get cart item & price
     const selectedProduct = selectedOption[0]?.node
-    const q = quantity.toString() //convert to string due to graphql strict type
-    const totalPrice = (selectedProduct?.price * quantity).toString() // convert to string due to graphql strict type incase of floating point numbers
-    
-    const lineItem ={ ...selectedProduct, name: product.node.title, quantity: q, totalPrice: totalPrice }
-    
+    const q = quantity 
+    const totalPrice = (selectedProduct?.price * quantity).toFixed(2)
+
+    const lineItem = { ...selectedProduct, name: product.node.title, quantity: q, totalPrice: totalPrice }
+
     const addtoCart = (e: any) => {
         e.preventDefault()
-        
-        if(isActive.isActive === false){
+
+        if (isActive.isActive === false) {
             toast.error('Please select a size');
         }
-        else if (lineItems.find((item: { id: any; title: string}) => item.id === lineItem?.id && item.title === lineItem?.title)){ 
-            toast.error(`Item already in cart`) 
-         }
-        else{
+        else if (lineItems.find((item: { id: any; title: string }) => item.id === lineItem?.id && item.title === lineItem?.title)) {
+            toast.error(`Item already in cart`)
+        }
+        else {
             addToCart(lineItem)
             toast.success(`Item added to your cart`);
             isCart ? toggleCart() : toggleCart()
-        }    
+        }
     }
     
     const defaultPrice = 149.99 //used as a placeholder for the price of the product before size is selected. 
     //Because price is dependent on the size of the product, the price is set to a default value of 149.99 being the minimum price of the products.
     return (<>
-        <div className="mx-4 md:mx-auto max-w-[100%] md:w-[35%] h-full bg-white md:sticky top-0 dark:bg-black ">
+        <div className="mx-4 md:mx-auto max-w-[100%] md:w-[40%] h-full bg-white md:sticky top-0 dark:bg-black px-8">
             <div className="mt-16">
                 <h1 className="pt-8 pb-2 text-sm font-light text-gray-400 uppercase">{product.node.vendor}<span className="text-xl font-bold text-gold">.</span> </h1>
                 <h1 className="text-2xl text-gray-800 font-regular dark:text-myGray">{product.node.title}</h1>
-                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? selectedOption[0]?.node.price * quantity : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
+                <p className="text-[15px] font-bold text-gray-800 dark:text-myGray py-4">${selectedOption[0]?.node.price * quantity ? (selectedOption[0]?.node.price * quantity).toFixed(2) : defaultPrice * quantity} {product.node.priceRange.maxVariantPrice.currencyCode}</p>
                 
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
                     <div className="flex flex-row ">
-                        {variants.map((variant: any) => <button className={`${isActive.isActive && isActive.id === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900": ""} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
+                        {variants.map((variant: any) => <button className={`${isActive.isActive && isActive.id === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900" : ""} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
                         )}
                     </div>
                 </div>
-
+                
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-6 font-semibold">Quantity</p>
                     <div className="flex flex-row justify-between my-2">
                         <div className="flex flex-row">
-                            
+
                             <button className={` ${isDisabled ? 'opacity-50' : ''} flex h-8 w-10 border border-gray-300 mx-auto items-center text-center justify-center text-sm rounded-sm mr-2`} onClick={decreaseQuantity} disabled={isDisabled}>
                                 <AiOutlineMinus className="text-gray-900 dark:text-myGray" size="14" />
                             </button>
@@ -162,5 +163,5 @@ export function ProductDetails({ product }: any) {
             </div>
         </div>
 
-        </>)
+    </>)
 }

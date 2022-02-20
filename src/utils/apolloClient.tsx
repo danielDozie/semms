@@ -6,12 +6,11 @@ import {
 
 import { setContext } from "@apollo/client/link/context";
 
-const httpLink = createHttpLink({ uri: 'https://semmslux.myshopify.com/api/2022-01/graphql.json' });
+const httpLink = createHttpLink({ uri: 'https://semmslux.myshopify.com/api/graphql'});
 
 const middlewareLink = setContext(() => ({
   headers: {
-    'X-Shopify-Storefront-Access-Token': '412eafb22aea4bcba33ab917051e5be7',
-    //'Content-Type': 'application/graphql', // <-- THIS IS AN ISSUE FOR ME: RESOLVED https://stackoverflow.com/questions/57795321/apollo-graphql-client-formatting-requests-improperly?answertab=votes#tab-top
+    'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_TOKEN,
     'Content-Type': 'application/json',
   }
 }))
