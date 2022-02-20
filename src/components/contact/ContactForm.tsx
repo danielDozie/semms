@@ -6,7 +6,7 @@ import { ContactFormInput } from '../Types';
 export default function ContactForm() {
     const { register, formState: { errors }, handleSubmit } = useForm<ContactFormInput>();
     const onSubmit: SubmitHandler<ContactFormInput> = data => alert(JSON.stringify(data));
-
+    
     return (
         <>
             <div className="flex flex-col w-full md:w-1/2 mx-auto py-12 px-4 md:px-8">

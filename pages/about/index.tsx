@@ -17,7 +17,7 @@ export default function index() {
                 <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
             </div>
             
-            <div className="w-100 bg-gold dark:bg-black">
+            <div className="w-full bg-gold dark:bg-black">
                 <div className="flex flex-col w-[80%] mx-auto py-12">
                     <WhoWeAre />
                 </div>

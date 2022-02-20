@@ -18,12 +18,14 @@ export default function index() {
                 <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
             </div>
 
+            <div className="max-w-7xl mx-auto ">
             <div className="flex flex-col md:flex-row w-100">
                 <GoogleMap />
                 <ContactForm />
             </div>
             <div className="w-[80%] mx-auto">
                 <ContactBanner />
+            </div>
             </div>
         </>
     )

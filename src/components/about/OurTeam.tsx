@@ -11,7 +11,7 @@ export function OurTeam() {
                         <p className="pt-8 text-sm font-light text-gray-800 dark:text-myGray ">We carry tested and trusted top luggage, handbags, accessories, kids collections, and more. With a wide variety of brands, thousands of products, and customer-generated ratings and reviews, we are committed to helping our customers find the best travel bags and accessories at the right price. We pride ourselves on having the knowledge and experience to help our customers choose the very best in our product catalog.</p>
                         <div className="pt-8">
                             <Link href="/contact">
-                            <button className="w-[50%] md:w-[30%] h-10 bg-myGray shadow-md text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-sm md:text-sm rounded-md || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300">
+                            <button className="w-[50%] md:w-[30%] h-10 bg-gray-900 shadow-md text-myGray dark:bg-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-800 dark:hover:bg-gold dark:hover:text-myGray font-normal py-1 md:py-[6px] px-2 md:px-4 border-gray-200 text-sm md:text-sm rounded-md || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300">
                                 Get in touch
                             </button>
                             </Link>
