@@ -6,7 +6,7 @@ const Toggle = () => {
     const { theme, setTheme }: any = React.useContext(ThemeContext);
     return (
         <div className="flex cursor-pointer" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            {theme === 'dark' ? (<>
+            {theme ? (<>
                 <BsFillSunFill size={15}
                     className="text-gold dark:text-gold text-lg mt-1 mr-2 || transition duration-500 ease-in-out"
                 />
