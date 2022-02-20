@@ -20,7 +20,7 @@ export default function GoogleMap({ defaultProps }: any) {
         <div className="w-full md:w-1/2">
             <div style={{ height: '500px', width: '100%' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: 'AIzaSyCGEi097VCJi8SHJx6glnTg-9JMIeRf1dY' }}
+                    bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY }}
                     defaultCenter={defaultProps.center}
                     defaultZoom={defaultProps.zoom}
                 >
