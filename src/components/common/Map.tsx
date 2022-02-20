@@ -15,12 +15,13 @@ export default function GoogleMap({ defaultProps }: any) {
         },
         zoom: 14
     };
+    const mapAPIKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY as string;
     return (
         // Important! Always set the container height explicitly
         <div className="w-full md:w-1/2">
             <div style={{ height: '500px', width: '100%' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY }}
+                    bootstrapURLKeys={{ key: mapAPIKey }}
                     defaultCenter={defaultProps.center}
                     defaultZoom={defaultProps.zoom}
                 >
