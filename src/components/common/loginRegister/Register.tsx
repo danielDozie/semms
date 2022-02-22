@@ -5,10 +5,12 @@ import { HiX } from "react-icons/hi";
 import { useLoginStore, useRegisterStore } from "../../../store/store";
 import Image from "next/image";
 import { RegForm, FormInput } from "../../Types";
-// import { useMutation } from "@apollo/client";
-// import { CREATE_CUSTOMER } from "../../../graphql/customerMutation";
-import { useState } from "react";
-const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
+import { useMutation } from "@apollo/client";
+import { CREATE_CUSTOMER } from "../../../graphql/customerMutation";
+import React from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { toast } from "react-hot-toast";
+const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 
 //Registration Form
 const RegisterForm = ({ isRegisterForm }: RegForm) => {
@@ -16,40 +18,103 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
   const toggleRegisterForm = useRegisterStore(
     (state) => state.toggleRegisterForm
   );
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = React.useState({
     firstname: "",
     lastname: "",
     email: "",
     phone: "",
+    password: "",
   })
+
+  const [err, setErr] = React.useState<any>({});
+  const [regData, setRegData] = React.useState<any>({})
+  const [buttonLoading, setButtonLoading] = React.useState(false);
+
+  //create user mutation
+  const [createCustomer, { error, data }] = useMutation(CREATE_CUSTOMER, {
+    variables: {
+      "input": {
+        "firstName": formData.firstname,
+        "lastName": formData.lastname,
+        "email": formData.email,
+        "phone": formData.phone,
+        "password": formData.password,
+      }
+    }
+  });
+  error;
+  data;
+
+  React.useEffect(() => {
   
-  const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
-  const onSubmit: SubmitHandler<FormInput> = data => setFormData(data);
-  
+  }, [data, error, regData, err])
+
+  React.useEffect(() => {
+    if (data) {
+      setRegData(data)
+      setButtonLoading(false)
+
+      if (data.customerCreate.customerUserErrors.length > 0) {
+        setErr(data.customerCreate.customerUserErrors)
+        setButtonLoading(false);
+        toast.error("Registration Failed. Please try again", {
+          position: "bottom-center",
+          duration: 4000,
+        })
+      }
+      else {
+        setButtonLoading(false);
+        toast.success("Registration Successful. Please login", {
+          position: "bottom-center",
+          duration: 4000,
+        })
+        reset()
+        //toggle login form
+        setTimeout(() => {
+          toggleRegisterForm();
+          toggleLoginForm();
+        }, 500);
+      }
+    }
+    if (error) {
+      setButtonLoading(false)
+      toast.error("There was an error creating your account. Please try again in 2 minutes", {
+        position: "bottom-center",
+        duration: 4000,
+      })
+      reset()
+    }
+  }, [data, error])
+
+
+  //Form state and handles
+  const { register, formState: { errors }, handleSubmit, reset } = useForm<FormInput>();
+  const onSubmit: SubmitHandler<FormInput> = inputdata => {
+    setFormData(inputdata);
+    setButtonLoading(true);
+    setTimeout(() => {
+      //  try {
+      //   createCustomer();
+      //   setRegData(data);
+      //   setErr(error);
+
+      //  } catch (error) {
+      //    setButtonLoading(false)
+      //    console.log(error);
+      //  }
+      createCustomer();
+      setRegData(data);
+      setErr(error);
+    }, 2000);
+  };
+
   const showLogin = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     toggleRegisterForm();
     toggleLoginForm();
   };
-  // const [createCustomer, { loading, error, data }] = useMutation(CREATE_CUSTOMER, {
-  //   variables: {
-  //     "input": {
-  //       "firstName": formData.firstname,
-  //       "lastName": formData.lastname,
-  //       "email": formData.email,
-  //       "phone": formData.phone,
-  //     }
-  //   }
-  // });
-  // (loading) ? "Loading..." :
-  //   (error) ? error.message :
-  //     (data) ? console.log(data) : null;
-  
-  // const onSubmitRegister = (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
-  //   createCustomer()
-  // }
-  
+ 
   return (
     <>
       <div
@@ -83,7 +148,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     Register
                   </h1>
                 </div>
-                
+
                 <div className="mb-4">
                   <label
                     htmlFor="firstname"
@@ -125,7 +190,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   />
                   <p className="text-xs italic text-red-400">
                     {errors.lastname?.type === "required" &&
-                      "Last name is required"}{" "}
+                      "Last name is required"}
                   </p>
                 </div>
 
@@ -143,16 +208,14 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     type="email"
                     placeholder="Email"
                     {...register("email", {
-                      required: true,
-                      pattern:
-                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                      required: true
                     })}
                   />
                   <p className="text-xs italic text-red-400">
                     {errors.email?.type === "required" && "Email is required"}
                   </p>
                 </div>
-                
+
                 <div className="mb-4">
                   <label
                     htmlFor="phone"
@@ -165,11 +228,11 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   <input
                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                     type="tel"
-                    placeholder="Phone"
+                    placeholder="+16135551212"
                     {...register("phone", {
                       required: true,
-                      minLength: 10,
-                      maxLength: 11,
+                      min: 10,
+                      maxLength: 15,
                     })}
                   />
                   <p className="text-xs italic text-red-400">
@@ -177,7 +240,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   </p>
                 </div>
 
-                {/* <div className="mb-6">
+                <div className="mb-6">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-semibold text-gray-900 dark:text-myGray"
@@ -196,27 +259,33 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                     {errors.password?.type === "required" &&
                       "Password is required"}
                   </p>
-                </div> */}
+                </div>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-light text-gray-700">
-                    {/* <a href="#" className="no-underline text-gold hover:underline">
-                                  Forgot Password?
-                              </a> */}
+                  <h3 className="text-xs italic font-light text-gray-700">
+                    <a href="#" className="no-underline text-gold hover:underline">
+                      Forgot Password?
+                    </a>
                   </h3>
-                  <button
+                  {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-5 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
+                    <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
+                      <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Processing...</p>
+                    </div>
+
+                  </button>) : (<button
                     type="submit"
                     className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
                     Create account
                     <FiUserPlus className="inline-block w-4 h-4 ml-2" />
-                  </button>
+                  </button>)}
                 </div>
+
               </div>
               <div className="py-4 text-center text-white bg-gray-900 rounded dark:bg-black">
                 <div className="flex items-center justify-between mx-4">
                   <h3 className="text-xs font-light text-gray-700">
                     <a
                       href="#"
-                      className="no-underline text-gold hover:underline"
+                      className="no-underline text-gold hover:underline italic"
                     >
                       Already have an account?
                     </a>

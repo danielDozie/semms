@@ -2,17 +2,17 @@ import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginStore, useRegisterStore } from "../../../store/store";
 import { ILoginForm, FormInput } from "../../Types";
-// import { useMutation } from "@apollo/client";
-// import { CREATE_CUSTOMER_ACCESS_TOKEN } from "../../../graphql/customerMutation";
 import { BiLogInCircle } from 'react-icons/bi';
 import { FiUserPlus } from 'react-icons/fi';
 import { HiX } from 'react-icons/hi';
-import Image from  'next/image'
-const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
+import Image from 'next/image'
+import { useMutation } from '@apollo/client';
+import { CREATE_CUSTOMER_ACCESS_TOKEN } from '../../../graphql/customerMutation';
+import toast from 'react-hot-toast';
+const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 
 
-
-export const LoginForm = ({ isLoginForm}: ILoginForm) => {
+export const LoginForm = ({ isLoginForm }: ILoginForm) => {
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const toggleRegisterForm = useRegisterStore(
     (state) => state.toggleRegisterForm
@@ -21,32 +21,61 @@ export const LoginForm = ({ isLoginForm}: ILoginForm) => {
     email: "",
     password: "",
   });
-  const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
-  const onSubmit: SubmitHandler<FormInput> = data => setFormData(data);
-  
+
+  const [accessToken, setAccessToken] = React.useState("");
+
   const showReg = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     toggleLoginForm()
     toggleRegisterForm();
   }
-  
-  // const [customerAccessToken, { loading, error,data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
-  //   variables:{
-  //     input:{
-  //       email: formData.email,
-  //       password: formData.password,
-  //     }
-  //   }
-  // });
-  // (loading)? "Loading...": 
-  // (error)? error.message:
-  // (data)? console.log(data): null
-  
-  // const onSubmitLogin = (e: { preventDefault: () => void; }) => {
-  //   e.preventDefault();
-  //   customerAccessToken()
-  // }
-  
+
+  const [customerAccessToken, { loading, error, data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
+    variables: {
+      input: {
+        email: formData.email,
+        password: formData.password,
+      }
+    }
+  });
+  error;
+  data;
+
+  React.useEffect(() => {
+
+  }, [data, error, accessToken])
+
+  const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
+  const onSubmit: SubmitHandler<FormInput> = inputdata => {
+    setFormData(inputdata);
+    setTimeout(() => {
+      customerAccessToken()
+    }, 2000)
+  }
+
+  React.useEffect(() => {
+    if (data) {
+      setAccessToken(data)
+      if (data?.customerAccessToken?.customerUserErrors?.length === 0) {
+        console.log(data?.customerAccessToken?.customerUserErrors)
+        toast.error("Login Failed", {
+          position: "bottom-center",
+          duration: 3000,
+        })
+      }
+      else {
+        console.log(data?.customerAccessToken?.accessToken)
+        toast.success("Login Successful", {
+          position: "bottom-center",
+          duration: 3000,
+        })
+        toggleLoginForm();
+      }
+
+    }
+  }, [data])
+
+
   return (
     <>
       <div
