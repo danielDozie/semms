@@ -3,31 +3,31 @@ import create from 'zustand'
 import { persist, devtools } from "zustand/middleware"
 
 interface CartStore {
-    lineItems: {}[],
-    addToCart: (lineItems: []) => void,
-    productCount: number,
-    setProductCount: (productCount: number) => void,
-    removeItem: (id: string) => void,
+    lineItems: any,
+    addToCart:any
+    productCount: any,
+    setProductCount: any
+    removeItem: any
 }
 
 export const useCartStore = create<CartStore>(persist(devtools(
     set => ({
         lineItems: [],
         addToCart: (lineItem: []) => {
-            set((state: { lineItems: {}[] }) => ({
+            set((state: { lineItems: any}) => ({
                 lineItems: [...state.lineItems, lineItem]
             }))
         },
         productCount: 0,
-        setProductCount: (count: number) => {
-            set((state: { productCount: number }) => ({
+        setProductCount: (count: any) => {
+            set((state: { productCount: any }) => ({
                 productCount: state.productCount = count
             }))
         },
         
-        removeItem: (id: string) => {
-            set((state: { lineItems: any[] }) => ({
-                lineItems: state.lineItems.filter((item: { id: string }) => item.id !== id)
+        removeItem: (id: any) => {
+            set((state: { lineItems: any }) => ({
+                lineItems: state.lineItems.filter((item: { id: any }) => item.id !== id)
             }))
         }
     })
