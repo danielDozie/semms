@@ -6,6 +6,7 @@ interface CartStore {
     lineItems: {}[],
     addToCart: (lineItems: []) => void,
     productCount: number,
+    removeItem: (id: string) => void,
 }
 
 export const useCartStore = create<CartStore>(persist(devtools(
@@ -23,9 +24,9 @@ export const useCartStore = create<CartStore>(persist(devtools(
             }))
         },
         
-        removeItem: (id: any) => {
-            set((state: { lineItems: any }) => ({
-                lineItems: state.lineItems.filter((item: { id: any }) => item.id !== id)
+        removeItem: (id: string) => {
+            set((state: { lineItems: any[] }) => ({
+                lineItems: state.lineItems.filter((item: { id: string }) => item.id !== id)
             }))
         }
     })
