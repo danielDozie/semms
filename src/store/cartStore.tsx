@@ -6,6 +6,7 @@ interface CartStore {
     lineItems: {}[],
     addToCart: (lineItems: []) => void,
     productCount: number,
+    setProductCount: (productCount: number) => void,
     removeItem: (id: string) => void,
 }
 
