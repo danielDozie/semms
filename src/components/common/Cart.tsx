@@ -162,7 +162,7 @@ export function ItemSection() {
     const id = e.currentTarget.id;
     e.preventDefault();
     const itemCount = lineItems.find((item: any) => item.id === id);
-    const removedCount = parseInt(itemCount.quantity);
+    const removedCount = parseInt(itemCount?.quantity);
 
     if (lineItems.length === 0) {
       setProductCount(0);
@@ -177,22 +177,22 @@ export function ItemSection() {
     e.preventDefault();
     const id = e.currentTarget.id;
     const item = lineItems.find((item: any) => item.id === id);
-    const newQuantity = parseFloat(item.quantity) + 1;
+    const newQuantity = parseFloat(item?.quantity) + 1;
     setProductCount(newQuantity);
-    item.quantity = newQuantity.toString();
-    item.totalPrice = item.price * newQuantity;
+    item?.quantity = newQuantity.toString();
+    item?.totalPrice = item?.price * newQuantity;
 
-    (item.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
+    (item?.id === e.currentTarget.id && newQuantity > 1) ? setIsDisabled(false) : setIsDisabled(true);
   };
 
   const decreaseQuantity = (e: any) => {
     e.preventDefault();
     const id = e.currentTarget.id;
     const item = lineItems.find((item: any) => item.id == id);
-    const newQuantity = parseFloat(item.quantity) - 1;
+    const newQuantity = parseFloat(item?.quantity) - 1;
     setProductCount(newQuantity);
-    item.quantity = newQuantity.toString();
-    item.totalPrice = item.price * newQuantity;
+    item?.quantity = newQuantity.toString();
+    item?.totalPrice = item?.price * newQuantity;
     if (newQuantity === 0) {
       removeCartItem(e);
       setProductCount(0);
