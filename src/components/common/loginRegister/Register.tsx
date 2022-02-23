@@ -94,15 +94,6 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
     setFormData(inputdata);
     setButtonLoading(true);
     setTimeout(() => {
-      //  try {
-      //   createCustomer();
-      //   setRegData(data);
-      //   setErr(error);
-
-      //  } catch (error) {
-      //    setButtonLoading(false)
-      //    console.log(error);
-      //  }
       createCustomer();
       setRegData(data);
       setErr(error);
@@ -266,14 +257,14 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                       Forgot Password?
                     </a>
                   </h3>
-                  {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-5 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
+                  {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
                     <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
                       <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Processing...</p>
                     </div>
-
+                  
                   </button>) : (<button
                     type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
+                    className="bg-gold hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
                     Create account
                     <FiUserPlus className="inline-block w-4 h-4 ml-2" />
                   </button>)}
@@ -292,7 +283,7 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
                   </h3>
                   <button
                     className="px-2 py-1 text-xs font-light text-gray-900 rounded bg-gold hover:bg-gold-dark focus:outline-none focus:shadow-outline"
-                    onClick={showLogin}
+                    onClick={showLogin} 
                   >
                     Login
                     <BiLogInCircle className="inline-block w-3 h-3 ml-2" />

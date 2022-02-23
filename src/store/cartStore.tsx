@@ -3,15 +3,16 @@ import create from 'zustand'
 import { persist, devtools } from "zustand/middleware"
 
 interface CartStore {
-    lineItems: any[],
-    addToCart: () => void,
+    lineItems: {}[],
+    addToCart: (lineItems: []) => void,
+    productCount: number,
 }
 
-export const useCartStore = create<any>(persist(devtools(
+export const useCartStore = create<CartStore>(persist(devtools(
     set => ({
         lineItems: [],
-        addToCart: (lineItem: any) => {
-            set((state: { lineItems: any }) => ({
+        addToCart: (lineItem: []) => {
+            set((state: { lineItems: {}[] }) => ({
                 lineItems: [...state.lineItems, lineItem]
             }))
         },
@@ -31,7 +32,7 @@ export const useCartStore = create<any>(persist(devtools(
 ),
     {
         name: "cart-storage", // name of item in the storage (must be unique)
-        getStorage: () => sessionStorage, // (optional) by default the 'localStorage' is used
+        getStorage: () => localStorage, // (optional) by default the 'localStorage' is used
     }
 
 ))

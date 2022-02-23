@@ -1,3 +1,4 @@
+import React from "react";
 import { FiSearch, FiUser } from "react-icons/fi";
 import { CgShoppingBag } from "react-icons/cg";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
@@ -11,7 +12,8 @@ import { useCartStore } from "../../store/cartStore";
 import _ from "lodash";
 import { motion, AnimatePresence } from "framer-motion";
 import { mobileMenuAnimation } from "./commonAnimation";
-const logo ="https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
+import { useCustomerStore } from "../../store/customerStore";
+const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 /**
  * A client component that specifies the content of the header on the website
  */
@@ -26,9 +28,37 @@ export default function Header() {
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const isRegisterForm = useRegisterStore((state) => state.isRegisterForm)
   const [count, setCount] = useState(0);
-
+  const accessToken = useCustomerStore((state) => state.accessToken);
+  const [localAccessToken, setLocalAccessToken] = React.useState({
+    state:{
+      accessToken: ""
+    }
+  });
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  
+  React.useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      let localStorageToken = localStorage?.getItem("customerAccessToken");
+      let localToken = JSON.parse(localStorageToken as string);
+      setLocalAccessToken(localToken);
+    }
+    return () => {
+      mounted = false;
+    }
+  }, []);
+  
+  React.useEffect(() => {
+    if (accessToken && accessToken === localAccessToken.state.accessToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(!isLoggedIn);
+    }
+  }, [accessToken, localAccessToken]);
+  
+  
   //hide the cart icon if there are no products in the cart
-  useEffect(() => {
+  React.useEffect(() => {
     setCount(productCount);
     if (productCount === 0) {
       setHasProducts(false);
@@ -38,7 +68,7 @@ export default function Header() {
   }, [productCount, hasProducts]);
 
   //Disable scroll when menu is open
-  useEffect(() => {
+  React.useEffect(() => {
     if (isMobileMenu) {
       document.body.style.overflow = "hidden";
     } else {
@@ -47,7 +77,7 @@ export default function Header() {
   }, [isMobileMenu]);
 
   //Disable scroll when cart is open
-  useEffect(() => {
+  React.useEffect(() => {
     if (isCart) {
       document.body.style.overflow = "hidden";
     } else {
@@ -69,7 +99,7 @@ export default function Header() {
     toggleCart();
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isLoginForm) {
       document.body.style.overflow = "hidden";
     } else {
@@ -77,13 +107,20 @@ export default function Header() {
     }
   }, [isLoginForm]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isRegisterForm) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "visible";
     }
   }, [isRegisterForm]);
+  
+
+  const logout = () => {
+    localStorage.removeItem("customerAccessToken");
+    setIsLoggedIn(!isLoggedIn);
+  }
+  
 
   return (
     <>
@@ -119,33 +156,32 @@ export default function Header() {
             </div>
           </div>
           {/* cart elements */}
-          <div className="-mt-1">
-            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
+          <div className="flex -mt-1">
+            <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               <FiSearch size={23} className="inline-block mr-6" />
-            </span>
-            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
-              <FiUser
+            </div>
+            <div className="text-sm font-normal leading-none cursor-pointer text-gold">
+              {isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
                 size={23}
                 className="inline-block mr-6"
                 onClick={toggleLoginForm}
-              />
-            </span>
-            <span className="text-sm font-normal leading-none cursor-pointer text-gold">
+              />}
+            </div>
+            <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag
                 size={23}
                 className="inline-block mr-2"
                 onClick={cartToggle}
               />
-              <span
-                className={`${
-                  hasProducts ? "" : "hidden"
-                } h-4 w-4 bg-gold absolute rounded-full text-center -ml-4`}
+              <div
+                className={`${hasProducts ? "" : "hidden"
+                  } h-4 w-4 bg-gold absolute rounded-full text-center -ml-4`}
               >
                 <span className="font-light text-[10px] text-myGray dark:text-black">
                   {count}
                 </span>
-              </span>
-            </span>
+              </div>
+            </div>
           </div>
         </div>
         <Cart isCart={isCart} cartToggle={cartToggle} />
@@ -159,9 +195,8 @@ export default function Header() {
             animate="overlay"
             exit="exitOverlay"
             variants={mobileMenuAnimation}
-            className={`${
-              isMobileMenu ? "flex" : "hidden"
-            } z-35 w-full h-screen fixed bg-gray-900/80 md:hidden overflow-hidden`}
+            className={`${isMobileMenu ? "flex" : "hidden"
+              } z-35 w-full h-screen fixed bg-gray-900/80 md:hidden overflow-hidden`}
             onClick={toggleMenu}
           />
         )}
@@ -188,9 +223,8 @@ export default function Header() {
               onClick={cartToggle}
             />
             <span
-              className={`${
-                hasProducts ? "" : "hidden"
-              } h-4 w-4 bg-gold absolute rounded-full text-center -ml-2 mt-3`}
+              className={`${hasProducts ? "" : "hidden"
+                } h-4 w-4 bg-gold absolute rounded-full text-center -ml-2 mt-3`}
             >
               <span className="font-light text-[10px] text-myGray dark:text-black">
                 {count}
@@ -199,18 +233,18 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <MobileMenu isMobileMenu={isMobileMenu} />
+      <MobileMenu isMobileMenu={isMobileMenu} isLoggedIn={isLoggedIn} logout={logout} />
       <Cart isCart={isCart} cartToggle={cartToggle} />
     </>
   );
 }
 
 //Mobile menu
-export function MobileMenu({ isMobileMenu }: any) {
+export function MobileMenu({ isMobileMenu, isLoggedIn, logout }: any) {
   const toggleMobileMenu = useMobileNav((state) => state.toggleMobileMenu);
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const toggleRegisterForm = useRegisterStore(state => state.toggleRegisterForm)
-
+  
   return (
     <div>
       <AnimatePresence>
@@ -221,18 +255,21 @@ export function MobileMenu({ isMobileMenu }: any) {
               animate="show"
               exit="exit"
               variants={mobileMenuAnimation}
-              className={`${
-                isMobileMenu ? "flex" : "hidden"
-              } z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[3.8em] md:hidden`}
+              className={`${isMobileMenu ? "flex" : "hidden"
+                } z-20 flex-wrap w-[80%] h-screen fixed bg-white dark:bg-black mt-[3.8em] md:hidden`}
             >
               <div className="mt-[4em] mx-8 overflow-auto">
                 <div className="py-4">
                   <div className="flex pb-4 gap-x-2">
-                    <h1 className="my-4 text-lg font-normal text-gray-800 dark:text-gray-300">
+                    <h1 className="my-4 text-lg italic font-semibold text-gray-800 dark:text-gray-300 cursor-pointer">
                       Hello Guest
                     </h1>
                     <div>
-                      <div className="w-5 h-5 mt-5 rounded-full bg-gradient-to-r from-yellow-800 to-gold" />
+                    {isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
+                size={23}
+                className="inline-block mt-[18px] md:mr-6 text-gold "
+                onClick={toggleLoginForm}
+              />}
                     </div>
                   </div>
                   <p className="text-sm font-normal leading-none text-gray-800 dark:text-gray-300">
@@ -284,7 +321,15 @@ export function MobileMenu({ isMobileMenu }: any) {
                   </ul>
                 </div>
 
-                <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
+                {isLoggedIn ? (<>
+                  <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
+                  <div onClick={logout}>
+                    <Link href="#">Logout</Link>
+                  </div>
+                </div>
+                </>) : (
+                  <>
+                  <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
                   <div onClick={toggleLoginForm}>
                     <Link href="#">Login</Link>
                   </div>
@@ -292,6 +337,8 @@ export function MobileMenu({ isMobileMenu }: any) {
                     <Link href="#">Register</Link>
                   </div>
                 </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </>
@@ -300,6 +347,13 @@ export function MobileMenu({ isMobileMenu }: any) {
     </div>
   );
 }
+
+
+export const LoggedInUser = () => {
+  return (<div className="w-5 h-5 mt-5 md:mr-6 md:mt-0 rounded-full bg-gradient-to-r from-yellow-800 to-gold" />)
+}
+
+
 
 //Menu items
 const menuItem = [

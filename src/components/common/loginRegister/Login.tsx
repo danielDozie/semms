@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLoginStore, useRegisterStore } from "../../../store/store";
+import { useRegisterStore, useLoginStore } from "../../../store/store";
+import { useCustomerStore } from '../../../store/customerStore'
 import { ILoginForm, FormInput } from "../../Types";
 import { BiLogInCircle } from 'react-icons/bi';
 import { FiUserPlus } from 'react-icons/fi';
@@ -9,20 +10,22 @@ import Image from 'next/image'
 import { useMutation } from '@apollo/client';
 import { CREATE_CUSTOMER_ACCESS_TOKEN } from '../../../graphql/customerMutation';
 import toast from 'react-hot-toast';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
-
 
 export const LoginForm = ({ isLoginForm }: ILoginForm) => {
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const toggleRegisterForm = useRegisterStore(
     (state) => state.toggleRegisterForm
   );
+  const accessToken = useCustomerStore((state) => state.accessToken);
+  const setAccessToken = useCustomerStore((state) => state.setAccessToken);
+  const setExpiresAt = useCustomerStore((state) => state.setExpiresAt);
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
-
-  const [accessToken, setAccessToken] = React.useState("");
+  const [buttonLoading, setButtonLoading] = React.useState(false);
 
   const showReg = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -41,40 +44,49 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
   error;
   data;
 
-  React.useEffect(() => {
-
-  }, [data, error, accessToken])
-
   const { register, formState: { errors }, handleSubmit } = useForm<FormInput>();
   const onSubmit: SubmitHandler<FormInput> = inputdata => {
     setFormData(inputdata);
+    setButtonLoading(true);
     setTimeout(() => {
       customerAccessToken()
-    }, 2000)
+    }, 1000)
   }
 
   React.useEffect(() => {
-    if (data) {
-      setAccessToken(data)
-      if (data?.customerAccessToken?.customerUserErrors?.length === 0) {
-        console.log(data?.customerAccessToken?.customerUserErrors)
-        toast.error("Login Failed", {
+
+    //For cleaning up the side effect
+    let mounted = true
+
+    if (mounted && data) {
+      setButtonLoading(false)
+      if (data?.customerAccessTokenCreate?.customerUserErrors.length > 0) {
+        setButtonLoading(false)
+        toast.error("Login Failed. Check your details and try again.", {
           position: "bottom-center",
           duration: 3000,
         })
       }
       else {
-        console.log(data?.customerAccessToken?.accessToken)
+        setButtonLoading(false)
+        setAccessToken(data?.customerAccessTokenCreate?.customerAccessToken?.accessToken)
+        setExpiresAt(data?.customerAccessTokenCreate?.customerAccessToken?.expiresAt)
         toast.success("Login Successful", {
           position: "bottom-center",
           duration: 3000,
-        })
-        toggleLoginForm();
-      }
+        });
 
+        setTimeout(() => {
+          toggleLoginForm()
+        }, 500)
+      }
+    };
+
+    //Clean-up
+    return () => {
+      mounted = false
     }
   }, [data])
-
 
   return (
     <>
@@ -163,12 +175,18 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
                       Forgot Password?
                     </a>
                   </h3>
-                  <button
-                    type="submit"
-                    className="bg-gold hover:bg-gold-dark text-white font-normal text-sm py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
-                    Login
-                    <BiLogInCircle className="inline-block w-4 h-4 ml-2" />
-                  </button>
+                  {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
+                    <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
+                      <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Logging in...</p>
+                    </div>
+                  </button>) :
+                    (<button
+                      type="submit"
+                      className="bg-gold hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-900">
+                      Login
+                      <BiLogInCircle className="inline-block w-4 h-4 ml-2" />
+                    </button>)
+                  }
                 </div>
               </div>
               <div className="py-4 text-center text-white bg-gray-900 rounded dark:bg-black">
