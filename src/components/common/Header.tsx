@@ -3,23 +3,30 @@ import { FiSearch, FiUser } from "react-icons/fi";
 import { CgShoppingBag } from "react-icons/cg";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
 import Link from "next/link";
-import useMobileNav, { useLoginStore, useRegisterStore } from "../../store/store";
+import useMobileNav, { useAccountCardStore, useAccountCardStoreMobile, useLoginOutStore, useLoginStore, useRegisterStore } from "../../store/store";
 import { useCart } from "../../store/store";
 import Cart from "./Cart";
-import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useCartStore } from "../../store/cartStore";
 import _ from "lodash";
 import { motion, AnimatePresence } from "framer-motion";
 import { mobileMenuAnimation } from "./commonAnimation";
-import { useCustomerStore } from "../../store/customerStore";
+import { useCustomerDetailsStore, useCustomerStore } from "../../store/customerStore";
+import { FaUserCircle } from "react-icons/fa";
+import { BiCaretDown } from "react-icons/bi";
+import { AccountCard } from "./AccountCard";
+import toast from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AccountCardMobile } from "./AccountCardMobile";
+import { useQuery } from "@apollo/client";
+import { CUSTOMER_DETAILS } from "../../graphql/customerQuery";
 const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 /**
  * A client component that specifies the content of the header on the website
  */
 export default function Header() {
   const productCount = useCartStore((state) => state.productCount);
-  const [hasProducts, setHasProducts] = useState(false);
+  const [hasProducts, setHasProducts] = React.useState(false);
   const isMobileMenu = useMobileNav((state) => state.isMobileMenu);
   const toggleMobileMenu = useMobileNav((state) => state.toggleMobileMenu);
   const isCart = useCart((state: { isCart: any }) => state.isCart);
@@ -27,14 +34,16 @@ export default function Header() {
   const isLoginForm = useLoginStore((state) => state.isLoginForm);
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const isRegisterForm = useRegisterStore((state) => state.isRegisterForm)
-  const [count, setCount] = useState(0);
+  const [count, setCount] = React.useState(0);
   const accessToken = useCustomerStore((state) => state.accessToken);
   const [localAccessToken, setLocalAccessToken] = React.useState({
     state:{
       accessToken: ""
     }
   });
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
+  const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
   
   React.useEffect(() => {
     let mounted = true;
@@ -49,11 +58,16 @@ export default function Header() {
   }, []);
   
   React.useEffect(() => {
-    if (accessToken && accessToken === localAccessToken.state.accessToken) {
+    let mounted = true;
+    if (mounted && accessToken && accessToken === localAccessToken?.state?.accessToken) {
       setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(!isLoggedIn);
+      setIsLoggedIn(false);
     }
+    return () => {
+      mounted = false;
+    }
+
   }, [accessToken, localAccessToken]);
   
   
@@ -115,12 +129,8 @@ export default function Header() {
     }
   }, [isRegisterForm]);
   
-
-  const logout = () => {
-    localStorage.removeItem("customerAccessToken");
-    setIsLoggedIn(!isLoggedIn);
-  }
   
+  const toggleAccountCard = useAccountCardStore((state) => state.toggleAccountCard);
 
   return (
     <>
@@ -155,13 +165,15 @@ export default function Header() {
               </ul>
             </div>
           </div>
-          {/* cart elements */}
+          {/*header right elements */}
           <div className="flex -mt-1">
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               <FiSearch size={23} className="inline-block mr-6" />
             </div>
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
-              {isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
+              {isLoggedIn && isLoggedIn ?
+              <LoggedInUser />  : 
+              <FiUser
                 size={23}
                 className="inline-block mr-6"
                 onClick={toggleLoginForm}
@@ -175,7 +187,7 @@ export default function Header() {
               />
               <div
                 className={`${hasProducts ? "" : "hidden"
-                  } h-4 w-4 bg-gold absolute rounded-full text-center -ml-4`}
+                  } h-4 w-4 bg-gold absolute rounded-full text-center -mt-3 ml-4`}
               >
                 <span className="font-light text-[10px] text-myGray dark:text-black">
                   {count}
@@ -185,6 +197,7 @@ export default function Header() {
           </div>
         </div>
         <Cart isCart={isCart} cartToggle={cartToggle} />
+        <AccountCard />
       </div>
 
       {/* mobile header */}
@@ -233,18 +246,35 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <MobileMenu isMobileMenu={isMobileMenu} isLoggedIn={isLoggedIn} logout={logout} />
+      <MobileMenu isMobileMenu={isMobileMenu} />
       <Cart isCart={isCart} cartToggle={cartToggle} />
     </>
   );
 }
 
 //Mobile menu
-export function MobileMenu({ isMobileMenu, isLoggedIn, logout }: any) {
+export function MobileMenu({ isMobileMenu }: any) {
   const toggleMobileMenu = useMobileNav((state) => state.toggleMobileMenu);
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const toggleRegisterForm = useRegisterStore(state => state.toggleRegisterForm)
+  const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
+  const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
   
+  const [loading, setLoading] = React.useState(false);
+  
+  const logout = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+        localStorage.removeItem("customerAccessToken");
+        setIsLoggedIn(false);
+        toast.success("Logged out successfully",{
+            position: 'bottom-right',
+            duration: 3000,
+        });
+    }, 2000)
+  }
+
   return (
     <div>
       <AnimatePresence>
@@ -261,23 +291,23 @@ export function MobileMenu({ isMobileMenu, isLoggedIn, logout }: any) {
               <div className="mt-[4em] mx-8 overflow-auto">
                 <div className="py-4">
                   <div className="flex pb-4 gap-x-2">
-                    <h1 className="my-4 text-lg italic font-semibold text-gray-800 dark:text-gray-300 cursor-pointer">
-                      Hello Guest
-                    </h1>
+                    <h1 className="my-4 text-[18px] font-semibold text-gray-800 dark:text-gray-300 cursor-pointer">
+                      Hello Daniel
+                    </h1> 
                     <div>
-                    {isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
+                    { isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
                 size={23}
                 className="inline-block mt-[18px] md:mr-6 text-gold "
                 onClick={toggleLoginForm}
               />}
                     </div>
                   </div>
+                  <AccountCardMobile />
                   <p className="text-sm font-normal leading-none text-gray-800 dark:text-gray-300">
                     Let&apos;s get you started already
                   </p>
                 </div>
                 <div className="my-4">
-                  {/* <input type="text" className="w-full p-2 text-sm font-light text-gray-800 border-2 rounded-md border-gold" id="search" placeholder="Search for products" /> */}
                   <div className="relative text-myGray dark:text-gray-900 focus-within:text-gray-400">
                     <input
                       type="search"
@@ -321,10 +351,12 @@ export function MobileMenu({ isMobileMenu, isLoggedIn, logout }: any) {
                   </ul>
                 </div>
 
-                {isLoggedIn ? (<>
+                {isLoggedIn && isLoggedIn ? (<>
                   <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
                   <div onClick={logout}>
-                    <Link href="#">Logout</Link>
+                    {loading ? (<><div className="flex">
+                                <h1 className="italic">Logging out...</h1> <AiOutlineLoading3Quarters size={14} className="text-gray-800 dark:text-myGray mt-1 ml-2 animate-spin" />
+                            </div></>) : (<><Link href="#">Logout</Link></>)}
                   </div>
                 </div>
                 </>) : (
@@ -350,7 +382,44 @@ export function MobileMenu({ isMobileMenu, isLoggedIn, logout }: any) {
 
 
 export const LoggedInUser = () => {
-  return (<div className="w-5 h-5 mt-5 md:mr-6 md:mt-0 rounded-full bg-gradient-to-r from-yellow-800 to-gold" />)
+  const toggleAccountCardMobile = useAccountCardStoreMobile((state) => state.toggleAccountCardMobile);
+  const toggleAccountCard = useAccountCardStore((state) => state.toggleAccountCard);
+  const customer = useCustomerDetailsStore((state) => state.customer);
+  const accessToken = useCustomerStore((state) => state.accessToken);
+  const setCustomer = useCustomerDetailsStore((state) => state.setCustomer);
+  
+    const { loading, error, data} = useQuery(CUSTOMER_DETAILS, {
+      variables: {
+        "customerAccessToken": accessToken,
+      },
+    });
+    React.useEffect(() => {
+    let mounted = true
+    if (!loading && !error && mounted) {
+      setCustomer(data.customer)
+    }
+    return () => {
+      mounted = false
+    }
+    }, [data])
+    
+    
+  
+  const toggleAccount =(e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    if (window.innerWidth < 768) {
+      toggleAccountCardMobile();
+    }
+    else {
+      toggleAccountCard();
+    }
+  }
+  
+  return (<><div className="mt-5 md:mr-6 md:mt-0 rounded-full flex mx-2 md:mx-4 drop-shadow-sm" onClick={toggleAccount}>
+    <FaUserCircle className="text-gold mx-auto w-[20px] h-[20px] md:w-[23px] md:h-[23px]" />
+    <p className="font-normal mt-1.5 md:px-1.5 hidden md:inline-block">{customer?.firstName}</p>
+    <BiCaretDown size={14} className="mt-1 md:mt-1.5 text-gold ml-1 md:ml-0"/>
+    </div></>)
 }
 
 

@@ -34,3 +34,16 @@ mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     }
   }
 }`;
+
+export const DELETE_CUSTOMER_ACCESS_TOKEN = gql`
+mutation customerAccessTokenDelete($customerAccessToken: String!) {
+  customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+    deletedAccessToken
+    deletedCustomerAccessTokenId
+    userErrors {
+      field
+      message
+    }
+  }
+}
+`

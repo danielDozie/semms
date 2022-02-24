@@ -1,14 +1,19 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface AccessToken {
+interface Customer {
     accessToken: string
     expiresAt: string
     setAccessToken: (accessToken: string) => void
     setExpiresAt: (expiresAt: string) => void
 }
 
-export const useCustomerStore = create<AccessToken>(persist(
+interface CustomerDetails {
+    customer: any,
+    setCustomer: (customer: {}) => void
+}
+
+export const useCustomerStore = create<Customer>(persist(
     set => ({
         accessToken: '',
         expiresAt: '',
@@ -23,4 +28,11 @@ export const useCustomerStore = create<AccessToken>(persist(
         name: 'customerAccessToken',
         getStorage: () => localStorage,
     }
-    ))
+))
+
+export const useCustomerDetailsStore = create<CustomerDetails>(set => ({
+    customer: {},
+    setCustomer: (customer: any) => set({
+        customer: customer
+    })
+}))

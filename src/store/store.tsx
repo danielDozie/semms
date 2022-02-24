@@ -19,6 +19,23 @@ interface RegisterForm{
     toggleRegisterForm: () => void
 }
 
+interface AccountCard {
+    isAccountCard: boolean
+    toggleAccountCard: () => void
+}
+interface AccountCardMobile {
+    isAccountCardMobile: boolean
+    toggleAccountCardMobile: () => void
+}
+interface LoginOut{
+    isLoggedIn: boolean
+    setIsLoggedIn: any
+}
+//////////////////////////////////////////
+
+
+
+
 const useMobileNav = create<MobileNav>(set => ({
     isMobileMenu: false,
     toggleMobileMenu: () => set(state => ({ isMobileMenu: !state.isMobileMenu }))
@@ -39,5 +56,20 @@ const useRegisterStore = create<RegisterForm>(set => ({
     toggleRegisterForm: () => set(state => ({ isRegisterForm: !state.isRegisterForm }))
 }))
 
+const useAccountCardStore = create<AccountCard>(set => ({
+    isAccountCard: false,
+    toggleAccountCard: () => set(state => ({ isAccountCard: !state.isAccountCard }))
+}))
+const useAccountCardStoreMobile = create<AccountCardMobile>(set => ({
+    isAccountCardMobile: false,
+    toggleAccountCardMobile: () => set(state => ({ isAccountCardMobile: !state.isAccountCardMobile }))
+}))
+
+const useLoginOutStore = create<LoginOut>(set => ({
+    isLoggedIn: false,
+    setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn: isLoggedIn })
+}))
+
+
 export default useMobileNav;
-export {useCart, useLoginStore, useRegisterStore};
+export {useCart, useLoginStore, useRegisterStore, useAccountCardStore, useLoginOutStore, useAccountCardStoreMobile};

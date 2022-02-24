@@ -1,6 +1,6 @@
 import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useRegisterStore, useLoginStore } from "../../../store/store";
+import { useRegisterStore, useLoginStore, useLoginOutStore } from "../../../store/store";
 import { useCustomerStore } from '../../../store/customerStore'
 import { ILoginForm, FormInput } from "../../Types";
 import { BiLogInCircle } from 'react-icons/bi';
@@ -18,6 +18,7 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
   const toggleRegisterForm = useRegisterStore(
     (state) => state.toggleRegisterForm
   );
+  const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
   const accessToken = useCustomerStore((state) => state.accessToken);
   const setAccessToken = useCustomerStore((state) => state.setAccessToken);
   const setExpiresAt = useCustomerStore((state) => state.setExpiresAt);
@@ -75,8 +76,8 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
           position: "bottom-center",
           duration: 3000,
         });
-
         setTimeout(() => {
+          setIsLoggedIn(true);
           toggleLoginForm()
         }, 500)
       }
