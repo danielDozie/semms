@@ -33,7 +33,7 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
     toggleLoginForm()
     toggleRegisterForm();
   }
-
+  
   const [customerAccessToken, { loading, error, data }] = useMutation(CREATE_CUSTOMER_ACCESS_TOKEN, {
     variables: {
       input: {

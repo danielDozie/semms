@@ -20,6 +20,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AccountCardMobile } from "./AccountCardMobile";
 import { useQuery } from "@apollo/client";
 import { CUSTOMER_DETAILS } from "../../graphql/customerQuery";
+import router from 'next/router'
 const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 /**
  * A client component that specifies the content of the header on the website
@@ -176,7 +177,7 @@ export default function Header() {
               <FiUser
                 size={23}
                 className="inline-block mr-6"
-                onClick={toggleLoginForm}
+                onClick={() => router.push("/account/login")}
               />}
             </div>
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
@@ -259,6 +260,7 @@ export function MobileMenu({ isMobileMenu }: any) {
   const toggleRegisterForm = useRegisterStore(state => state.toggleRegisterForm)
   const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
+  const customer = useCustomerDetailsStore((state) => state.customer);
   
   const [loading, setLoading] = React.useState(false);
   
@@ -272,6 +274,7 @@ export function MobileMenu({ isMobileMenu }: any) {
             position: 'bottom-right',
             duration: 3000,
         });
+        setLoading(false);
     }, 2000)
   }
 
@@ -292,7 +295,7 @@ export function MobileMenu({ isMobileMenu }: any) {
                 <div className="py-4">
                   <div className="flex pb-4 gap-x-2">
                     <h1 className="my-4 text-[18px] font-semibold text-gray-800 dark:text-gray-300 cursor-pointer">
-                      Hello Daniel
+                      Hello {customer?.firstName ? customer.firstName : "Guest"}
                     </h1> 
                     <div>
                     { isLoggedIn && isLoggedIn ? <LoggedInUser /> : <FiUser
@@ -362,18 +365,18 @@ export function MobileMenu({ isMobileMenu }: any) {
                 </>) : (
                   <>
                   <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
-                  <div onClick={toggleLoginForm}>
-                    <Link href="#">Login</Link>
+                  <div onClick={toggleMobileMenu}>
+                    <Link href="/account/login/">Login</Link>
                   </div>
-                  <div onClick={toggleRegisterForm}>
-                    <Link href="#">Register</Link>
+                  <div onClick={toggleMobileMenu}>
+                    <Link href="/account/register/">Register</Link>
                   </div>
                 </div>
                   </>
                 )}
               </div>
             </motion.div>
-          </>
+          </> 
         )}
       </AnimatePresence>
     </div>

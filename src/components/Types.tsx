@@ -21,6 +21,17 @@ export interface ContactFormInput {
     email: string;
     subject: string;
 }
+export interface AddressFormInput {
+    firstname: string;
+    lastname: string;
+    company: string;
+    address1: string;
+    address2: string;
+    city: string;
+    country: string;
+    postalcode: string;
+    phone: string
+}
 
 export interface RegForm {
     isRegisterForm: boolean;

@@ -24,6 +24,7 @@ export const AccountCard = () => {
                 position: 'bottom-right',
                 duration: 3000,
             });
+            setLoading(false);
         }, 2000)
       }
     
@@ -35,12 +36,12 @@ export const AccountCard = () => {
                         <h1 className="font-bold text-gold text-sm pb-2">Account</h1>
                         <ul className="font-normal">
                             <li className="text-gray-800 dark:text-myGray text-[14px] my-2">
-                                <Link href="/account">
+                                <Link href="/account#orders">
                                     Your orders
                                 </Link>
                             </li>
                             <li className="text-gray-800 dark:text-myGray text-[14px]">
-                                <Link href="/account">
+                                <Link href="/account#addressForm">
                                     Account settings
                                 </Link>
                             </li>
