@@ -4,7 +4,7 @@ import AddressForm from './AddressForm'
 export const Settings = () => {
     return (
         <>
-            <div className="w-full drop-shadow-md h-54 bg-myGray dark:bg-gray-900 rounded ">
+            <div className="w-full shadow-md h-54 bg-myGray dark:bg-gray-900 rounded ">
                 <div className="p-4 md:p-8">
                     <h1 className="text-xl font-semibold dark:text-myGray text-gray-800">
                         Account settings

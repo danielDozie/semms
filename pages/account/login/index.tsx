@@ -69,7 +69,7 @@ export const index = () => {
         });
         setTimeout(() => {
           setIsLoggedIn(true);
-          router.push("/account/");
+          router.push("/");
         }, 500)
       }
     };
@@ -88,7 +88,7 @@ export const index = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Login to your account" />
       </Head>
-      {isLoggedIn ? (window.location.href = "/account/") : (<>
+      {isLoggedIn ? (window.location.href = "/") : (<>
         <div className="w-full max-w-md no-scrollbar md:mx-auto py-24 px-4 md:px-0">
         <div className="my-12 text-center">
           <h1 className="text-xl font-semibold text-center text-gold">

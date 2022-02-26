@@ -4,11 +4,12 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 import { useAccountCardStore, useLoginOutStore } from '../../store/store';
 import toast from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import {useRouter} from 'next/router'
 
 
 export const AccountCard = () => {
     const isAccountCard = useAccountCardStore((state) => state.isAccountCard);
-    
+    const router = useRouter()
     const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
     const toggleAccountCard = useAccountCardStore((state) => state.toggleAccountCard);
     const [loading, setLoading] = React.useState(false);
@@ -25,7 +26,8 @@ export const AccountCard = () => {
                 duration: 3000,
             });
             setLoading(false);
-        }, 2000)
+            router.push("/");
+        }, 2000);
       }
     
     return (

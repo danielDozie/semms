@@ -30,6 +30,7 @@ export interface AddressFormInput {
     city: string;
     country: string;
     postalcode: string;
+    zip: string;
     phone: string
 }
 

@@ -47,3 +47,40 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
   }
 }
 `
+
+
+export const CUSTOMER_ADDRESS_CREATE = gql`
+mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessToken: String!) {
+  customerAddressCreate(address: $address, customerAccessToken: $customerAccessToken) {
+    customerAddress {
+      id
+      firstName
+      lastName
+      company
+      address1
+      address2
+      city
+      country
+      zip
+      phone
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
+`;
+
+export const CUSTOMER_ADDRESS_DELETE = gql`
+mutation customerAddressDelete($customerAccessToken: String!, $customerAddressId: ID!) {
+  customerAddressDelete(customerAccessToken: $customerAccessToken, customerAddressId: $customerAddressId) {
+    deletedCustomerAddressId,
+    customerUserErrors {
+      code
+      field
+      message
+      }
+      }
+      }`;
