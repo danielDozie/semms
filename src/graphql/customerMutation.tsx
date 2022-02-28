@@ -74,13 +74,30 @@ mutation customerAddressCreate($address: MailingAddressInput!, $customerAccessTo
 `;
 
 export const CUSTOMER_ADDRESS_DELETE = gql`
-mutation customerAddressDelete($customerAccessToken: String!, $customerAddressId: ID!) {
-  customerAddressDelete(customerAccessToken: $customerAccessToken, customerAddressId: $customerAddressId) {
-    deletedCustomerAddressId,
+mutation customerAddressDelete($customerAccessToken: String!, $id: ID!) {
+  customerAddressDelete(customerAccessToken: $customerAccessToken, id: $id) {
+    deletedCustomerAddressId
     customerUserErrors {
       code
       field
       message
-      }
-      }
-      }`;
+    }
+  }
+}`;
+
+
+export const CUSTOMER_DEFAULT_ADDRESS_UPDATE = gql`
+mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: String!) {
+  customerDefaultAddressUpdate(addressId: $addressId, customerAccessToken: $customerAccessToken) {
+    customer {
+      id
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
+
+`

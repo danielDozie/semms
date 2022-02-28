@@ -33,7 +33,6 @@ export default function Header() {
   const isCart = useCart((state: { isCart: any }) => state.isCart);
   const toggleCart = useCart((state: { toggleCart: any }) => state.toggleCart);
   const isLoginForm = useLoginStore((state) => state.isLoginForm);
-  const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const isRegisterForm = useRegisterStore((state) => state.isRegisterForm)
   const [count, setCount] = React.useState(0);
   const accessToken = useCustomerStore((state) => state.accessToken);
@@ -131,7 +130,6 @@ export default function Header() {
   }, [isRegisterForm]);
 
 
-  const toggleAccountCard = useAccountCardStore((state) => state.toggleAccountCard);
 
   return (
     <>
@@ -256,8 +254,6 @@ export default function Header() {
 //Mobile menu
 export function MobileMenu({ isMobileMenu }: any) {
   const toggleMobileMenu = useMobileNav((state) => state.toggleMobileMenu);
-  const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
-  const toggleRegisterForm = useRegisterStore(state => state.toggleRegisterForm)
   const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
   const customer = useCustomerDetailsStore((state) => state.customer);

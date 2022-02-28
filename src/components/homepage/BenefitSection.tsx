@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 export default function BenefitSection() {
     return (
         <>
-            <div className="h-full pb-24 max-w-7xl bg-gold dark:bg-black">
+            <div className="h-full pb-24 w-full bg-gold dark:bg-black">
                 <div className="flex flex-col md:flex-row flex-wrap w-[80%] mx-auto">
                     <div className="my-20 w-full md:w-[50%]">
                         <h1 className="text-3xl font-bold text-left text-gray-800 md:text-4xl dark:text-myGray">
@@ -15,7 +15,7 @@ export default function BenefitSection() {
                         <p className="py-6 font-light text-gray-800 dark:text-myGray text-md">We make top luggages, handbags, accessories, kids collections, and more. With a wide variety of brands, thousands of products, and customer-generated ratings and reviews, we are committed to helping our customers with the best travel bags and accessories.</p>
                     </div>
                     <div className="flex w-full md:my-20 md:pl-12 md:w-[50%] md:pt-12 gap-x-4">
-                        <div className="bg-white dark:bg-gray-900 mx-auto  drop-shadow-md rounded-md md:max-h-24 w-[50%]">
+                        <div className="bg-white dark:bg-gray-900 mx-auto  shadow-md rounded-md md:max-h-36 lg:max-h-24 w-[50%]">
                             <div className="p-4">
                                 <h1 className="font-bold text-center text-gray-800 text-md md:text-sm dark:text-myGray">
                                     Quality  Assurance
@@ -25,7 +25,7 @@ export default function BenefitSection() {
                                 </h1>
                             </div>
                         </div>
-                        <div className="bg-gray-800  drop-shadow-md rounded-md md:max-h-24 w-[50%]">
+                        <div className="bg-gray-800  shadow-md rounded-md md:max-h-36 lg:max-h-24 w-[50%]">
                             <div className="p-4">
                                 <h1 className="font-bold text-center text-white text-md md:text-sm ">
                                     Quality Materials
@@ -37,9 +37,9 @@ export default function BenefitSection() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col py-12 md:py-0 md:flex-row md:gap-x-4 gap-y-4">
+                    <div className="w-full mx-auto flex flex-col py-12 md:py-0 md:flex-row lg:flex-row md:gap-x-4 gap-y-4">
                         {banners.map((banner, index) => (
-                            <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 min-w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
+                            <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 w-[320px] md:w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
                             <div className="w-full h-full rounded-md bg-gray-900/80">
                             <div className="p-4">
                                 <h1 className="text-lg font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-gold to-gray-200 drop-shadow-lg">

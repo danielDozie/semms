@@ -28,7 +28,7 @@ export default function FeaturedProducts() {
                 <h1 className="py-2 text-4xl font-bold text-gray-700 dark:text-gray-300">Featured</h1>
                 <p className="text-lg font-light text-gray-500 dark:text-gray-300">Top selling products </p>
             </div>
-            <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto md:overflow-hidden no-scrollbar">
+            <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto lg:overflow-hidden no-scrollbar">
                 {products.map(product =>
                     <div key={product.node.id}>
                         <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>

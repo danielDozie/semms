@@ -44,3 +44,16 @@ export interface Logo {
 export interface ILoginForm {
     isLoginForm: boolean;
 }
+
+export interface IADDRESS {
+    node: any;
+    id: string;
+    name: string;
+    address1: string;
+    address2: string;
+    company: string;
+    zip: string;
+    state: string;
+    country: string;
+    region: string;
+}
