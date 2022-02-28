@@ -99,5 +99,5 @@ mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: Str
     }
   }
 }
+`;
 
-`
