@@ -1,1 +1,1 @@
-Semms Nextjs App
+Semms Luxury Headless Shopify Store
