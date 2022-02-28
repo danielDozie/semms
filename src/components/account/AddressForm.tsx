@@ -8,6 +8,7 @@ import { FormElements } from './FormElements';
 import { IADDRESS } from '../Types';
 import router from 'next/router';
 import { motion } from 'framer-motion';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export const AddressForm = () => {
 
@@ -21,9 +22,9 @@ export const AddressForm = () => {
     }
     const [updating, setUpdating] = React.useState(false)
     const [deleting, setDeleting] = React.useState(false)
-
+    
     //address update mutation
-    const [customerDefaultAddressUpdate, { error, data }] = useMutation(CUSTOMER_DEFAULT_ADDRESS_UPDATE, {
+    const [customerDefaultAddressUpdate, {loading, error, data }] = useMutation(CUSTOMER_DEFAULT_ADDRESS_UPDATE, {
         variables: {
             "addressId": addressID,
             "customerAccessToken": accessToken
@@ -35,20 +36,47 @@ export const AddressForm = () => {
         const id = e.currentTarget.id
         setUpdating(true)
         setAddressID(id)
-        const confirmation = window.confirm('Confirm default address change')
-        if (confirmation == true) {
-            setTimeout(() => {
-                customerDefaultAddressUpdate()
-                toast.success("Default address change successful", {
+        setTimeout(() => {
+            customerDefaultAddressUpdate()
+        }, 3000)
+    }
+    error;
+    data;
+
+    React.useEffect(()=> {
+        let mounted = true
+        if(mounted && data) {
+            setUpdating(false)
+            if(data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
+                setUpdating(false)
+                toast.error("Default address change failed. Please try again later", {
                     position: "bottom-right",
                     duration: 3000,
                 })
+            }
+            else{
                 setUpdating(false)
-                router.reload()
-            }, 3000)
+                toast.success("Default address changed", {
+                    position: "bottom-right",
+                    duration: 3000,
+                })
+                setTimeout(() => {
+                    router.reload()
+                },1000)
+            }
         }
-    }
-
+        if(mounted && error) {
+            setUpdating(false)
+            toast.error("Default address change failed. Please try again later.", {
+                position: "bottom-right",
+                duration: 3000,
+            })
+        }
+        return () => {
+            mounted = false
+        }
+    }, [data, error])
+    
     //address delete mutation
     const [customerAddressDelete] = useMutation(CUSTOMER_ADDRESS_DELETE, {
         variables: {
@@ -61,22 +89,38 @@ export const AddressForm = () => {
         const id = e.currentTarget.id
         setDeleting(true)
         setAddressID(id)
-        const confirmation = window.confirm("Confirm you want to delete this address.");
-        if (confirmation == true) {
-            setTimeout(() => {
-                customerAddressDelete()
-                toast.success("Address deleted successfully", {
-                    position: "bottom-right",
-                    duration: 3000,
-                })
-                setDeleting(false)
-                router.reload()
-            }, 3000)
-        }
+        setTimeout(() => {
+            customerAddressDelete()
+            toast.success("Address deleted", {
+                position: "bottom-right",
+                duration: 3000,
+            })
+            setDeleting(false)
+        }, 3000)
+        setTimeout(() =>{
+            router.reload()
+        },4500)
     }
     const defaultAddress = customer?.defaultAddress?.id
-
-
+    
+    React.useEffect(() => {
+        if(deleting){
+            toast.success("Deleting data", {
+                position: "bottom-right",
+                duration: 3000,
+                icon: <AiOutlineLoading3Quarters className="animate-spin"/>
+            })
+        }
+        if(updating){
+            toast.success("Updating data", {
+                position: "bottom-right",
+                duration: 3000,
+                icon: <AiOutlineLoading3Quarters className="animate-spin"/>
+            })
+        }
+    
+    }, [deleting, updating])
+    
     React.useEffect(() => {
         setCustomerAddress(customer?.addresses?.edges)
     }, [customerAddress, defaultAddress])
@@ -92,20 +136,19 @@ export const AddressForm = () => {
                             {customerAddress?.map((address: IADDRESS) =>
                                 <div className="flex w-[270px] mx-auto md:min-w-[300px] h-40 border border-gray-900 dark:border-myGray dark:text-myGray  rounded-md text-gray-800" key={address?.node?.id}>
                                     <div className="flex flex-col justify-center items-center w-full h-full">
-                                        <div className="flex flex-col text-xs font-semibold justify-between text-center">
+                                        <div className="flex flex-col text-xs font-semibold justify-between text-center mt-3">
                                             <p className="text-sm text-gold">{address?.node?.name}</p>
                                             <p className="text-xs font-light">{address?.node?.address1}</p>
                                             <p className="text-xs font-light">{address?.node?.city}</p>
-                                            <p className="text-xs font-light">{address?.node?.company}</p>
                                             <p className="text-xs font-light">{address?.node?.zip}</p>
                                             <p className="text-xs font-light">{address?.node?.province}</p>
-                                            <p className="text-xs font-light">{address?.node?.country}</p>
-                                            <p className="text-xs font-bold">{address?.node?.phone}</p>
+                                            <p className="text-xs font-semibold">{address?.node?.country}</p>
+                                            {/* <p className="text-xs font-bold">{address?.node?.phone}</p> */}
                                         </div>
                                     </div>
-                                    <div className="flex flex-row text-[10px] absolute p-2 drop-shadow-md justify-end gap-x-2">
-                                        {address?.node?.id === defaultAddress ? <p className="relative italic font-semibold text-gold">Default</p> : <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.05 }} className="relative italic font-normal text-myGray px-1 rounded-full bg-gold cursor-pointer" onClick={updateDefaultAddress} id={address?.node?.id}>{updating ? "Updating" : "Make Default"}</motion.p>}
-                                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1.05 }} whileHover={{ scale: 1.1 }} className="bg-gray-500 text-myGray px-1 rounded-lg cursor-pointer" id={address?.node?.id} onClick={deleteAddess}>{address.node.id && deleting ? "Deleting" : "Delete"}</motion.p>
+                                    <div className="flex flex-row text-[10px] absolute p-2 drop-shadow-md justify-start gap-x-2">
+                                        {address?.node?.id === defaultAddress ? <p className="relative italic font-semibold text-gold">Default</p> : <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.05 }} className="relative italic font-normal text-myGray px-1 rounded-full bg-gold cursor-pointer" onClick={updateDefaultAddress} id={address?.node?.id}>Make Default</motion.p>}
+                                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1.05 }} whileHover={{ scale: 1.1 }} className="bg-gray-500 text-myGray px-1 rounded-lg cursor-pointer" id={address?.node?.id} onClick={deleteAddess}>Delete</motion.p>
                                     </div>
                                 </div>
                             )}

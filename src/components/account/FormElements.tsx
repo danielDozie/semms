@@ -31,7 +31,8 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                 "address2": formData?.address2,
                 "city": formData?.city,
                 "company": formData?.company,
-                "country": formData?.country,
+                "country": country,
+                "province": region,
                 "firstName": formData?.firstname,
                 "lastName": formData?.lastname,
                 "phone": formData?.phone,
@@ -51,8 +52,11 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
             })
             setAddAddress(!addAddress)
             setIsLoading(false);
+        }, 3000)
+
+        setTimeout(() => {
             router.reload()
-        }, 4000)
+        },4500)
     };
     React.useEffect(() => {
     
@@ -236,7 +240,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                         className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                                         type="text"
                                         placeholder="Phone"
-                                        {...register("zip")}
+                                        {...register("phone")}
                                     />
 
                                 </div>
