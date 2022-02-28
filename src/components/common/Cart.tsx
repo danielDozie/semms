@@ -106,7 +106,7 @@ export function CartContent() {
     e.preventDefault();
     setScrollToView(false);
   }
-  
+
   //Associate checkout with customer
   const [checkoutCustomerAssociateV2, { data: checkoutCustomerAssociateV2Data, error: checkoutCustomerAssociateV2Error }] = useMutation(CUSTOMER_ASSOCIATE_CHECKOUT, {
     variables: {
@@ -121,7 +121,6 @@ export function CartContent() {
     checkout();
     setProcessing(true);
   }
-
   const [processing, setProcessing] = React.useState(false);
 
   React.useEffect(() => {
@@ -131,7 +130,7 @@ export function CartContent() {
         setTimeout(() => {
           checkoutCustomerAssociateV2();
           router.push(data?.checkoutCreate.checkout?.webUrl)
-        }, 3000)
+        }, 2000)
       }
       else {
         setProcessing(false);
