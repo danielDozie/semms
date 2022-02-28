@@ -10,8 +10,10 @@ import Image from 'next/image'
 import { useMutation } from '@apollo/client';
 import { CREATE_CUSTOMER_ACCESS_TOKEN } from '../../../graphql/customerMutation';
 import toast from 'react-hot-toast';
+import router from 'next/router';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
+
 
 export const LoginForm = ({ isLoginForm }: ILoginForm) => {
   const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
@@ -88,6 +90,12 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
       mounted = false
     }
   }, [data])
+
+  const registerUser = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    window.location.href = "/account/register";
+  }
+  
 
   return (
     <>
@@ -177,7 +185,7 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
                     </a>
                   </h3>
                   {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
-                    <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
+                    <div className="flex items-center justify-center mx-auto italic font-semibold text-center gap-x-2">
                       <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Logging in...</p>
                     </div>
                   </button>) :
@@ -202,7 +210,7 @@ export const LoginForm = ({ isLoginForm }: ILoginForm) => {
                   </h3>
                   <button
                     className="px-2 py-1 text-xs font-light text-gray-900 rounded bg-gold hover:bg-gold-dark focus:outline-none focus:shadow-outline"
-                    onClick={showReg}
+                    onClick={registerUser}
                   >
                     Register
                     <FiUserPlus className="inline-block w-3 h-3 ml-2" />

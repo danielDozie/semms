@@ -15,6 +15,7 @@ import { useMutation } from "@apollo/client";
 import { useCustomerStore } from "../../store/customerStore";
 import React from "react";
 import router from "next/router";
+import { useLoginOutStore, useLoginStore } from "../../store/store";
 
 //Cart
 export default function Cart({ isCart, cartToggle }: any) {
@@ -72,7 +73,8 @@ export default function Cart({ isCart, cartToggle }: any) {
 
 //Cart Content
 export function CartContent() {
-
+  const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
+  const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
   const accessToken = useCustomerStore((state) => state.accessToken)
   const lineItems = useCartStore((state) => state.lineItems);
   const total = lineItems.map((item: any) => {
@@ -80,7 +82,7 @@ export function CartContent() {
   });
   const sum = _.sum(total);
   const totalPrice = (sum).toFixed(2);
-  const [checkout, { data, loading, error }]: any = useMutation(CHECKOUT, {
+  const [checkout, { data, error }]: any = useMutation(CHECKOUT, {
     variables: {
       "input": {
         "lineItems": lineItems.map((item: any) => {
@@ -118,11 +120,22 @@ export function CartContent() {
   checkoutCustomerAssociateV2Data;
 
   const proceedToCheckout = () => {
+    // if (isLoggedIn) {
+    //   checkout();
+    //   setProcessing(true);
+    // }else{
+    //   toast.error("Oops! You need to be logged in to checkout");
+    //   setTimeout(() => {
+    //     toggleLoginForm();
+    //   }, 300)
+    // }
     checkout();
     setProcessing(true);
+    
   }
   const [processing, setProcessing] = React.useState(false);
-
+  
+  
   React.useEffect(() => {
     let mounted = true;
     if (mounted && data) {
