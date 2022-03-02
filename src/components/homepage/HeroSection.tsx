@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from "framer-motion"
 import { titleVariants, boxVariants, hightlightVariants } from './homepageAnimation';
+import router from 'next/router'
 
 export default function Hero() {
     return (
     <>
-        <div className="h-full w-full bg-gradient-to-t from-gray-900 to-black bg-blend-multiply">
+        <div className="w-full h-full bg-gradient-to-t from-gray-900 to-black bg-blend-multiply">
             <div className="flex justify-center w-full pb-24">
                 <div className="mt-16">
                     <div className="flex flex-col md:flex-row mt-20 md:mt-48 w-[80%] mx-auto">
@@ -16,10 +17,10 @@ export default function Hero() {
                             <motion.p initial="hidden" animate="p" variants={titleVariants} className="py-8 text-lg font-normal text-transparent uppercase bg-clip-text bg-gradient-to-b from-yellow-300 to-yellow-100 md:text-2xl">Feel Luxury. Your Travel Contents Are as Important as You Are. Own One that suits your personality.
                             </motion.p>
                             <div className="flex justify-start py-4 space-x-6">
-                                <motion.button initial="hidden" animate="btn1" variants={titleVariants} className="px-4 py-2 text-sm font-light text-black rounded-md md:text-base bg-gold">
+                                <motion.button initial="hidden" animate="btn1" variants={titleVariants} className="px-4 py-2 text-sm font-light text-black rounded-md md:text-base bg-gold" onClick={() => router.push('/collections')} >
                                     Our Collections
                                 </motion.button>
-                                <motion.button initial="hidden" animate="btn2" variants={titleVariants}className="px-4 py-2 text-sm font-light rounded-md md:text-base text-gold outline outline-offset-2 outline-1">
+                                <motion.button initial="hidden" animate="btn2" variants={titleVariants}className="px-4 py-2 text-sm font-light rounded-md md:text-base text-gold outline outline-offset-2 outline-1" onClick={() => router.push('/story')}>
                                     Discover our story
                                 </motion.button>
                             </div>

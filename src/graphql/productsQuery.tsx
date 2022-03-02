@@ -13,6 +13,7 @@ export const PRODUCTS = gql`
         title,
         description
         vendor,
+        createdAt,
         priceRange{
           minVariantPrice{
             amount
@@ -58,7 +59,6 @@ export const PRODUCTS = gql`
             }
           }
         },
-        
       }
     }
   }

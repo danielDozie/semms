@@ -3,6 +3,8 @@ import Breadcrumbs from "../common/Breadcrumbs";
 import { StarRating } from "../homepage/FeaturedProducts";
 import { productImageVariant } from "../homepage/homepageAnimation";
 import Image from "next/image";
+import _ from "lodash";
+import React from "react";
 
 export function CollectionPage({
   collection,
@@ -10,39 +12,64 @@ export function CollectionPage({
   loadMore,
   productPage,
   buttonRef,
+  setProductsToShow,
 }: any) {
+  const sortByNewest = () => {
+    const sortedProducts = _.orderBy(productsToShow, [function (product) {return product.node.createdAt}], ['desc']);
+    setProductsToShow(sortedProducts);
+  }
+  const sortByOldest = () => {
+    const sortedProducts = _.orderBy(productsToShow, [function (product) {return product.node.createdAt}], ['asc']);
+    setProductsToShow(sortedProducts);
+  }
+
+
+  const [val, setVal] = React.useState('')
+  const valueSelected = (e: { preventDefault: () => void; currentTarget: { value: any; }; }) => {
+    e.preventDefault()
+    const value = e.currentTarget.value
+    setVal(value)
+  }
+
+  React.useEffect(()=> {
+    if (val === 'Newest') {
+      sortByNewest()
+    } else if (val === 'Oldest') {
+      sortByOldest()
+    } else{
+      setProductsToShow(productsToShow)
+    }
+  }, [val])
+ 
   return (
     <>
-      <div className="max-w-7xl mx-auto justify-center items-center h-full pt-24">
+      <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
         <Breadcrumbs
           title={collection.node.title}
           crumbmenus={crumbmenus}
           bg_url={collection.node.image.src}
         />
         <div className="flex flex-col w-[80%] mx-auto py-6">
-          <div className="flex flex-col md:flex-row justify-between text-3xl md:text-4xl font-bold py-12 text-gray-800 dark:text-myGray">
+          <div className="flex flex-col justify-between py-12 text-3xl font-bold text-gray-800 md:flex-row md:text-4xl dark:text-myGray">
             <h1>{collection.node.title}</h1>
             <div className="pt-4 md:pt-0">
-              <p className="text-gray-500 dark:text-gray-400 font-normal mt-2 text-sm">
+              <p className="mt-2 text-sm font-normal text-gray-500 dark:text-gray-400">
                 Sort by:
                 <span className="ml-2">
-                  <select className="bg-transparent text-gray-500 dark:text-gray-400 font-normal mt-2 text-sm relative">
-                    <option>Newest</option>
-                    <option>Bestselling</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Alphabetically: A to Z</option>
-                    <option>Alphabetically: Z to A</option>
-                    <option>Most Reviews</option>
+                  <select className="relative mt-2 text-sm font-normal text-gray-500 bg-transparent border dark:text-gray-400" value={val} onChange={valueSelected}>
+                    <option value="Newest">Newest</option>
+                    <option value="Oldest">Oldest</option>
+                    <option value="Bestselling">Bestselling</option>
+                    <option value="Most Reviews">Most Reviews</option>
                   </select>
                 </span>
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {productsToShow?.map((product: any) => (
               <div
-                className="bg-myGray dark:bg-gray-900 h-full w-full cursor-pointer"
+                className="w-full h-full cursor-pointer bg-myGray dark:bg-gray-900"
                 key={product.node.id}
                 id={product?.node.handle}
                 onClick={productPage}
@@ -55,7 +82,7 @@ export function CollectionPage({
                   variants={productImageVariant}
                   className="drop-shadow-md"
                 >
-                  <div className="w-full mx-auto mt-4 justify-center items-center text-center">
+                  <div className="items-center justify-center w-full mx-auto mt-4 text-center">
                     <Image
                       className=""
                       src={product?.node.media.edges[0].node.previewImage.src}
@@ -68,7 +95,7 @@ export function CollectionPage({
                   </div>
                 </motion.div>
                 {/* bottom half */}
-                <div className="items-center justify-center  pb-2 mx-auto text-center px-4">
+                <div className="items-center justify-center px-4 pb-2 mx-auto text-center">
                   <h1 className="font-medium text-[10px] text-gold my-2 uppercase">
                     {product.node.vendor}
                   </h1>
@@ -92,7 +119,7 @@ export function CollectionPage({
               </div>
             ))}
           </div>
-          <div className="mx-auto text-center my-12">
+          <div className="mx-auto my-12 text-center">
             <button
               className="py-2 px-4 rounded-md text-myGray dark:text-gray-900 text-xs font-normal || transition ease-in-out delay-50 bg-gold hover:-translate-y-1 hover:scale-105 hover:bg-gold duration-300"
               ref={buttonRef}

@@ -18,6 +18,7 @@ query {
               id
               title
               handle
+              createdAt
               priceRange{
                 maxVariantPrice{
                   amount

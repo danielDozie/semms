@@ -14,19 +14,19 @@ export default function Index({ collection }: any) {
     const start = 0, end = 6
     const [productsToShow, setProductsToShow] = useState<any[]>(products.slice(start, end))
     const buttonRef = useRef<any>(null)
-    
+
     const productPage = (e: { preventDefault: () => void; currentTarget: { id: any } }) => {
         e.preventDefault();
         const slug = `/products/${e.currentTarget.id}`;
         router.push(slug);
     }
-    
+
     const loadMore = (e: { preventDefault: () => void }) => {
         e.preventDefault();
         const newEnd = end + 6
         setProductsToShow(products.slice(start, newEnd))
         if (products.length < newEnd) {
-                buttonRef.current.style.display = 'none'
+            buttonRef.current.style.display = 'none'
         }
     }
     return (
@@ -36,9 +36,9 @@ export default function Index({ collection }: any) {
                 <meta name="description" content={collection.node.description} />
                 <meta name="keywords" content={collection.node.title} />
             </Head>
-            {productsToShow.length > 0 ? 
-            <CollectionPage collection={collection} productsToShow={productsToShow} loadMore={loadMore} productPage={productPage} buttonRef={buttonRef} />
-            : <CollectionNotFoundPage collection={collection} />} 
+            {productsToShow.length > 0 ?
+                <CollectionPage collection={collection} productsToShow={productsToShow} loadMore={loadMore} productPage={productPage} buttonRef={buttonRef} setProductsToShow={setProductsToShow} />
+                : <CollectionNotFoundPage collection={collection} />}
         </>
     )
 }

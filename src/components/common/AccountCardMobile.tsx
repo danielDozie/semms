@@ -10,7 +10,7 @@ export const AccountCardMobile = () => {
   const isAccountCardMobile = useAccountCardStoreMobile((state) => state.isAccountCardMobile);
   return (
     <>{
-      isMobileMenu && <div className={`w-full ${isAccountCardMobile && isLoggedIn ? "flex" : "hidden"} border -mt-4 my-4 rounded-md  mx-auto gap-x-8 px-2 py-2  text-sm font-semibold text-gray-800 dark:text-gold bg-myGray dark:bg-gray-900`}>
+      isMobileMenu && <div className={`w-full ${isAccountCardMobile && isLoggedIn ? "flex" : "hidden"} border -mt-4 my-4 rounded-md  mx-auto gap-x-8 px-2 py-2  text-sm font-semibold text-gray-800 dark:text-gold bg-myGray dark:bg-gray-900 cursor-pointer`}>
       <Link href={'/account#orders'}>
       <h1 onClick={toggleMobileMenu}>Your orders</h1>
       </Link>

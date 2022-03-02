@@ -86,7 +86,7 @@ export function ProductDetails({ product }: any) {
         }
     }
     
-    const defaultPrice = 149.99 //used as a placeholder for the price of the product before size is selected. 
+    const defaultPrice = 0 //used as a placeholder for the price of the product before size is selected. 
     //Because price is dependent on the size of the product, the price is set to a default value of 149.99 being the minimum price of the products.
     return (<>
         <div className="mx-4 md:mx-auto max-w-[100%] md:w-[40%] h-full bg-white md:sticky top-0 dark:bg-black px-8">

@@ -6,7 +6,6 @@ import { useLoginOutStore } from '../../src/store/store'
 
 export const index = () => {
   const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
-
   return (
     <>
       <Head>

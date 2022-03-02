@@ -1,4 +1,5 @@
 import React from 'react';
+import router from 'next/router'
 
 const parallax = "https://res.cloudinary.com/semms-luxury/image/upload/v1645075779/semms%20luxury/photo-1457972657980-4c9fddebec8d_k70nz7.jpg";
 
@@ -26,7 +27,7 @@ We offer a diverse range of products to suit all, as well as offering great deal
                             </p>
 
                             <div className="pt-8">
-                            <button className="px-4 py-2 text-sm font-light text-white bg-gray-800 rounded-md hover:bg-star hover:text-gray-800">
+                            <button className="px-4 py-2 text-sm font-light text-white bg-gray-800 rounded-md hover:bg-star hover:text-gray-800" onClick={() => router.push('/about')}>
                                 Learn More
                             </button>
                             </div>
