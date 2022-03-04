@@ -1,10 +1,16 @@
 import React from 'react'
 import { useCustomerDetailsStore } from '../../store/customerStore'
 import Moment from 'react-moment';
+import _ from 'lodash';
+
 
 export const Orders = () => {
-  const customer = useCustomerDetailsStore((state) => state.customer)
-  console.log("customer:::", customer)
+  const getCustomer = useCustomerDetailsStore((state) => state.customer)
+  //get the array of orders
+  const  new_customer = getCustomer?.orders?.edges
+  //ordering the array of orders in descending order by newest first
+  const customer = _.orderBy(new_customer, [function(item) { return item.node.name; }], ['desc']);
+
   return (
     <>
       <div className="w-full shadow-md h-54 bg-myGray dark:bg-gray-900 rounded" id="orders">
@@ -25,75 +31,58 @@ export const Orders = () => {
                       <tr>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
+                          className="px-6 py-3 text-left text-xs font-medium uppercase"
                         >
                           Order
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
+                          className="px-6 py-3 text-left text-xs font-medium uppercase"
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
-                        >
-                          Total
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
+                          className="px-6 py-3 text-left text-xs font-medium uppercase"
                         >
                           Payment status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
+                          className="px-6 py-3 text-left text-xs font-medium uppercase"
                         >
-                          Items
+                          Fulfillment Status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
+                          className="px-6 py-3 text-left text-xs font-medium uppercase"
                         >
-                          Delivery option
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium"
-                        >
-                          Order Status
+                          Total
                         </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                      {customer?.orders?.edges.map((order:any) => (
+                      {customer?.map((order:any) => (
                         <tr key={order.node.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               {/* <div className="flex-shrink-0 h-10 w-10">
                                 <img className="h-10 w-10 rounded-full" src={``} alt="" />
                               </div> */}
-                              <div className="">
+                              <div className="border px-2 py-1 cursor-pointer border-gray-500 dark:border-myGray" id={order.node.id}>
                                 <div className="text-sm font-bold text-gray-800 dark:text-myGray">{order.node.name}</div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-normal text-gray-800 dark:text-myGray"><Moment format="MM-DD-YYYY \at HH:mm A" >{order.node.processedAt}</Moment></div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2.amount}</div>
+                          <div className="text-sm font-normal text-gray-800 dark:text-myGray"><Moment format="MMM DD, YYYY" withTitle={true}>{order.node.processedAt}</Moment></div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal text-myGray">{order.node.financialStatus === "PAID" ? <p className="bg-green-700 text-center rounded-full text-xs italic">Paid</p> : <p className="bg-gold text-center rounded-full text-xs italic">Pending</p>}</div>
                           </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal dark:text-myGray ">{order.node.fulfillmentStatus}</div>
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-normal text-gray-800 dark:text-myGray">{order.node.lineItems.edges.map((item: any) => console.log(item.quantity, ) )} Item(s)</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal text-gray-800 dark:text-myGray">-----</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal text-myGray ">{order.node.fulfillmentStatus === "UNFULFILLED" ? <p className="px-1 bg-gray-500 text-center rounded-full text-xs italic">Processing</p> : "Fulfilled"}</div>
+                          <div className="text-sm font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2.amount}</div>
                           </td>
                           
                         </tr>

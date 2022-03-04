@@ -22,7 +22,6 @@ export const AccountCard = () => {
             setIsLoggedIn(false);
             toggleAccountCard();
             toast.success("Logged out successfully",{
-                position: 'bottom-right',
                 duration: 3000,
             });
             setLoading(false);
@@ -32,7 +31,7 @@ export const AccountCard = () => {
     
     return (
         <>
-            <div className={`${isAccountCard ? 'flex' : 'hidden'} || transition ease-in-out delay-150 `}>
+            <div className={`${isAccountCard ? 'flex' : 'hidden'} `} onMouseLeave={toggleAccountCard}> 
                 <div className="inline-block w-[20%] right-10 h-[160px] fixed bg-white dark:bg-gray-900 rounded-b-md drop-shadow-md">
                     <div className="flex flex-col px-4 py-4">
                         <h1 className="font-bold text-gold text-sm pb-2">Account</h1>

@@ -50,14 +50,12 @@ export const AddressForm = () => {
             if(data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
                 setUpdating(false)
                 toast.error("Default address change failed. Please try again later", {
-                    position: "bottom-right",
                     duration: 3000,
                 })
             }
             else{
                 setUpdating(false)
                 toast.success("Default address changed", {
-                    position: "bottom-right",
                     duration: 3000,
                 })
                 setTimeout(() => {
@@ -68,7 +66,6 @@ export const AddressForm = () => {
         if(mounted && error) {
             setUpdating(false)
             toast.error("Default address change failed. Please try again later.", {
-                position: "bottom-right",
                 duration: 3000,
             })
         }
@@ -92,7 +89,6 @@ export const AddressForm = () => {
         setTimeout(() => {
             customerAddressDelete()
             toast.success("Address deleted", {
-                position: "bottom-right",
                 duration: 3000,
             })
             setDeleting(false)
@@ -106,14 +102,12 @@ export const AddressForm = () => {
     React.useEffect(() => {
         if(deleting){
             toast.success("Deleting data", {
-                position: "bottom-right",
                 duration: 3000,
                 icon: <AiOutlineLoading3Quarters className="animate-spin"/>
             })
         }
         if(updating){
             toast.success("Updating data", {
-                position: "bottom-right",
                 duration: 3000,
                 icon: <AiOutlineLoading3Quarters className="animate-spin"/>
             })

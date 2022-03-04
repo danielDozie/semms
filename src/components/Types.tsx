@@ -14,6 +14,12 @@ export interface FormInput {
     email: string;
     password: string;
 }
+
+export interface IPASSWORDRESET {
+    email: string;
+    password: string;
+    confirm_password: string;
+}
 export interface ContactFormInput {
     fullname: string;
     message: string;

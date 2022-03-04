@@ -47,7 +47,6 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
         setTimeout(() => {
             customerAddressCreate();
             toast.success("Address created successfully", {
-                position: "bottom-right",
                 duration: 3000,
             })
             setAddAddress(!addAddress)

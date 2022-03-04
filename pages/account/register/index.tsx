@@ -127,7 +127,7 @@ export const index = () => {
                  </div>
                  <div className="mb-4">
                    <input
-                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
+                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                      type="text"
                      placeholder="Firstname"
                      {...register("firstname", {
@@ -151,7 +151,7 @@ export const index = () => {
                  </div>
                  <div className="mb-4">
                    <input
-                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
+                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                      type="text"
                      placeholder="Lastname"
                      {...register("lastname", { required: true, maxLength: 20 })}
@@ -172,7 +172,7 @@ export const index = () => {
                  </div>
                  <div className="mb-6">
                    <input
-                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
+                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                      type="email"
                      placeholder="Email"
                      {...register("email", {
@@ -194,7 +194,7 @@ export const index = () => {
                  </div>
                  <div className="mb-6">
                    <input
-                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
+                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                      type="tel"
                      placeholder="+16135551212"
                      {...register("phone", {
@@ -218,21 +218,22 @@ export const index = () => {
                  </div>
                  <div className="mb-6">
                    <input
-                     className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray"
+                     className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray text-sm"
                      type="password"
                      placeholder="Password"
-                     {...register("password", { required: true })}
+                     {...register("password", { required: true, minLength: 8, maxLength: 50})}
                    />
                    <p className="text-xs italic text-red-400">
-                     {errors.password?.type === "required" &&
-                       "Password is required"}
+                   {errors.password?.type === "required" ?
+                  "Password is required" : errors.password?.type === "minLength" ? "Password must be at least 8 characters" : errors.password?.type === "maxLength" ? "Password must be at most 20 characters" : ""}
                    </p>
                  </div>
                  <div className="flex items-center justify-between">
-                   <h3 className="text-xs font-light text-gray-700">
-                     <a href="#" className="no-underline text-gold hover:underline">
-                       Forgot Password?
-                     </a>
+                   <h3 className="text-xs font-light no-underline text-gold hover:underline">
+                     <Link
+                  href="/account/forgot-password/">
+                  Forgot Password?
+                </Link>
                    </h3>
                    {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
                      <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">

@@ -61,8 +61,8 @@ export default function Highlights() {
                                 <h1 className="py-4 text-5xl font-bold text-gray-800 dark:text-gray-300">Let&apos;s keep in touch with you</h1>
                                 <p className="text-gray-500 text-md font-regular dark:text-gray-300">Subscribe to our newsletter for new products alert and updates on our stories</p>
                                 <form onSubmit={handleSubmit((data) => setFormData(data))}>
-                                    <       div className="flex flex-wrap justify-center py-8 mx-auto">
-                                        <input {...register("email")} placeholder="Enter your email" className="w-1/2 p-4" />
+                                    <div className="flex flex-wrap justify-center py-8 mx-auto">
+                                        <input {...register("email")} placeholder="Enter your email" className="w-1/2 p-4 text-sm"/>
                                         <button type="submit" className="px-4 py-2 font-light text-white bg-gold hover:bg-gray-800 hover:text-white">Subscribe</button>
                                     </div>
                                 </form>

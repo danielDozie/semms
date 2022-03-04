@@ -101,3 +101,34 @@ mutation customerDefaultAddressUpdate($addressId: ID!, $customerAccessToken: Str
 }
 `;
 
+
+export const CUSTOMER_PASSWORD_RESET_REQUEST = gql`
+mutation customerRecover($email: String!) {
+  customerRecover(email: $email) {
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
+`;
+
+export const CUSTOMER_PASSWORD_RESET_REQUEST_RESETURL = gql`
+mutation customerResetByUrl($password: String!, $resetUrl: URL!) {
+  customerResetByUrl(password: $password, resetUrl: $resetUrl) {
+    customer {
+      id
+      email
+    }
+    customerAccessToken{
+      accessToken
+    } 
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
+`;

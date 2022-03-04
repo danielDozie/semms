@@ -267,11 +267,11 @@ export function MobileMenu({ isMobileMenu }: any) {
       localStorage.removeItem("customerAccessToken");
       setIsLoggedIn(false);
       toast.success("Logged out successfully", {
-        position: 'bottom-right',
         duration: 3000,
       });
       setLoading(false);
-      router.reload();
+      router.push('/');
+      toggleMobileMenu();
     }, 2000)
   }
 

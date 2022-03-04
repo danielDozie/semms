@@ -55,7 +55,6 @@ export const index = () => {
       if (data?.customerAccessTokenCreate?.customerUserErrors.length > 0) {
         setButtonLoading(false)
         toast.error("Login Failed. Check your details and try again.", {
-          position: "bottom-right",
           duration: 3000,
         })
       }
@@ -64,7 +63,6 @@ export const index = () => {
         setAccessToken(data?.customerAccessTokenCreate?.customerAccessToken?.accessToken)
         setExpiresAt(data?.customerAccessTokenCreate?.customerAccessToken?.expiresAt)
         toast.success("Login Successful", {
-          position: "bottom-right",
           duration: 3000,
         });
         setTimeout(() => {
@@ -107,7 +105,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
+                className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                 type="email"
                 autoComplete="off"
                 placeholder="Email"
@@ -131,7 +129,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray"
+                className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray text-sm"
                 type="password"
                 placeholder="Password"
                 {...register("password", { required: true })}
@@ -142,13 +140,11 @@ export const index = () => {
               </p>
             </div>
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-light text-gray-700">
-                <a
-                  href="#"
-                  className="no-underline text-gold hover:underline text-xs"
-                >
+              <h3 className="no-underline text-gold hover:underline text-xs">
+                <Link
+                  href="/account/forgot-password/">
                   Forgot Password?
-                </a>
+                </Link>
               </h3>
               {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
                 <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">

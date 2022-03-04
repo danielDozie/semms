@@ -59,14 +59,12 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
         setErr(data.customerCreate.customerUserErrors)
         setButtonLoading(false);
         toast.error("Registration Failed. Please try again", {
-          position: "bottom-center",
           duration: 4000,
         })
       }
       else {
         setButtonLoading(false);
         toast.success("Registration Successful. Please login", {
-          position: "bottom-center",
           duration: 4000,
         })
         reset()
@@ -80,7 +78,6 @@ const RegisterForm = ({ isRegisterForm }: RegForm) => {
     if (error) {
       setButtonLoading(false)
       toast.error("There was an error creating your account. Please try again in 2 minutes", {
-        position: "bottom-center",
         duration: 4000,
       })
       reset()

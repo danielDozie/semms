@@ -118,3 +118,35 @@ export const togglerVariants = {
         }
     },
 }
+
+export const accountCard = {
+    hide: {
+        opacity: 0,
+        y: -200,
+        transition: {
+            duration: 2,
+            ease: "easeInOut",
+            delay: 2
+        }
+    
+    },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 2,
+            ease: "easeInOut",
+            delay: 2
+        }
+    },
+    exit: {
+        opacity: 0,
+        y: -200,
+        transition: {
+            duration: 2,
+            ease: "easeInOut",
+            delay: 2
+        }
+    
+    },
+}

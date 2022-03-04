@@ -9,12 +9,12 @@ export default function Layout({ children }: any) {
         <div className="bg-white dark:bg-black transition-all">
             <Header />
             <LoginRegister/>
-            <Toaster position="bottom-right" toastOptions={{
+            <Toaster position="top-right" toastOptions={{
                 success: {
-                    className: "text-[10px] font-semibold text-green-500 dark:text-green-300 dark:bg-gray-900 bg-myGray",
+                    className: "text-xs font-semibold text-green-500 dark:text-green-300 dark:bg-gray-900 bg-myGray",
                 },
                 error: {
-                    className: "text-[10px] font-semibold text-red-500 dark:text-red-300 dark:bg-gray-900 bg-myGray",
+                    className: "text-xs font-semibold text-red-500 dark:text-red-300 dark:bg-gray-900 bg-myGray",
                 },
             }} />
             <main>
