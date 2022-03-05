@@ -136,7 +136,7 @@ export function ProductDetails({ product }: any) {
                     <p className="font-light text-[12px] pt-1">{product.node.description}</p>
                 </div>
                 <div className="my-4 text-gray-800 dark:text-myGray flex">
-                    <h1 className="text-[12px] pt-4 font-semibold">Ratings: </h1>
+                    <h1 className="text-[12px] pt-4 font-semibold">Ratings </h1>
                     <div className="font-light text-[12px] pt-4 ml-4">{
                         product?.node?.ratings?.value ?
                             <StarRating rating={Math.floor(JSON.parse(product?.node?.ratings?.value).value)} /> :
@@ -144,17 +144,17 @@ export function ProductDetails({ product }: any) {
                     }</div>
                 </div>
                 <div className="my-4 text-gray-800 dark:text-myGray">
-                    <h1 className="text-[12px] pt-4 font-semibold mb-2">Specifications:</h1>
-                    <div>
+                    <h1 className="text-[12px] pt-4 font-semibold mb-2">Specifications</h1>
+                    <div className=" max-h-96 overflow-auto border py-4 no-scrollbar rounded-md cursor-pointer">
                         <table className="table-auto w-full max-h-[30%] relative">
-                            <tbody className="border ">
+                            <tbody className=" ">
                                 {product?.node?.specifications?.value ? JSON.parse(product?.node?.specifications?.value).map((spec: any, index: number) => {
                                     return (
-                                        <tr className="flex text-[10px] px-4 pt-2 pb-2" key={index}>
+                                        <tr className="flex text-[10px] px-2 pt-2 pb-2" key={index}>
                                             <td className="border-b pb-2">
                                                 <div className="flex flex-col gap-y-2">
                                                     <div className="font-bold text-[10px]">{Object.keys(spec)} </div>
-                                                    {Object.values(spec) ? Object.values(spec).map((item: any , index: number) =>
+                                                    {Object.values(spec) ? Object.values(spec).map((item: any, index: number) =>
                                                         <div key={index}>{
                                                             Array.isArray(item) ? item.map((inner_item, index: number) => <div className="flex" key={index}>
                                                                 <span className="font-bold text-[10px] text-gold">{Object.keys(inner_item)} </span>
@@ -170,10 +170,11 @@ export function ProductDetails({ product }: any) {
                                 }) : null}
                             </tbody>
                         </table>
+
                     </div>
                 </div>
                 <div className="my-4 mr-4">
-                    <h1 className="text-gray-800 dark:text-myGray text-[12px] pt-2">Tags:</h1>
+                    <h1 className="text-gray-800 dark:text-myGray text-[12px] pt-2">Tags</h1>
                     <div className="flex flex-row">
                         {product.node.tags.map((tag: any) => <div className="bg-gray-800 mt-1 font-regular text-myGray text-[10px] md:text-[10px] px-4 py-1 rounded-full mr-4" key={tag}>{tag}</div>
                         )}

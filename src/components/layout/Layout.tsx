@@ -11,10 +11,10 @@ export default function Layout({ children }: any) {
             <LoginRegister/>
             <Toaster position="top-right" toastOptions={{
                 success: {
-                    className: "text-xs font-semibold text-green-500 dark:text-green-300 dark:bg-gray-900 bg-myGray",
+                    className: "text-[11px] font-semibold text-green-500 dark:text-green-300 dark:bg-gray-900 bg-myGray",
                 },
                 error: {
-                    className: "text-xs font-semibold text-red-500 dark:text-red-300 dark:bg-gray-900 bg-myGray",
+                    className: "text-[11px] font-semibold text-red-500 dark:text-red-300 dark:bg-gray-900 bg-myGray",
                 },
             }} />
             <main>
