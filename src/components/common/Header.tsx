@@ -172,11 +172,14 @@ export default function Header() {
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               {isLoggedIn && isLoggedIn ?
                 <LoggedInUser /> :
-                <FiUser
+                <div>
+                  <FiUser
                   size={23}
                   className="inline-block mr-6"
                   onClick={() => router.push("/account/login")}
-                />}
+                />
+                <p className="text-[10px]"> Sign in</p>
+                </div>}
             </div>
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               <CgShoppingBag

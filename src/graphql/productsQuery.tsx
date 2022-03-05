@@ -14,6 +14,15 @@ export const PRODUCTS = gql`
         description
         vendor,
         createdAt,
+        specifications:metafield(namespace: "my_fields", key: "specifications" ){
+          value
+        },
+        ratings:metafield(namespace: "my_fields", key: "ratings" ){
+          value
+        },
+        keywords:metafield(namespace: "my_fields", key: "keywords" ){
+          value
+        },
         priceRange{
           minVariantPrice{
             amount
