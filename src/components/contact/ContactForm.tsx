@@ -2,12 +2,34 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaPaperPlane } from 'react-icons/fa'
 import { ContactFormInput } from '../Types';
+import { SMTPClient } from 'emailjs';
+
 
 export default function ContactForm() {
     const { register, formState: { errors }, handleSubmit } = useForm<ContactFormInput>();
     const onSubmit: SubmitHandler<ContactFormInput> = data => alert(JSON.stringify(data));
-    
-    console.log("Errors:", errors)
+
+
+
+    const client = new SMTPClient({
+        user: 'user',
+        password: 'password',
+        host: 'smtp.your-email.com',
+        ssl: true,
+    });
+
+    // send the message and get a callback with an error or details of the message that was sent
+    // client.send(
+    //     {
+    //         text: 'i hope this works',
+    //         from: 'SEMMSLUX <sales@semmslux.com>',
+    //         to: 'someone <someone@your-email.com>, another <another@your-email.com>',
+    //         subject: 'testing emailjs',
+    //     },
+    //     (err, message) => {
+    //         console.log(err || message);
+    //     }
+    // );
     return (
         <>
             <div className="flex flex-col w-full md:w-1/2 mx-auto py-12 px-4 md:px-8">
@@ -59,7 +81,7 @@ export default function ContactForm() {
                                                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                                                     type="email"
                                                     placeholder="ex: name@example.com"
-                                                    {...register("email", {required: true, pattern: /^\S+@\S+$/i})}
+                                                    {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                                                 />
                                                 <p className="text-xs italic text-red-400">
                                                     {errors.email?.type === "required" && "Email is required"}
@@ -82,7 +104,7 @@ export default function ContactForm() {
                                                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                                                     type="text"
                                                     placeholder="+1 613-555-1212"
-                                                    {...register("phone", {required: true, min: 10, maxLength: 15})}
+                                                    {...register("phone", { required: true, min: 10, maxLength: 15 })}
                                                 />
                                                 <p className="text-xs italic text-red-400">
                                                     {errors.phone?.type === "required" &&
@@ -130,7 +152,7 @@ export default function ContactForm() {
                                                 <textarea
                                                     className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
                                                     placeholder="Describe your requests in details."
-                                                    {...register("message", {required: true})}
+                                                    {...register("message", { required: true })}
                                                 />
                                                 <p className="text-xs italic text-red-400">
                                                     {errors.message?.type === "required" &&
@@ -142,7 +164,7 @@ export default function ContactForm() {
                                     <div className="flex items-center justify-start py-4">
                                         <button
                                             type="submit"
-                                            className="bg-gray-900 dark:bg-gold hover:bg-gold-dark text-white font-normal text-sm px-4 py-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-900 || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300" 
+                                            className="bg-gray-900 dark:bg-gold hover:bg-gold-dark text-white font-normal text-sm px-4 py-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-900 || transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300"
                                         >
                                             Send message
                                             <FaPaperPlane className="inline-block w-3 h-3 ml-2" />

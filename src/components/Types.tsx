@@ -63,3 +63,7 @@ export interface IADDRESS {
     country: string;
     region: string;
 }
+
+export interface INEWSLETTER {
+    email: string;
+}

@@ -18,7 +18,7 @@ export const Orders = () => {
           <h1 className="text-xl font-semibold dark:text-myGray text-gray-800">
             Order history
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-400">You haven't placed any orders yet.</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">View and manage your orders</p>
         </div>
 
         <div className="w-[90%] mx-auto my-8">

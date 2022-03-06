@@ -1,12 +1,60 @@
 import React from 'react'
 import { FaShippingFast, FaPercent } from 'react-icons/fa'
 import { CgDesignmodo } from 'react-icons/cg'
-import { useForm } from "react-hook-form";
-
+import { SubmitHandler, useForm } from "react-hook-form";
+import { INEWSLETTER } from '../Types';
 
 export default function Highlights() {
-    const { register, handleSubmit } = useForm();
-    const [formData, setFormData] = React.useState<any>()
+    const [subscriptionMessage, setSubscriptionMessage] = React.useState('')
+    const { register, reset, handleSubmit } = useForm<INEWSLETTER>();
+    const [formData, setFormData] = React.useState<INEWSLETTER>()
+    
+    const onSubmit: SubmitHandler<INEWSLETTER> = inputData => {
+        setFormData(inputData)
+    }
+    
+    const sender_url:any = new URL(
+        "https://api.sender.net/v2/subscribers"
+    );
+    
+    const headers = {
+        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SENDER_API_KEY}`,
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    };
+    
+    const data = {
+        "email": formData?.email,
+    };
+    React.useEffect(() => {
+        if (formData) {
+            fetch(sender_url, {
+                method: "POST",
+                headers, body: JSON.stringify(data)
+            }).then(response => response.json()).then(data => {
+                if(data.success){
+                    setSubscriptionMessage('Subscribed! Thanks for subscribing.')
+                    reset()
+                    setTimeout(() => {
+                        setSubscriptionMessage('')
+                    }, 5000)
+                }else{
+                    setSubscriptionMessage("Error! "+data.message+'.')
+                    setTimeout(() => {
+                        setSubscriptionMessage('')
+                    },5000)
+                    
+                }
+            }).catch(error => {
+                setSubscriptionMessage("Error! try again later.")
+                setTimeout(() => {
+                    setSubscriptionMessage('')
+                }
+                ,5000)
+            })
+        }
+    }, [formData])
+
 
     return (
         <>
@@ -60,13 +108,14 @@ export default function Highlights() {
                                 </h1>
                                 <h1 className="py-4 text-5xl font-bold text-gray-800 dark:text-gray-300">Let&apos;s keep in touch with you</h1>
                                 <p className="text-gray-500 text-md font-regular dark:text-gray-300">Subscribe to our newsletter for new products alert and updates on our stories</p>
-                                <form onSubmit={handleSubmit((data) => setFormData(data))}>
+                                <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="flex flex-wrap justify-center py-8 mx-auto">
-                                        <input {...register("email")} placeholder="Enter your email" className="w-1/2 p-4 text-sm"/>
+                                        <input {...register("email")} placeholder="Enter your email" className="w-1/2 p-4 text-sm" />
                                         <button type="submit" className="px-4 py-2 font-light text-white bg-gold hover:bg-gray-800 hover:text-white">Subscribe</button>
                                     </div>
                                 </form>
                                 <p className="text-gray-400 text-[10px]  dark:text-gray-300 -mt-6">*We won&apos;t spam your email. We promise.</p>
+                                <p className="text-gray-800 dark:text-myGray text-[12px] font-semibold py-2 italic">{subscriptionMessage}</p>
                             </div>
                         </div>
                     </div>
