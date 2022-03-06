@@ -2,7 +2,6 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaPaperPlane } from 'react-icons/fa'
 import { ContactFormInput } from '../Types';
-import { SMTPClient } from 'emailjs';
 
 
 export default function ContactForm() {
@@ -10,15 +9,15 @@ export default function ContactForm() {
     const onSubmit: SubmitHandler<ContactFormInput> = data => alert(JSON.stringify(data));
 
 
-
-    const client = new SMTPClient({
-        user: 'user',
-        password: 'password',
-        host: 'smtp.your-email.com',
-        ssl: true,
-    });
-
-    // send the message and get a callback with an error or details of the message that was sent
+    
+    // const client = new SMTPClient({
+    //     user: 'user',
+    //     password: 'password',
+    //     host: 'smtp.your-email.com',
+    //     ssl: true,
+    // });
+    
+    // // send the message and get a callback with an error or details of the message that was sent
     // client.send(
     //     {
     //         text: 'i hope this works',
