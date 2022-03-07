@@ -65,5 +65,5 @@ export interface IADDRESS {
 }
 
 export interface INEWSLETTER {
-    email: string;
+    user_email: string;
 }

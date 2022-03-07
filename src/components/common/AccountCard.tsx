@@ -28,7 +28,7 @@ export const AccountCard = () => {
             router.push("/");
         }, 2000);
       }
-    
+
     return (
         <>
             <div className={`${isAccountCard ? 'flex' : 'hidden'} `} onMouseLeave={toggleAccountCard}> 
