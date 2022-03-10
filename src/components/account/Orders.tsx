@@ -10,8 +10,8 @@ export const Orders = () => {
   const new_customer = getCustomer?.orders?.edges
   //ordering the array of orders in descending order by newest first
   const customer = _.orderBy(new_customer, [function (item) { return item.node.name; }], ['desc']);
-
-  console.log(customer)
+  
+  const [hidden, setHidden] = React.useState(false);
 
   return (
     <>
@@ -68,10 +68,7 @@ export const Orders = () => {
                         <tr key={order.node.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
-                              {/* <div className="flex-shrink-0 h-10 w-10">
-                                <img className="h-10 w-10 rounded-full" src={``} alt="" />
-                              </div> */}
-                              <div className="border px-2 py-1 cursor-pointer border-gray-500 dark:border-myGray" id={order.node.id}>
+                              <div className="border rounded-xl px-4 shadow-sm py-1 cursor-pointer border-gray-400 dark:border-myGray" id={order.node.id}>
                                 <div className="text-sm font-bold text-gray-800 dark:text-myGray">{order.node.name}</div>
                               </div>
                             </div>
@@ -88,22 +85,25 @@ export const Orders = () => {
                           </td>
                         </tr>
 
-                        <tr>
+                        <tr className={`${hidden ? "hidden" : "relative"}`}>
                           <th colSpan={5} className="text-gray-800 dark:text-myGray bg-white dark:bg-gray-800 rounded-lg">
                             <div className="flex flex-col">
                               <div className="flex  w-full justify-start mx-auto py-4 px-8">
                                 <div className="flex-col">
-                                  <h1 className="text-sm text-gray-800 dark:text-myGray font-semibold">
+                                  <h1 className="text-sm text-left text-gray-800 dark:text-myGray font-semibold">
                                     Order {order.node.name}
                                   </h1>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400 py-2 font-light">Placed on time </p>
+                                  <div className="flex gap-x-1">
+                                  <p className="text-xs text-gray-600 dark:text-gray-400 py-2 font-light">Placed ::</p> 
+                                  <Moment format="MMM DD, YYYY hh:mm A" className="text-xs text-gray-600 dark:text-gray-400 py-2 font-light">{ order.node.processedAt}</Moment>
+                                  </div>
                                 </div>
                               </div>
 
                               <div className="mb-8 px-8">
                                 <table className="w-full border divide-y divide-gray-200 table-auto">
                                   <thead>
-                                    <tr className="px-8">
+                                    <tr className={`px-8`}>
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray w-1/2">Product</th>
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray">Size</th>
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray">Price</th>
@@ -112,22 +112,19 @@ export const Orders = () => {
                                     </tr>
                                   </thead>
                                   <tbody className="w-full">
-                                    <tr className="">
-                                      {/* <td className="px-6 py-4" colSpan={5}> */}
-                                        {order?.node.lineItems.edges.map((item: any) => <>
+                                    {order?.node.lineItems.edges.map((item: any, index: any) => <>
+                                      <tr className="" key={index}>
+                                        <td className="px-2 py-3 text-[12px] italic font-normal text-gray-800 dark:text-myGray" >{item.node.title}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</td>
 
-                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.title}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</td>
 
-                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.quantity}</td>
 
-                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</td>
-
-                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.quantity}</td>
-
-                                            <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2 ? item.node.variant.priceV2.amount : null}</td>
-                                        </>)}
-                                      {/* </td> */}
-                                    </tr>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2 ? item.node.variant.priceV2.amount : ""}</td>
+                                      </tr>
+                                      
+                                    </>)}
                                   </tbody>
                                 </table>
                               </div>

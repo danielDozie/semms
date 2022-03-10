@@ -13,6 +13,7 @@ export const CUSTOMER_DETAILS = gql`
           node {
             id,
             name,
+            orderNumber,
             totalPriceV2{
             amount,
             currencyCode}

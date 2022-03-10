@@ -81,7 +81,7 @@ export const index = () => {
   const redirectToHome = () => {
     router.push("/");
   }
-
+  
   return (
     <>
       <Head>
