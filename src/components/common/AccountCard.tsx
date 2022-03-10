@@ -28,11 +28,11 @@ export const AccountCard = () => {
             router.push("/");
         }, 2000);
       }
-
+    
     return (
         <>
             <div className={`${isAccountCard ? 'flex' : 'hidden'} `} onMouseLeave={toggleAccountCard}> 
-                <div className="inline-block w-[20%] right-10 h-[160px] fixed bg-white dark:bg-gray-900 rounded-b-md drop-shadow-md">
+                <div className="inline-block w-[20%] right-10 h-[160px] fixed bg-white dark:bg-gray-900 rounded-b-md drop-shadow-md account-card" id="accountCard">
                     <div className="flex flex-col px-4 py-4">
                         <h1 className="font-bold text-gold text-sm pb-2">Account</h1>
                         <ul className="font-normal">

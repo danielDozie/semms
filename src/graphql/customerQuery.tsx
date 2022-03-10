@@ -24,6 +24,16 @@ export const CUSTOMER_DETAILS = gql`
                 node {
                   title,
                   quantity,
+                  variant{
+                  sku
+                  priceV2{
+                  amount,
+                  }
+                  selectedOptions{
+                    name
+                    value
+                  }
+                }
                 }
               }
             }

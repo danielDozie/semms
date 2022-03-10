@@ -6,9 +6,9 @@ import { CollectionPage } from '../../src/components/collections/CollectionPage'
 import { CollectionNotFoundPage } from '../../src/components/collections/CollectionNotFoundPage'
 import { COLLECTIONS } from '../../src/graphql/collectionsQuery'
 import { client } from '../../src/utils/apolloClient'
-import { Collections } from '../../src/components/Types'
+import { ICOLLECTIONS } from '../../src/components/Types'
 
-export default function Index({ collection }: any) {
+export default function Index({ collection }: ICOLLECTIONS) {
     const router = useRouter()
     const products = collection.node.products.edges
     const start = 0, end = 6

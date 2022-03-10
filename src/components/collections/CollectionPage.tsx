@@ -15,11 +15,11 @@ export function CollectionPage({
   setProductsToShow,
 }: any) {
   const sortByNewest = () => {
-    const sortedProducts = _.orderBy(productsToShow, [function (product) {return product.node.createdAt}], ['desc']);
+    const sortedProducts = _.orderBy(productsToShow, [function (product) { return product.node.createdAt }], ['desc']);
     setProductsToShow(sortedProducts);
   }
   const sortByOldest = () => {
-    const sortedProducts = _.orderBy(productsToShow, [function (product) {return product.node.createdAt}], ['asc']);
+    const sortedProducts = _.orderBy(productsToShow, [function (product) { return product.node.createdAt }], ['asc']);
     setProductsToShow(sortedProducts);
   }
 
@@ -31,16 +31,16 @@ export function CollectionPage({
     setVal(value)
   }
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     if (val === 'Newest') {
       sortByNewest()
     } else if (val === 'Oldest') {
       sortByOldest()
-    } else{
+    } else {
       setProductsToShow(productsToShow)
     }
   }, [val])
- 
+
   return (
     <>
       <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
@@ -99,7 +99,11 @@ export function CollectionPage({
                   <h1 className="font-medium text-[10px] text-gold my-2 uppercase">
                     {product.node.vendor}
                   </h1>
-                  <StarRating rating={product?.rating} />
+                  {
+                    product?.node?.ratings?.value ?
+                      <StarRating rating={Math.floor(JSON.parse(product?.node?.ratings?.value).value)} /> :
+                      <StarRating rating={product?.node?.ratings?.value} />
+                  }
                   <p className="py-2 text-sm font-normal text-gray-500 dark:text-gray-300 md:px-4">
                     {product?.node.title}
                   </p>

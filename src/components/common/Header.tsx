@@ -178,7 +178,7 @@ export default function Header() {
                   className="inline-block mr-6"
                   onClick={() => router.push("/account/login")}
                 />
-                <div className="text-[9px]">Login</div>
+                {/* <div className="text-[9px]">Login</div> */}
                 </div>}
             </div>
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">

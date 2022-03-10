@@ -19,6 +19,9 @@ query {
               title
               handle
               createdAt
+              ratings:metafield(namespace: "my_fields", key: "ratings" ){
+          value
+        },
               priceRange{
                 maxVariantPrice{
                   amount

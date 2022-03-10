@@ -1,5 +1,5 @@
-export interface Collections {
-    collection: Object;
+export interface ICOLLECTIONS {
+    collection: any
 }
 
 //Forms
