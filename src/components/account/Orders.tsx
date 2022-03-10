@@ -101,7 +101,7 @@ export const Orders = () => {
                               </div>
 
                               <div className="mb-8 px-8">
-                                <table className="w-full border divide-y divide-gray-200 table-fixed">
+                                <table className="w-full border divide-y divide-gray-200 table-auto">
                                   <thead>
                                     <tr className="px-8">
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray w-1/2">Product</th>
@@ -113,25 +113,20 @@ export const Orders = () => {
                                   </thead>
                                   <tbody className="w-full">
                                     <tr className="">
-                                      <td className="px-6 py-4" colSpan={5}>
+                                      {/* <td className="px-6 py-4" colSpan={5}> */}
                                         {order?.node.lineItems.edges.map((item: any) => <>
-                                          <td >
-                                            <td className="flex">
-                                              <p className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.title}</p>
-                                            </td>
-                                            <td className="flex">
-                                              <p className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</p>
-                                            </td>
-                                            <td className="flex">
-                                              <p className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</p>
-                                            </td>
-                                            <td className="flex">
-                                              <p className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.quantity}</p>
-                                            </td>
 
-                                          </td>
+                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.title}</td>
+
+                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</td>
+
+                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</td>
+
+                                              <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.quantity}</td>
+
+                                            <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2 ? item.node.variant.priceV2.amount : null}</td>
                                         </>)}
-                                      </td>
+                                      {/* </td> */}
                                     </tr>
                                   </tbody>
                                 </table>
