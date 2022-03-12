@@ -82,6 +82,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                         type="text"
                                         placeholder="First name"
                                         {...register("firstname")}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -100,6 +101,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                         type="text"
                                         placeholder="Last name"
                                         {...register("lastname")}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -140,6 +142,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                         type="text"
                                         placeholder="Address 1"
                                         {...register("address1")}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -240,6 +243,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                         type="text"
                                         placeholder="Phone"
                                         {...register("phone")}
+                                        required
                                     />
 
                                 </div>

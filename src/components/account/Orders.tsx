@@ -11,8 +11,18 @@ export const Orders = () => {
   //ordering the array of orders in descending order by newest first
   const customer = _.orderBy(new_customer, [function (item) { return item.node.name; }], ['desc']);
   
-  const [hidden, setHidden] = React.useState(false);
-
+  const [itemToShow, setItemToShow] = React.useState<any>(customer);
+  
+  const toggleShowOrderDetails = (id:any) => {
+    //using the useState hook to create an object that will keep all the result ids as keys and a boolean value indicating if the comment should be shown or not.
+    setItemToShow((prevItemToShow: any) => ({ 
+      ...prevItemToShow, 
+      [id]: !prevItemToShow[id] 
+    })
+    );
+  }
+  
+  
   return (
     <>
       <div className="w-full shadow-md h-54 bg-myGray dark:bg-gray-900 rounded" id="orders">
@@ -22,7 +32,6 @@ export const Orders = () => {
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400">View and manage your orders</p>
         </div>
-
         <div className="w-[90%] mx-auto my-8">
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 no-scrollbar">
@@ -67,8 +76,8 @@ export const Orders = () => {
                       {customer?.map((order: any) => (<>
                         <tr key={order.node.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <div className="border rounded-xl px-4 shadow-sm py-1 cursor-pointer border-gray-400 dark:border-myGray" id={order.node.id}>
+                            <div className="flex items-center" onClick={() => toggleShowOrderDetails(order.node.id)} id={order.node.name}>
+                              <div className="border rounded-xl px-4 shadow-sm py-1 cursor-pointer border-gray-400 dark:border-myGray">
                                 <div className="text-sm font-bold text-gray-800 dark:text-myGray">{order.node.name}</div>
                               </div>
                             </div>
@@ -84,8 +93,8 @@ export const Orders = () => {
                             <div className="text-sm font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2.amount}</div>
                           </td>
                         </tr>
-
-                        <tr className={`${hidden ? "hidden" : "relative"}`}>
+                        {itemToShow[order.node.id] ? 
+                        <tr className={`relative`} id={order.node.name}>
                           <th colSpan={5} className="text-gray-800 dark:text-myGray bg-white dark:bg-gray-800 rounded-lg">
                             <div className="flex flex-col">
                               <div className="flex  w-full justify-start mx-auto py-4 px-8">
@@ -112,9 +121,9 @@ export const Orders = () => {
                                     </tr>
                                   </thead>
                                   <tbody className="w-full">
-                                    {order?.node.lineItems.edges.map((item: any, index: any) => <>
-                                      <tr className="" key={index}>
-                                        <td className="px-2 py-3 text-[12px] italic font-normal text-gray-800 dark:text-myGray" >{item.node.title}</td>
+                                    {order?.node.lineItems.edges.map((item: any) => <>
+                                      <tr className="">
+                                        <td className="px-2 py-3 text-[12px] italic font-medium text-gray-800 dark:text-myGray" >{item.node.title}</td>
                                         <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</td>
 
                                         <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</td>
@@ -130,7 +139,7 @@ export const Orders = () => {
                               </div>
                             </div>
                           </th>
-                        </tr>
+                        </tr> : null}
                       </>))}
                     </tbody>
                   </table>
@@ -145,17 +154,3 @@ export const Orders = () => {
 }
 
 export default Orders
-
-
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional',
-    department: 'Optimization',
-    role: 'Admin',
-    email: 'jane.cooper@example.com',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-  },
-  // More people...
-]

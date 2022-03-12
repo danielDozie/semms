@@ -157,7 +157,7 @@ export default function Highlights() {
                       {loading ? <button
                     type="submit"
                     className="px-4 py-2 font-light text-white bg-gray-800"
-                  ><div className="flex gap-x-2">Subscribing...  <AiOutlineLoading3Quarters size="15" className="animate-spin mt-1" /></div> </button>:<button
+                  ><div className="flex gap-x-2"><AiOutlineLoading3Quarters size="15" className="animate-spin mt-1" /> Subscribing...</div> </button>:<button
                   type="submit"
                   className="px-4 py-2 font-light text-white bg-gold hover:bg-gray-800 hover:text-white"
                 >Subscribe </button>}

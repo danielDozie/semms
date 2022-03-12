@@ -4,7 +4,7 @@ module.exports = {
     },
     images: {
         domains: ['semmslux.com', 'cdn.shopify.com', 'res.cloudinary.com'],
+        formats: ['image/avif', 'image/webp'],
       },
     basePath: '', 
   }
-
