@@ -7,8 +7,7 @@ import { ProductDetails } from '../../src/components/products/ProductDetails';
 import Head from 'next/head';
 
 
-export default function Index({ product }: any) {
-
+export default function Index({ product }: any) {   
     return (<>
         <Head>
             <title>{product.node.title} - {process.env.storename}</title>
@@ -33,12 +32,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
             handle: product.node.handle
         }
     }))
-
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     }
-
 }
 
 export const getStaticProps = async ({ params }: any) => {
@@ -47,10 +44,10 @@ export const getStaticProps = async ({ params }: any) => {
     })
     const allProducts = data.PRODUCTS.edges
     const product = allProducts.find((product: { node: { handle: string } }) => product.node.handle === params.handle)
-    
     return {
         props: {
             product: product
-        }
+        },
+        revalidate: 60
     }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { FiSearch, FiUser } from "react-icons/fi";
-import { CgShoppingBag } from "react-icons/cg";
+import { CgClose, CgShoppingBag } from "react-icons/cg";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
 import Link from "next/link";
 import useMobileNav, { useAccountCardStore, useAccountCardStoreMobile, useLoginOutStore, useLoginStore, useRegisterStore } from "../../store/store";
@@ -21,6 +21,8 @@ import { AccountCardMobile } from "./AccountCardMobile";
 import { useQuery } from "@apollo/client";
 import { CUSTOMER_DETAILS } from "../../graphql/customerQuery";
 import router from 'next/router'
+import Search from "./Search";
+import { useProductStore } from "../../store/productStore";
 const logo = "https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/semmsluxuries_wjjvu9.svg"
 /**
  * A client component that specifies the content of the header on the website
@@ -44,6 +46,9 @@ export default function Header() {
   //const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useLoginOutStore((state) => state.setIsLoggedIn);
+  const products = useProductStore(state => state.products)
+  const [isSearchForm, setIsSearchForm] = React.useState(false);
+  const [showSearchResult, setShowSearchResult] = React.useState(false);
 
   React.useEffect(() => {
     let mounted = true;
@@ -167,7 +172,7 @@ export default function Header() {
           {/*header right elements */}
           <div className="flex -mt-1">
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
-              <FiSearch size={23} className="inline-block mr-6" />
+              {isSearchForm ?  <CgClose size={23} className="inline-block mr-6" onClick={() => {setIsSearchForm(false); setShowSearchResult(false)}}/> : <FiSearch size={23} className="inline-block mr-6" onClick={() => setIsSearchForm(!isSearchForm)} />}
             </div>
             <div className="text-sm font-normal leading-none cursor-pointer text-gold">
               {isLoggedIn && isLoggedIn ?
@@ -198,8 +203,10 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <Cart isCart={isCart} cartToggle={cartToggle} />
         <AccountCard />
+        <Cart isCart={isCart} cartToggle={cartToggle} />
+        <Search products={products} isSearchForm={isSearchForm} showSearchResult={showSearchResult} setShowSearchResult={setShowSearchResult} />
+        
       </div>
 
       {/* mobile header */}
@@ -440,8 +447,8 @@ const menuItem = [
   },
   {
     id: 3,
-    title: "Discover",
-    link: "/discover",
+    title: "Products",
+    link: "/products",
   },
   {
     id: 4,

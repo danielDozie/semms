@@ -1,39 +1,5 @@
 import create from 'zustand'
-
-interface MobileNav {
-    isMobileMenu: boolean
-    toggleMobileMenu: () => void
-}
-interface Cart {
-    isCart: boolean
-    toggleCart: () => void
-}
-
-interface LoginForm {
-    isLoginForm: boolean
-    toggleLoginForm: () => void
-}
-
-interface RegisterForm{
-    isRegisterForm: boolean
-    toggleRegisterForm: () => void
-}
-
-interface AccountCard {
-    isAccountCard: boolean
-    toggleAccountCard: () => void
-}
-interface AccountCardMobile {
-    isAccountCardMobile: boolean
-    toggleAccountCardMobile: () => void
-}
-interface LoginOut{
-    isLoggedIn: boolean
-    setIsLoggedIn: any
-}
-//////////////////////////////////////////
-
-
+import { MobileNav, Cart, LoginForm, RegisterForm, AccountCard, AccountCardMobile, LoginOut, SEARCH_TOGGLE } from '../components/Types'
 
 
 const useMobileNav = create<MobileNav>(set => ({
@@ -70,6 +36,12 @@ const useLoginOutStore = create<LoginOut>(set => ({
     setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn: isLoggedIn })
 }))
 
+const useSearchStore = create<SEARCH_TOGGLE>(set => ({
+    isSearchResult: false,
+    toggleSearchResult: () => set(state => ({ isSearchResult: !state.isSearchResult }))
+
+}))
+
 
 export default useMobileNav;
-export {useCart, useLoginStore, useRegisterStore, useAccountCardStore, useLoginOutStore, useAccountCardStoreMobile};
+export {useCart, useLoginStore, useRegisterStore, useAccountCardStore, useLoginOutStore, useAccountCardStoreMobile, useSearchStore};

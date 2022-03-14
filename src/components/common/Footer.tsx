@@ -42,7 +42,7 @@ export default function Footer() {
                     <Link href="/collections">Collections</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <Link href="/discover">Discover</Link>
+                    <Link href="/products">Products</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
                     <Link href="/story">Our Story</Link>

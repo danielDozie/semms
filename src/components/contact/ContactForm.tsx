@@ -44,8 +44,9 @@ export default function ContactForm() {
     <>
       <div className="flex flex-col w-full md:w-1/2 mx-auto py-12 px-4 md:px-8">
         <h1 className="text-xl text-gray-800 dark:text-myGray font-semibold">
-          Drop us a line
+          How can we help you?
         </h1>
+        <p className="text-sm text-gray-600 dark:text-gray-400">Our team of experts is just a message away</p>
         <div className="mt-8">
           <div
             className={`

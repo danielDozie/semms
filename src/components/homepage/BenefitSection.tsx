@@ -10,9 +10,10 @@ export default function BenefitSection() {
                 <div className="flex flex-col md:flex-row flex-wrap w-[80%] mx-auto">
                     <div className="my-20 w-full md:w-[50%]">
                         <h1 className="text-3xl font-bold text-left text-gray-800 md:text-4xl dark:text-myGray">
-                            Quality Never Goes Out of Style
+                        Quality Never Goes out Of Style, Neither does Luxury
                         </h1>
-                        <p className="py-6 font-light text-gray-800 dark:text-myGray text-md">We make top luggages, handbags, accessories, kids collections, and more. With a wide variety of brands, thousands of products, and customer-generated ratings and reviews, we are committed to helping our customers with the best travel bags and accessories.</p>
+                        <p className="py-6 font-light text-gray-800 dark:text-myGray text-md">What can we say? These designs are a statement.
+Our collection of high-quality luggage, handbags, accessories, kids collections and so much more are unrivalled by none in the industry. Semms luxury luggage is surprisingly practical, beautifully designed and super roomy. A part of the excellence is that it is one of the most affordable luggage brands on the market.</p>
                     </div>
                     <div className="flex w-full md:my-20 md:pl-12 md:w-[50%] md:pt-12 gap-x-4">
                         <div className="bg-white dark:bg-gray-900 mx-auto  shadow-md rounded-md md:max-h-36 lg:max-h-24 w-[50%]">
@@ -64,20 +65,20 @@ export default function BenefitSection() {
 const banners = [
     {
         image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645075494/semms%20luxury/photo-1459257831348-f0cdd359235f_du4kny.jpg',
-        title: 'Enjoy Massive Sale',
+        title: 'Enjoy Unmatched Discounts',
         description: 'Save More With SEMMS Luxury',
         icon: <FaPercent className="mx-auto my-2 text-gold drop-shadow-lg" size="36"/>
     },
     {
         image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645075562/semms%20luxury/photo-1604131853518-4415773bd126_e7vxy1.jpg',
-        title: 'Ship To Contiguous U.S.A',
-        description: 'Hassle Free, Fast & Reliable',
+        title: 'Awaken in a new world',
+        description: 'Get Your Luggage Delivered Anywhere',
         icon: <FaShippingFast className="mx-auto my-2 text-gold drop-shadow-lg" size="40"/>
     },
     {
         image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645075601/semms%20luxury/photo-1639598003170-acfd39fcd7b1_gbt2ne.jpg',
-        title: 'Personalization On Request',
-        description: 'We Can Do A Little Extra',
+        title: 'Experience Bespoke Luxury',
+        description: 'We can always do extra, for you',
         icon: <CgDesignmodo className="mx-auto my-2 drop-shadow-lg text-gold" size="40"/>
     }
 ]

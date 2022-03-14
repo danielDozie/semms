@@ -1,8 +1,52 @@
+
+
+///ZUSTAND STORE TYPES
+export interface MobileNav {
+    isMobileMenu: boolean
+    toggleMobileMenu: () => void
+}
+export interface Cart {
+    isCart: boolean
+    toggleCart: () => void
+}
+
+export interface LoginForm {
+    isLoginForm: boolean
+    toggleLoginForm: () => void
+}
+
+export interface RegisterForm{
+    isRegisterForm: boolean
+    toggleRegisterForm: () => void
+}
+
+export interface AccountCard {
+    isAccountCard: boolean
+    toggleAccountCard: () => void
+}
+export interface AccountCardMobile {
+    isAccountCardMobile: boolean
+    toggleAccountCardMobile: () => void
+}
+export interface LoginOut{
+    isLoggedIn: boolean
+    setIsLoggedIn: any
+}
+
+export interface SEARCH_TOGGLE {
+    isSearchResult: boolean
+    toggleSearchResult: () => void
+}
+
+
+
+///ZUSTAND STORE TYPES ENDS HERE!!!
+
+
 export interface ICOLLECTIONS {
     collection: any
 }
 
-//Forms
 export interface LoginFormInput{
     email: string;
     password: string;
@@ -13,6 +57,9 @@ export interface FormInput {
     phone: string;
     email: string;
     password: string;
+}
+export interface SearchText {
+    searchText: string;
 }
 
 export interface IPASSWORDRESET {
@@ -67,3 +114,4 @@ export interface IADDRESS {
 export interface INEWSLETTER {
     user_email: string;
 }
+
