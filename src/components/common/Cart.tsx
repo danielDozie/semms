@@ -10,9 +10,9 @@ import { useCartStore } from "../../store/cartStore";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import toast from "react-hot-toast";
-import { CHECKOUT, CUSTOMER_ASSOCIATE_CHECKOUT } from "../../graphql/checkoutMutation";
+import { CHECKOUT, CHECKOUT_SHIPPING_ADDRESS_UPDATE_V2, CUSTOMER_ASSOCIATE_CHECKOUT } from "../../graphql/checkoutMutation";
 import { useMutation } from "@apollo/client";
-import { useCustomerStore } from "../../store/customerStore";
+import { useCustomerDetailsStore, useCustomerStore } from "../../store/customerStore";
 import React from "react";
 import router from "next/router";
 import { useLoginOutStore, useLoginStore } from "../../store/store";
@@ -73,8 +73,7 @@ export default function Cart({ isCart, cartToggle }: any) {
 
 //Cart Content
 export function CartContent() {
-  const isLoggedIn = useLoginOutStore((state) => state.isLoggedIn);
-  const toggleLoginForm = useLoginStore((state) => state.toggleLoginForm);
+  const customer = useCustomerDetailsStore((state) => state.customer)
   const accessToken = useCustomerStore((state) => state.accessToken)
   const lineItems = useCartStore((state) => state.lineItems);
   const total = lineItems.map((item: any) => {
@@ -118,6 +117,29 @@ export function CartContent() {
   });
   checkoutCustomerAssociateV2Error;
   checkoutCustomerAssociateV2Data;
+  
+
+  const defaultAddress = customer?.defaultAddress
+  //Update shipping address
+  const [checkoutShippingAddressUpdateV2, { data: checkoutShippingAddressUpdateV2Data, error: checkoutShippingAddressUpdateV2Error }] = useMutation(CHECKOUT_SHIPPING_ADDRESS_UPDATE_V2, {
+    variables: {
+      "checkoutId": data?.checkoutCreate.checkout.id,
+      "shippingAddress": {
+        "address1": defaultAddress?.address1,
+        "address2": defaultAddress?.address2,
+        "city": defaultAddress?.city,
+        "company": defaultAddress?.company,
+        "country": defaultAddress?.country,
+        "firstName": defaultAddress?.firstName,
+        "lastName": defaultAddress?.lastName,
+        "phone": defaultAddress?.phone,
+        "province": defaultAddress?.province,
+        "zip": defaultAddress?.zip
+      }
+    }
+  });
+  checkoutShippingAddressUpdateV2Error;
+  checkoutShippingAddressUpdateV2Data;
 
   const proceedToCheckout = () => {
     // if (isLoggedIn) {
@@ -134,32 +156,40 @@ export function CartContent() {
     
   }
   const [processing, setProcessing] = React.useState(false);
-  
-  
   React.useEffect(() => {
     let mounted = true;
-    if (mounted && data) {
-      if (data?.checkoutCreate.checkout.id) {
-        setTimeout(() => {
-          checkoutCustomerAssociateV2();
-          router.push(data?.checkoutCreate.checkout?.webUrl)
+    try {
+      if (mounted && data) {
+        if (data?.checkoutCreate.checkout.id) {
+          setTimeout(() => {
+            checkoutShippingAddressUpdateV2();
+            checkoutCustomerAssociateV2();
+            router.push(data?.checkoutCreate.checkout?.webUrl)
+            setProcessing(false);
+          }, 2000)
+        }
+        else {
           setProcessing(false);
-        }, 2000)
+          toast.error("Checkout Failed!");
+        }
       }
-      else {
-        setProcessing(false);
-        toast.error("Checkout Failed!");
-      }
+    } catch (error) {
+      return
     }
+    
     return () => {
       mounted = false;
     };
+    
   }, [data, checkoutCustomerAssociateV2]);
+  
 
-
-
-
-
+  React.useEffect(() => {
+    checkoutShippingAddressUpdateV2Data
+    console.log(checkoutShippingAddressUpdateV2Data)
+  }, [checkoutShippingAddressUpdateV2Data])
+  
+  
   return (
     <>
       {/* item section */}
@@ -193,7 +223,7 @@ export function CartContent() {
         </div>
 
         <div className="text-center font-semibold uppercase mt-4 text-sm ?|| transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-101 duration-300" onClick={proceedToCheckout}>
-          {processing ? <div className="w-full px-4 py-4 font-light text-white bg-gray-500 rounded-sm "><div className="flex items-center justify-center italic gap-x-2">Processing... <AiOutlineLoading3Quarters size="20" className="animate-spin" /></div> </div> : <div className="w-full px-4 py-4 font-light text-white bg-black rounded-sm cursor-pointer text-md hover:text-myGray hover:bg-gray-800 dark:text-black dark:bg-white hover:dark:bg-myGray">Proceed to checkout</div>}
+          {processing ? <div className="w-full px-4 py-4 font-light text-white bg-gray-500 rounded-sm "><div className="flex items-center justify-center italic gap-x-2"><AiOutlineLoading3Quarters size="20" className="animate-spin" /> Processing...</div> </div> : <div className="w-full px-4 py-4 font-light text-white bg-black rounded-sm cursor-pointer text-md hover:text-myGray hover:bg-gray-800 dark:text-black dark:bg-white hover:dark:bg-myGray">Proceed to checkout</div>}
         </div>
       </div>
       {/* Bottom Section End */}

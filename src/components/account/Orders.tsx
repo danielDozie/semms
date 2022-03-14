@@ -22,7 +22,6 @@ export const Orders = () => {
     );
   }
   
-  
   return (
     <>
       <div className="w-full shadow-md h-54 bg-myGray dark:bg-gray-900 rounded" id="orders">
@@ -121,18 +120,17 @@ export const Orders = () => {
                                     </tr>
                                   </thead>
                                   <tbody className="w-full">
-                                    {order?.node.lineItems.edges.map((item: any) => <>
+                                    {order?.node?.lineItems?.edges?.map((item: any) => <>
                                       <tr className="">
                                         <td className="px-2 py-3 text-[12px] italic font-medium text-gray-800 dark:text-myGray" >{item.node.title}</td>
-                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.variant.selectedOptions[0].value}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item?.node?.variant?.selectedOptions[0]?.value}</td>
 
-                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item.node.variant.priceV2.amount}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${item?.node.variant?.priceV2?.amount}</td>
 
-                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item.node.quantity}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">{item?.node?.quantity}</td>
 
-                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2 ? item.node.variant.priceV2.amount : ""}</td>
+                                        <td className="text-[12px] italic font-normal text-gray-800 dark:text-myGray">${order?.node?.totalPriceV2 ? item?.node?.variant?.priceV2?.amount : ""}</td>
                                       </tr>
-                                      
                                     </>)}
                                   </tbody>
                                 </table>

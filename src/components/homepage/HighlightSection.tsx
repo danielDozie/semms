@@ -140,11 +140,10 @@ export default function Highlights() {
                   Newsletter
                 </h1>
                 <h1 className="py-4 text-5xl font-bold text-gray-800 dark:text-gray-300">
-                  Let&apos;s keep in touch with you
+                We&apos;d love to stay in touch!
                 </h1>
                 <p className="text-gray-500 text-md font-regular dark:text-gray-300">
-                  Subscribe to our newsletter for new products alert and updates
-                  on our stories
+                Subscribe to our newsletter for new product alerts and great deals.
                 </p>
                 <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
                   <div className="flex flex-wrap justify-center py-8 mx-auto">

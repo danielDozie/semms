@@ -9,10 +9,10 @@ import { client } from '../../src/utils/apolloClient';
 
 export default function index({products}:any) {
   const bg_url = 'https://res.cloudinary.com/semms-luxury/image/upload/v1644442447/semms%20luxury/discover2_kuyrko.jpg'
-
+  
   return <>
     <Head>
-      <title>Discover - {process.env.storename}</title>
+      <title>Products - {process.env.storename}</title>
       <meta name="description" content="Discover Products" />
       <meta name="keywords" content="Discover Products" />
     </Head>
@@ -28,13 +28,12 @@ export default function index({products}:any) {
         </div>
       </div>
       <div className="mx-auto w-full">
-      {/* discover products */}
+      {/* products  */}
       <Products data={products} />
       {/* discover banner */}
       <ProductsPageBanner/>
       </div>
     </div>
-  
   </>
 };
 
@@ -52,6 +51,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       products: result
       },
-      revalidate: 60
+    revalidate: 60
 }
 }

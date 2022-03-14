@@ -6,7 +6,6 @@ import ContactBanner from '../../src/components/contact/ContactBanner'
 import ContactForm from '../../src/components/contact/ContactForm'
 
 export default function index() {
-
     return (
         <>
             <Head>

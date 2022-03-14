@@ -45,5 +45,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       collections: data.COLLECTIONS.edges,
     },
+    revalidate: 60,
   };
 };

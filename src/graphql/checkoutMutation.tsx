@@ -35,3 +35,18 @@ mutation checkoutCustomerAssociateV2($checkoutId: ID!, $customerAccessToken: Str
   }
 }
 `;
+
+export const CHECKOUT_SHIPPING_ADDRESS_UPDATE_V2 = gql`
+mutation checkoutShippingAddressUpdateV2($checkoutId: ID!, $shippingAddress: MailingAddressInput!) {
+  checkoutShippingAddressUpdateV2(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+    checkout {
+      id
+    }
+    checkoutUserErrors {
+      code
+      message
+      field
+    }
+  }
+}
+`;

@@ -4,14 +4,19 @@ export default function Collections({ collections }: any) {
   return (
     <>
       <div className="flex flex-col w-[80%] mx-auto py-12">
-        <div className="text-3xl md:text-4xl font-bold py-12 text-gray-800 dark:text-myGray">
+        <div className="text-3xl md:text-4xl font-bold pt-12 pb-4 text-gray-800 dark:text-myGray">
           <h1>
-            Explore{" "}
-            <span className="text-3xl md:text-4xl bg-gold text-myGray dark:text-gray-800 y-4 p-1 md:p-2">
-              Semms Luxury
+            Speak class with 
+            <span className="text-3xl md:text-4xl underline decoration-gold decoration-8 underline-offset-4 p-1 md:p-2 ">
+             Semms Luxuries
             </span>{" "}
-            Collections
           </h1>
+        </div>
+        <div className="mb-6 mt-2">
+        <p className="font-light text-[13px] md:text-sm  text-gray-600 dark:text-gray-400">
+            Semms Luxuries offers a wide range of high-end hand-made luxury luggage for under half the price of the same items from other designers. Search our online catalog of over 70 styles and choose your perfect match.
+From vibrant colors to luxury linings and custom logos, there are a variety of options to choose from. With the convenience of free shipping and free returns, you’ll be sure to get the suitcase of your dreams.
+          </p>
         </div>
         <div className="py-8">
           <div className="flex md:flex-row flex-col mx-auto">

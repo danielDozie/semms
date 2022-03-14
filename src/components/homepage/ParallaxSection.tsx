@@ -15,20 +15,18 @@ export default function ParallaxSection() {
                                 Top Quality Leather Luggage Company
                             </h1>
                             <h1 className="py-4 text-2xl font-bold text-gray-600 uppercase dark:text-gray-300 md:text-3xl">
-                                Established since 2019
+                                Established since 2019<span className="font-bold text-gold">.</span>
                             </h1>
                             <p className="font-light text-gray-500 dark:text-gray-300 text-md">
-                                However you wish to pack. Whatever your need is, we have the solution. 
-                            </p>
-                            <p className="font-light text-gray-500 dark:text-gray-300 text-md">
-                            As a family owned business, we pride ourselves on our personal customer service. That can be proven by our amazing customer ratings and reviews.
-
-We offer a diverse range of products to suit all, as well as offering great deals! We also offer a product personalization service for the majority of our items, and subject to availability.
+                            The tangible experience of travel is lost in today’s bustle and frequent travel. You may not always remember the first time you saw your luggage, but with Semms luxuries, you get a piece of art and a lifetime of memories.
+As a family-owned business, we pride ourselves on our excellent customer service. This is proven by countless amazing reviews and ratings from our equally amazing customers.
+Ask our customers, and they’d all tell you the same thing; we offer only the best. Our diverse range of products does not compromise on quality or comfort, all while offering you great deals!
+However you need to pack, whatever your need is, we have the solution.
                             </p>
 
                             <div className="pt-8">
-                            <button className="px-4 py-2 text-sm font-light text-white bg-gray-800 rounded-md hover:bg-star hover:text-gray-800" onClick={() => router.push('/about')}>
-                                Learn More
+                            <button className="px-4 py-2 text-sm font-light text-white bg-gray-800 rounded-md hover:bg-star hover:text-gray-800" onClick={() => router.push('/collections')}>
+                                See our collections
                             </button>
                             </div>
 
