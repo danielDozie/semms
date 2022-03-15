@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { AiOutlineMinus, AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
-import Button from '../common/Button';
+import Button from '../../common/Button';
 import { RelatedProducts } from './RelatedProducts';
-import { togglerVariants } from '../common/commonAnimation'
+import { togglerVariants } from '../../common/commonAnimation'
 import { FiPlus } from 'react-icons/fi';
-import { useProductStore } from '../../store/productStore';
-import { useCart } from '../../store/store';
-import { useCartStore } from '../../store/cartStore';
+import { useProductStore } from '../../../store/productStore';
+import { useCart } from '../../../store/store';
+import { useCartStore } from '../../../store/cartStore';
 import toast from 'react-hot-toast';
 import _ from 'lodash';
 import Head from 'next/head';
-import { StarRating } from '../homepage/FeaturedProducts';
+import { StarRating } from '../../homepage/FeaturedProducts';
 
 
 export function ProductDetails({ product }: any) {
@@ -20,10 +20,11 @@ export function ProductDetails({ product }: any) {
     const quantity = useProductStore(state => state.quantity)
     const increaseQuantity = useProductStore(state => state.increaseQuantity)
     const decreaseQuantity = useProductStore(state => state.decreaseQuantity)
-
+    const selectedOption = useCartStore(state => state.selectedOption)
+    const setSelectedOption = useCartStore(state => state.setSelectedOption)
+    
     const [variants] = useState(product.node.variants.edges)
-    const [variantPrice] = useState(variants[0].node.price)
-    const [selectedOption, setSelectedOption] = useState<any[]>([])
+    
     const addToCart = useCartStore(state => state.addToCart)
     const lineItems = useCartStore(state => state.lineItems)
     const isCart = useCart(state => state.isCart)
@@ -63,7 +64,9 @@ export function ProductDetails({ product }: any) {
         e.preventDefault();
         setIsCare(!isCare);
     }
+    
 
+    
     //get cart item & price
     const selectedProduct = selectedOption[0]?.node
     const q = quantity
@@ -86,7 +89,17 @@ export function ProductDetails({ product }: any) {
             isCart ? toggleCart() : toggleCart()
         }
     }
-    const defaultPrice = product.node.variants.edges[0].node.price  //placeholder price
+    
+    // const[defaultPrice, setDefaultPrice] = useState<any>(selectedOption[0]?.node.price)
+    const defaultPrice = product.node.variants.edges[0].node.price
+    
+    //resetting the selected size option
+    React.useEffect(() => {
+        if (isActive.isActive === false){
+            setSelectedOption(product.node.variants.edges)
+        }
+    }, [isActive, selectedOption])
+    
     return (<>
         <Head>
             {/* FOR SEO */}
@@ -104,7 +117,7 @@ export function ProductDetails({ product }: any) {
                 <div>
                     <p className="text-gray-800 dark:text-myGray text-[12px] pt-3 font-semibold">Size</p>
                     <div className="flex flex-row ">
-                        {variants.map((variant: any) => <button className={`${isActive.isActive && isActive.id === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900" : ""} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
+                        {variants.map((variant: any) => <button className={`${isActive.isActive && isActive.id === variant.node.id ? "bg-gray-900 text-myGray dark:bg-myGray dark:text-gray-900" : ""} border border-gray-800 dark:border-myGray hover:bg-gray-900 hover:text-myGray hover:dark:bg-myGray py-1 px-4 rounded mt-1 font-light text-gray-800 dark:text-myGray hover:dark:text-gray-800 text-[12px] mr-4 min-w-[65px]`} key={variant.node.id} id={variant.node.id} onClick={variantHandler}>{variant.node.title}</button>
                         )}
                     </div>
                 </div>
@@ -135,7 +148,7 @@ export function ProductDetails({ product }: any) {
                     <h1 className="text-[12px] pt-4 font-semibold">Description:</h1>
                     <p className="font-light text-[12px] pt-1">{product.node.description}</p>
                 </div>
-                <div className="my-4 text-gray-800 dark:text-myGray flex">
+                <div className="flex my-4 text-gray-800 dark:text-myGray">
                     <h1 className="text-[12px] pt-4 font-semibold">Ratings </h1>
                     <div className="font-light text-[12px] pt-4 ml-4">{
                         product?.node?.ratings?.value ?
@@ -145,13 +158,13 @@ export function ProductDetails({ product }: any) {
                 </div>
                 <div className="my-4 text-gray-800 dark:text-myGray">
                     <h1 className="text-[12px] pt-4 font-semibold mb-2">Specifications</h1>
-                    <div className=" max-h-96 overflow-auto border py-4 no-scrollbar rounded-md cursor-pointer">
+                    <div className="py-4 overflow-auto border rounded-md cursor-pointer max-h-96 no-scrollbar">
                         <table className="table-auto w-full max-h-[30%] relative">
-                            <tbody className=" ">
+                            <tbody className="">
                                 {product?.node?.specifications?.value ? JSON.parse(product?.node?.specifications?.value).map((spec: any, index: number) => {
                                     return (
                                         <tr className="flex text-[10px] px-2 pt-2 pb-2" key={index}>
-                                            <td className="border-b pb-2">
+                                            <td className="pb-2 border-b">
                                                 <div className="flex flex-col gap-y-2">
                                                     <div className="font-bold text-[10px]">{Object.keys(spec)} </div>
                                                     {Object.values(spec) ? Object.values(spec).map((item: any, index: number) =>
