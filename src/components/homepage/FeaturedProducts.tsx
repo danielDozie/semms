@@ -35,7 +35,7 @@ export default function FeaturedProducts() {
                         <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
                             <div className="p-4">
                                 <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
-                                    <div className="w-full mx-auto justify-center items-center text-center">
+                                    <div className="items-center justify-center w-full mx-auto text-center">
                                         <Image className="" src={product?.node.media.edges[0].node.previewImage.src} alt={product?.node.media.edges[0].node.previewImage.altText} height="250" width="250" />
                                     </div>
                                 </motion.div>
@@ -51,7 +51,7 @@ export default function FeaturedProducts() {
 
                                     <p className="pb-3 text-sm font-bold text-gray-900 dark:text-gray-300"><span className="text-[10px] italic text-gray-500 font-light">From </span>${product?.node.priceRange.minVariantPrice.amount} {product?.node.priceRange.maxVariantPrice.currencyCode}</p>
                                     <div>
-                                        <button className="bg-gray-900 dark:bg-myGray to-gray-600 shadow-md text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-900 dark:hover:bg-gold dark:hover:text-gray-900 font-normal py-1 px-2 rounded-full text-xs">
+                                        <button className="px-2 py-1 text-xs font-normal bg-gray-900 rounded-full shadow-md dark:bg-myGray to-gray-600 text-myGray dark:text-gray-800 hover:bg-gold hover:text-gray-900 dark:hover:bg-gold dark:hover:text-gray-900">
                                             View Details
                                         </button>
                                     </div>

@@ -8,6 +8,8 @@ interface CartStore {
     productCount: any,
     setProductCount: any
     removeItem: any
+    selectedOption: any
+    setSelectedOption: any
 }
 
 export const useCartStore = create<CartStore>(persist(devtools(
@@ -29,7 +31,13 @@ export const useCartStore = create<CartStore>(persist(devtools(
             set((state: { lineItems: any }) => ({
                 lineItems: state.lineItems.filter((item: { id: any }) => item.id !== id)
             }))
-        }
+        },
+        selectedOption: [],
+        setSelectedOption: (selectedOption: any) => {
+            set((state: { selectedOption: any }) => ({
+                selectedOption: state.selectedOption = selectedOption
+            }))
+        },
     })
 ),
     {

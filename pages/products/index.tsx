@@ -2,8 +2,8 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next/types';
 import React from 'react';
 import Breadcrumbs from '../../src/components/common/Breadcrumbs';
-import Products from '../../src/components/products/Products';
-import ProductsPageBanner from '../../src/components/products/ProductsPageBanner';
+import Products from '../../src/components/products/productsPage/Products';
+import ProductsPageBanner from '../../src/components/products/productsPage/ProductsPageBanner';
 import { PRODUCTS } from '../../src/graphql/productsQuery';
 import { client } from '../../src/utils/apolloClient';
 
@@ -16,18 +16,18 @@ export default function index({products}:any) {
       <meta name="description" content="Discover Products" />
       <meta name="keywords" content="Discover Products" />
     </Head>
-    <div className="max-w-7xl mx-auto justify-center items-center h-full pt-24">
+    <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
       <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
     </div>
     
     <div className="flex flex-col w-[80%] mx-auto py-6">
-      <div className="justify-between text-3xl flex md:text-4xl font-bold py-12 text-gray-800 dark:text-myGray">
+      <div className="flex justify-between py-12 text-3xl font-bold text-gray-800 md:text-4xl dark:text-myGray">
         <h1>Products</h1>
         <div>
-          <p className="text-gray-500 dark:text-gray-400 font-bold underline decoration-wavy underline-offset-4 mt-2 text-sm">SEMMS Luxury Catalog</p>
+          <p className="mt-2 text-sm font-bold text-gray-500 underline dark:text-gray-400 decoration-wavy underline-offset-4">SEMMS Luxury Catalog</p>
         </div>
       </div>
-      <div className="mx-auto w-full">
+      <div className="w-full mx-auto">
       {/* products  */}
       <Products data={products} />
       {/* discover banner */}

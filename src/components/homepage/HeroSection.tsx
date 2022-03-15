@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from "framer-motion"
 import { titleVariants, boxVariants, hightlightVariants } from './homepageAnimation';
 import router from 'next/router'
+import Image from 'next/image';
 
 export default function Hero() {
     return (
@@ -39,10 +40,10 @@ export default function Hero() {
                             </div>
                         </div>
                         {/* Slide Images */}
-                        <div className="flex pt-24 gap-x-4 md:pt-12 md:flex md:flex-wrap md:pl-16">
+                        <div className="flex pt-24 gap-x-4 md:pt-8 md:flex md:flex-wrap md:pl-16">
                             {slideImage.map(({image, title, cls, animate}:any) => 
                             <motion.div initial="hidden" animate={animate} variants={boxVariants} className={cls} key={animate}>
-                                <img src={image} alt={title} className="md:-mt-2 md:ml-2" width="170" />
+                                <Image src={image} alt={title} className="md:-mt-2 md:ml-2" width="170" height="243" priority={true} placeholder="blur" blurDataURL={process.env.blurDataURL} />
                             </motion.div>
                             )}
                         </div>
