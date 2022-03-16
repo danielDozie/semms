@@ -142,7 +142,7 @@ export default function Header() {
         <title>{process.env.SiteTitle}</title>
       </Head>
       {/* desktop header */}
-      <div className="container fixed z-20 hidden mx-auto bg-white max-w-7xl dark:bg-black md:block">
+      <div className="container fixed z-20 hidden mx-auto bg-white dark:bg-black md:block">
         <div className="flex justify-between h-10 px-16 py-12 mx-auto">
           <div className="-mt-1">
             {/* logo */}
@@ -364,7 +364,7 @@ export function MobileMenu({ isMobileMenu }: any) {
                   <div className="flex mt-12 text-sm font-semibold text-gray-800 uppercase gap-x-4 dark:text-gray-300">
                     <div onClick={logout}>
                       {loading ? (<><div className="flex">
-                        <h1 className="italic">Logging out...</h1> <AiOutlineLoading3Quarters size={14} className="text-gray-800 dark:text-myGray mt-1 ml-2 animate-spin" />
+                        <h1 className="italic">Logging out...</h1> <AiOutlineLoading3Quarters size={14} className="mt-1 ml-2 text-gray-800 dark:text-myGray animate-spin" />
                       </div></>) : (<><Link href="#">Logout</Link></>)}
                     </div>
                   </div>
@@ -424,7 +424,7 @@ export const LoggedInUser = () => {
     }
   }
 
-  return (<><div className="mt-5 md:mr-6 md:mt-0 rounded-full flex mx-2 md:mx-4 drop-shadow-sm" onClick={toggleAccount}>
+  return (<><div className="flex mx-2 mt-5 rounded-full md:mr-6 md:mt-0 md:mx-4 drop-shadow-sm" onClick={toggleAccount}>
     <FaUserCircle className="text-gold mx-auto w-[20px] h-[20px] md:w-[23px] md:h-[23px]" />
     <p className="font-normal mt-1.5 md:px-1.5 hidden md:inline-block">{customer?.firstName}</p>
     <BiCaretDown size={14} className="mt-1 md:mt-1.5 text-gold ml-1 md:ml-0" />
