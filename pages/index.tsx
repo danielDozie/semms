@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <Head>
         <title>{process.env.storename}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content="SEMMS Luxury Luggages" />
+        <meta name="description" content="Feel luxury. Your travel contents are as important as you are. Own one that suits your personality." />
     </Head>
   <HomeIndex />
   </>)
