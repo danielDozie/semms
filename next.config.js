@@ -8,4 +8,5 @@ module.exports = {
         formats: ['image/avif', 'image/webp'],
       },
     basePath: '', 
+    
   }
