@@ -37,9 +37,6 @@ export interface SEARCH_TOGGLE {
     isSearchResult: boolean
     toggleSearchResult: () => void
 }
-
-
-
 ///ZUSTAND STORE TYPES ENDS HERE!!!
 
 
@@ -47,6 +44,15 @@ export interface ICOLLECTIONS {
     collection: any
 }
 
+export interface ISITEMAP {
+    [x: string]: any
+    title: string,
+    err: object,
+    data: Object
+    result: Object
+    item: Object
+    loc: string
+}
 export interface LoginFormInput{
     email: string;
     password: string;

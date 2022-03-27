@@ -45,7 +45,7 @@ export default function Footer() {
                     <Link href="/products">Products</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <Link href="/story">Our Story</Link>
+                    <Link href="#">Our Story</Link>
                   </li>
                 </ul>
               </div>
@@ -59,16 +59,16 @@ export default function Footer() {
               <div className="mt-8">
                 <ul>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Account</a>
+                    <a href="/account">Account</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Delivery</a>
+                    <a href="/delivery">Delivery</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Privacy Policy</a>
+                    <a href="/privacy">Privacy Policy</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Terms & Conditions</a>
+                    <a href="/terms">Terms & Conditions</a>
                   </li>
                 </ul>
               </div>
@@ -80,16 +80,16 @@ export default function Footer() {
               <div className="mt-8">
                 <ul>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Contacts</a>
+                    <a href="/contact">Contacts</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Returns</a>
+                    <a href="/returns">Returns</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Sitemap</a>
+                    <a href="/sitemap">Sitemap</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="#">Affiliates</a>
+                    <a href="/affiliates">Affiliates</a>
                   </li>
                 </ul>
               </div>

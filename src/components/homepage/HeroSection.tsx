@@ -21,7 +21,7 @@ export default function Hero() {
                                 <motion.button initial="hidden" animate="btn1" variants={titleVariants} className="px-4 py-2 text-sm font-light text-black rounded-md md:text-base bg-gold" onClick={() => router.push('/collections')} >
                                     Our Collections
                                 </motion.button>
-                                <motion.button initial="hidden" animate="btn2" variants={titleVariants}className="px-4 py-2 text-sm font-light rounded-md md:text-base text-gold outline outline-offset-2 outline-1" onClick={() => router.push('/story')}>
+                                <motion.button initial="hidden" animate="btn2" variants={titleVariants}className="px-4 py-2 text-sm font-light rounded-md md:text-base text-gold outline outline-offset-2 outline-1" onClick={() => router.push('/about')}>
                                     Discover our story
                                 </motion.button>
                             </div>
