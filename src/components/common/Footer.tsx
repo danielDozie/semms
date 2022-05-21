@@ -22,7 +22,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-2 pb-3 text-gold">
                 <MdOutlineAlternateEmail size="20" />
-                <p className="text-gray-300 font-light text-[15px]">support@semmsluxury.com</p>
+                <p className="text-gray-300 font-light text-[15px]">support@semmslux.com</p>
               </div>
               <div className="flex gap-2 pb-3 text-gold">
                 <MdSettingsPhone size="20" />
