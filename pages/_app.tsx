@@ -15,7 +15,7 @@ import * as gtag from '../lib/gtag'
 
 
 function Semms({ Component, pageProps }: AppProps) {
-
+  
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -28,7 +28,7 @@ function Semms({ Component, pageProps }: AppProps) {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
-  
+
   return (<>
     {/* Global Site Tag (gtag.js) - Google Analytics */}
     <Script
