@@ -39,8 +39,11 @@ export default function Products({ data }: any) {
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6">
         {productsToShow?.map((product: any) =>
           <div className="w-full h-full cursor-pointer bg-myGray dark:bg-gray-900" key={product.node.id} id={product?.node.handle} onClick={productPage}>
-            <div className="absolute ml-4 mt-2">
+            <div className="absolute ml-4 mt-2 hidden md:inline-block">
                     <Image src="/image/setOf3.svg" width="60" height="60" />
+                </div>
+            <div className="absolute ml-4 mt-2 inline-block md:hidden">
+                    <Image src="/image/setOf3.svg" width="40" height="40" />
                 </div>
             <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
               <div className="items-center justify-center w-full mx-auto mt-4 text-center">
