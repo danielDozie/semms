@@ -15,7 +15,7 @@ import * as gtag from '../lib/gtag'
 
 
 function Semms({ Component, pageProps }: AppProps) {
-  
+
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -49,6 +49,12 @@ function Semms({ Component, pageProps }: AppProps) {
           `,
       }}
     />
+    <style global jsx>{`
+        body {
+          background: black;
+        }
+      `}
+    </style>
 
     <Head>
       <title>{process.env.storename}</title>

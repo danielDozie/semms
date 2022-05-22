@@ -25,15 +25,23 @@ export default function FeaturedProducts() {
     // console.log(Math.floor(d.value))
     return (<>
         <div className="h-full bg-white max-w-7xl pb-28 dark:bg-black">
-            <div className="w-[80%] md:max-w-5xl mx-auto mt-16 mb-8">
+            <div className="w-[80%] flex md:max-w-5xl mx-auto mt-16 mb-8">
+                <div>
                 <h1 className="py-2 text-4xl font-bold text-gray-700 dark:text-gray-300">Featured</h1>
                 <p className="text-lg font-light text-gray-500 dark:text-gray-300">Top selling products </p>
+                </div>
+                <div>
+                <a href="/products" className="text-lg font-light text-gray-500 dark:text-gray-300">View All</a>
+                </div>
             </div>
             <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto lg:overflow-hidden no-scrollbar">
                 {products.map(product =>
-                    <div key={product.node.id}>
-                        <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product.node.handle}>
+                    <div key={product?.node?.id}>
+                        <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product?.node?.handle}>
                             <div className="p-4">
+                                <div className="absolute">
+                                <Image src="/image/setOf3.svg" width="50" height="50" />
+                                </div>
                                 <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
                                     <div className="items-center justify-center w-full mx-auto text-center">
                                         <Image className="" src={product?.node.media.edges[0].node.previewImage.src} alt={product?.node.media.edges[0].node.previewImage.altText} height="250" width="250" />

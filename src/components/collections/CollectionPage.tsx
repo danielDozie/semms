@@ -74,6 +74,9 @@ export function CollectionPage({
                 id={product?.node.handle}
                 onClick={productPage}
               >
+                <div className="absolute ml-4 mt-2">
+                    <Image src="/image/setOf3.svg" width="60" height="60" />
+                </div>
                 <motion.div
                   initial="initial"
                   animate="animate"
