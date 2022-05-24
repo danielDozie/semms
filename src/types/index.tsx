@@ -22,36 +22,7 @@ export interface CUSTOMER {
 }
 
 export interface CUSTOMER_DETAILS {
-    customer: {
-        id: string
-        firstName: string
-        lastName: string
-        defaultAddress:{
-            id:string,
-            address1:string,
-            address2:string,
-            city:string,
-            company:string,
-            country:string,
-            firstName:string,
-            lastName:string,
-            phone:string,
-            province:string,
-            zip:string
-        },
-        addresses:{
-            edges:[]
-        },
-        orders: {
-            edges: [
-                {
-                    node: {
-                    name: string
-                }
-            }
-            ]
-        },
-    },
+    customer: any,
     setCustomer: (props: Object) => void
 }
 export interface PRODUCT_DATA {
