@@ -1,11 +1,14 @@
 //typescript types
 export interface CARTSTORE {
-    lineItems: Object[],
+    lineItems: {
+        id: string;
+        title: string;
+    }[],
     addToCart: (props: []) => void
     productCount: number,
     setProductCount: (props: number) => void
     removeItem: (props: string) => void
-    selectedOption: []
+    selectedOption: any
     setSelectedOption: (props: []) => void
 }
    
