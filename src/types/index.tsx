@@ -116,11 +116,13 @@ export interface SEARCH_TOGGLE {
     toggleSearchResult: () => void
 }
 
-
 export interface COLLECTIONS {
     collection: {
         node: {
             title: string,
+            products: {
+                edges: []
+            }
         }
     }
 }

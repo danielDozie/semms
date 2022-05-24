@@ -5,13 +5,13 @@ import { FiUserPlus } from 'react-icons/fi';
 import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { FormInput } from '../../../src/components/Types';
 import { CREATE_CUSTOMER_ACCESS_TOKEN } from '../../../src/graphql/customerMutation';
 import { useCustomerStore } from '../../../src/store/customerStore';
 import { useLoginOutStore } from '../../../src/store/store';
 import Link from 'next/link';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
+import { FormInput } from '../../../src/types';
 
 export const index = () => {
   const router = useRouter();
@@ -90,14 +90,14 @@ export const index = () => {
         <meta name="description" content="Login to your account" />
       </Head>
       {isLoggedIn ? redirectToHome() : (<>
-        <div className="w-full max-w-md no-scrollbar md:mx-auto py-24 px-4 md:px-0">
+        <div className="w-full max-w-md px-4 py-24 no-scrollbar md:mx-auto md:px-0">
         <div className="my-12 text-center">
           <h1 className="text-xl font-semibold text-center text-gold">
             Customer Login
           </h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} >
-          <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded border dark:bg-black">
+          <div className="px-8 pt-6 pb-8 mb-4 bg-white border rounded dark:bg-black">
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -108,7 +108,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                 type="email"
                 autoComplete="off"
                 placeholder="Email"
@@ -132,7 +132,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray text-sm"
+                className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-black dark:focus-within:bg-gray-900 dark:border-gray-600 dark:text-myGray"
                 type="password"
                 placeholder="Password"
                 {...register("password", { required: true })}
@@ -143,14 +143,14 @@ export const index = () => {
               </p>
             </div>
             <div className="flex items-center justify-between">
-              <h3 className="no-underline text-gold hover:underline text-xs">
+              <h3 className="text-xs no-underline text-gold hover:underline">
                 <Link
                   href="/account/forgot-password/">
                   Forgot Password?
                 </Link>
               </h3>
               {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
-                <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
+                <div className="flex items-center justify-center mx-auto italic font-semibold text-center gap-x-2">
                   <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Logging in...</p>
                 </div>
               </button>) :
@@ -163,7 +163,7 @@ export const index = () => {
               }
             </div>
           </div>
-          <div className="py-4 text-center text-white bg-gray-900 rounded dark:bg-gray-900 my-8">
+          <div className="py-4 my-8 text-center text-white bg-gray-900 rounded dark:bg-gray-900">
             <div className="flex items-center justify-between mx-4">
               <h3 className="text-xs font-light text-gray-700">
                 <a

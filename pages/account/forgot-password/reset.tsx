@@ -4,10 +4,10 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { IPASSWORDRESET } from '../../../src/components/Types';
 import {CUSTOMER_PASSWORD_RESET_REQUEST_RESETURL } from '../../../src/graphql/customerMutation';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
+import { PASSWORDRESET } from '../../../src/types';
 
 export const index = () => {
   const resetUrl = useRouter().query.reset_url;
@@ -26,8 +26,8 @@ export const index = () => {
   error;
   data;
   
-  const { register, formState: { errors }, handleSubmit } = useForm<IPASSWORDRESET>();
-  const onSubmit: SubmitHandler<IPASSWORDRESET> = inputdata => {
+  const { register, formState: { errors }, handleSubmit } = useForm<PASSWORDRESET>();
+  const onSubmit: SubmitHandler<PASSWORDRESET> = inputdata => {
     setFormData(inputdata);
     setButtonLoading(true);      
     customerPasswordResetRequest()
@@ -67,15 +67,15 @@ export const index = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Login to your account" />
       </Head>
-        <div className="w-full max-w-md no-scrollbar md:mx-auto py-24 px-4 md:px-0">
+        <div className="w-full max-w-md px-4 py-24 no-scrollbar md:mx-auto md:px-0">
         <div className="mt-12 text-center">
           <h1 className="text-xl font-semibold text-center text-gold">
             Reset your password
           </h1>
-          <p className="text-xs font-light py-4 text-gray-800 dark:text-myGray">Enter your new account password</p>
+          <p className="py-4 text-xs font-light text-gray-800 dark:text-myGray">Enter your new account password</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} >
-          <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded border dark:bg-black">
+          <div className="px-8 pt-6 pb-8 mb-4 bg-white border rounded dark:bg-black">
             <div className="mb-4">
               <label
                 htmlFor="password"
@@ -86,7 +86,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                 type="password"
                 autoComplete="off"
                 placeholder="Password"
@@ -110,7 +110,7 @@ export const index = () => {
             </div>
             <div className="mb-6">
               <input
-                className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                 type="password"
                 autoComplete="off"
                 placeholder="Confirm Password"
@@ -126,7 +126,7 @@ export const index = () => {
             <div className="flex items-center justify-end">
 
               {buttonLoading ? (<button className="bg-gray-300 hover:bg-gold-dark text-white font-normal text-[12px] py-[6px] px-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-500" disabled>
-                <div className="flex gap-x-2 items-center justify-center text-center mx-auto italic font-semibold">
+                <div className="flex items-center justify-center mx-auto italic font-semibold text-center gap-x-2">
                   <AiOutlineLoading3Quarters size={15} className="animate-spin" /> <p>Resetting...</p>
                 </div>
               </button>) :

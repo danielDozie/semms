@@ -4,7 +4,7 @@ import axios from 'axios'
 import Link from 'next/link';
 import { CgArrowLongRightC } from 'react-icons/cg';
 const parseString = require('xml2js').parseString;
-import { ISITEMAP } from '../../src/components/Types';
+import { ISITEMAP } from '../../src/types';
 
 export default function index():React.FunctionComponentElement<ISITEMAP> {
     const title = 'Sitemap'
@@ -41,13 +41,13 @@ export default function index():React.FunctionComponentElement<ISITEMAP> {
             </Head>
             <div className="flex h-full">
                 <div className="w-[80%] mx-auto py-24">
-                    <div className="bg-white dark:bg-black pt-12">
+                    <div className="pt-12 bg-white dark:bg-black">
                         <div className="text-3xl font-bold text-gold">{title}</div>
                         <div className="py-16">
                             {data && data.map((item:ISITEMAP, index: number) => {
-                                return <div className="text-sm font-semibold py-1 text-gray-800 dark:text-myGray capitalize hover:underline hover:underline-offset-4" key={index}>
+                                return <div className="py-1 text-sm font-semibold text-gray-800 capitalize dark:text-myGray hover:underline hover:underline-offset-4" key={index}>
                                     <Link href={item?.loc[0]}>
-                                    <span className="flex gap-x-4 cursor-pointer">
+                                    <span className="flex cursor-pointer gap-x-4">
                                     <CgArrowLongRightC size={16} className="pt-1 text-gold" />
                                     {item?.loc[0].replace('https://www.semmslux.com/', '').replace('https://www.semmslux.com','Home')}
                                     </span>
