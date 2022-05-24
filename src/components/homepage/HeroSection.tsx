@@ -4,7 +4,7 @@ import { titleVariants, boxVariants, hightlightVariants } from './homepageAnimat
 import router from 'next/router'
 import Image from 'next/image';
 
-export default function Hero() {
+export default function Hero():JSX.Element {
     return (
     <>
         <div className="w-full h-full bg-gradient-to-t from-gray-900 to-black bg-blend-multiply">

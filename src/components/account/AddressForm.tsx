@@ -5,12 +5,12 @@ import { useCustomerDetailsStore, useCustomerStore } from '../../store/customerS
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import toast from 'react-hot-toast';
 import { FormElements } from './FormElements';
-import { IADDRESS } from '../Types';
+import { ADDRESS } from '../../types';
 import router from 'next/router';
 import { motion } from 'framer-motion';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-export const AddressForm = () => {
+export const AddressForm = ():JSX.Element => {
 
     const accessToken = useCustomerStore((state) => state.accessToken)
     const customer = useCustomerDetailsStore((state) => state.customer)
@@ -121,16 +121,16 @@ export const AddressForm = () => {
 
     return (
         <>
-            <div className="flex flex-col w-full md:w-3/5 mx-auto" id="addressForm">
+            <div className="flex flex-col w-full mx-auto md:w-3/5" id="addressForm">
                 <div className="mt-8">
                     <div
                         className={`flex flex-col justify-center items-center h-full`}
                     >
-                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
-                            {customerAddress?.map((address: IADDRESS) =>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+                            {customerAddress?.map((address: ADDRESS) =>
                                 <div className="flex w-[270px] mx-auto md:min-w-[300px] h-40 border border-gray-900 dark:border-myGray dark:text-myGray  rounded-md text-gray-800" key={address?.node?.id}>
-                                    <div className="flex flex-col justify-center items-center w-full h-full">
-                                        <div className="flex flex-col text-xs font-semibold justify-between text-center mt-3">
+                                    <div className="flex flex-col items-center justify-center w-full h-full">
+                                        <div className="flex flex-col justify-between mt-3 text-xs font-semibold text-center">
                                             <p className="text-sm text-gold">{address?.node?.name}</p>
                                             <p className="text-xs font-light">{address?.node?.address1}</p>
                                             <p className="text-xs font-light">{address?.node?.city}</p>
@@ -141,18 +141,18 @@ export const AddressForm = () => {
                                         </div>
                                     </div>
                                     <div className="flex flex-row text-[10px] absolute p-2 drop-shadow-md justify-start gap-x-2">
-                                        {address?.node?.id === defaultAddress ? <p className="relative italic font-semibold text-gold">Default</p> : <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.05 }} className="relative italic font-normal text-myGray px-1 rounded-full bg-gold cursor-pointer" onClick={updateDefaultAddress} id={address?.node?.id}>Make Default</motion.p>}
-                                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1.05 }} whileHover={{ scale: 1.1 }} className="bg-gray-500 text-myGray px-1 rounded-lg cursor-pointer" id={address?.node?.id} onClick={deleteAddess}>Delete</motion.p>
+                                        {address?.node?.id === defaultAddress ? <p className="relative italic font-semibold text-gold">Default</p> : <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ scale: 1.05 }} className="relative px-1 italic font-normal rounded-full cursor-pointer text-myGray bg-gold" onClick={updateDefaultAddress} id={address?.node?.id}>Make Default</motion.p>}
+                                        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1.05 }} whileHover={{ scale: 1.1 }} className="px-1 bg-gray-500 rounded-lg cursor-pointer text-myGray" id={address?.node?.id} onClick={deleteAddess}>Delete</motion.p>
                                     </div>
                                 </div>
                             )}
                             <div className="flex w-[270px] md:min-w-[300px] mx-auto h-40 border border-gray-900 dark:border-myGray dark:text-myGray  rounded-md text-gray-800 cursor-pointer" onClick={toggleAddress}>
-                                <div className="flex flex-col justify-center items-center w-full h-full">
-                                    <div className="flex flex-col text-xs font-semibold text-center py-4">
-                                        <BsPlusCircleDotted size="34" className="text-center justify-center item " />
+                                <div className="flex flex-col items-center justify-center w-full h-full">
+                                    <div className="flex flex-col py-4 text-xs font-semibold text-center">
+                                        <BsPlusCircleDotted size="34" className="justify-center text-center item " />
                                     </div>
-                                    <div className="flex flex-col text-md font-semibold text-center">
-                                        <p className="text-center justify-center item text-gray-600 ">Add Address</p>
+                                    <div className="flex flex-col font-semibold text-center text-md">
+                                        <p className="justify-center text-center text-gray-600 item ">Add Address</p>
                                     </div>
                                 </div>
                             </div>

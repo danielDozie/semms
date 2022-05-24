@@ -7,16 +7,16 @@ import router from 'next/router';
 import Image from 'next/image';
 
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts():JSX.Element {
     const productsData = useProductStore(state => state.products);
     const products = productsData.slice(0, 4);
     const setProducts = useProductStore(state => state.setProducts);
-
+    
     useEffect(() => {
         setProducts();
     }, [products]);
-
-    const productPage = (e: any) => {
+    
+    const productPage = (e: { preventDefault: () => void; currentTarget: { id: string; }; }) => {
         e.preventDefault();
         const slug = `/products/${e.currentTarget.id}`;
         router.push(slug);
@@ -31,14 +31,14 @@ export default function FeaturedProducts() {
                 <p className="text-lg font-light text-gray-500 dark:text-gray-300">Top selling products </p>
                 </div>
                 <div className="pt-14">
-                <a href="/products" className="text-xs md:text-sm font-semibold md:pr-4 text-gray-500 dark:text-gray-300 hover:underline hover:underline-offset-8">View All</a>
+                <a href="/products" className="text-xs font-semibold text-gray-500 md:text-sm md:pr-4 dark:text-gray-300 hover:underline hover:underline-offset-8">View All</a>
                 </div>
             </div>
             <div className="flex flex-row max-w-[80%] mx-auto overflow-x-auto lg:overflow-hidden no-scrollbar">
                 {products.map(product =>
                     <div key={product?.node?.id}>
                         <div className="bg-myGray dark:bg-gray-900 min-w-[250px] carousel-item mr-2 cursor-pointer rounded-md" onClick={productPage} id={product?.node?.handle}>
-                            <div className="p-4 relative">
+                            <div className="relative p-4">
                                 <div className="absolute">
                                 <Image src="/image/setOf3.svg" width="50" height="50" />
                                 </div>

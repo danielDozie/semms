@@ -3,7 +3,7 @@ import router from 'next/router'
 
 const parallax = "https://res.cloudinary.com/semms-luxury/image/upload/v1645075779/semms%20luxury/photo-1457972657980-4c9fddebec8d_k70nz7.jpg";
 
-export default function ParallaxSection() {
+export default function ParallaxSection():JSX.Element {
     return (
         <div className="bg-fixed bg-center bg-no-repeat bg-cover max-w-7xl" style={{ backgroundImage: `url(${parallax})` }}>
             <div className="w-full h-full pt-20 bg-black bg-opacity-50">

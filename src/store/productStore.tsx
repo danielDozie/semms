@@ -1,17 +1,9 @@
 import create from 'zustand'
 import { PRODUCTS } from '../graphql/productsQuery';
 import { client } from '../utils/apolloClient';
+import {PRODUCT_DATA} from '../types/index'
 
-
-interface ProductStore {
-    increaseQuantity: any;
-    decreaseQuantity: any;
-    setProducts: () => void;
-    products: any[]
-    quantity: number
-}
-
-export const useProductStore = create<ProductStore>(set => ({
+export const useProductStore = create<PRODUCT_DATA>(set => ({
     products: [],
     setProducts: async () => {
         const {data} = await client.query({

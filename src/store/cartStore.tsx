@@ -1,48 +1,37 @@
-
 import create from 'zustand'
 import { persist, devtools } from "zustand/middleware"
+import {CARTSTORE} from '../types/index'
 
-interface CartStore {
-    lineItems: any,
-    addToCart:any
-    productCount: any,
-    setProductCount: any
-    removeItem: any
-    selectedOption: any
-    setSelectedOption: any
-}
-
-export const useCartStore = create<CartStore>(persist(devtools(
+export const useCartStore = create<CARTSTORE>(persist(devtools(
     set => ({
         lineItems: [],
-        addToCart: (lineItem: []) => {
-            set((state: { lineItems: any}) => ({
+        addToCart: (lineItem) => {
+            set((state: { lineItems: Object[]}) => ({
                 lineItems: [...state.lineItems, lineItem]
             }))
         },
         productCount: 0,
-        setProductCount: (count: any) => {
-            set((state: { productCount: any }) => ({
+        setProductCount: (count) => {
+            set((state: { productCount: number }) => ({
                 productCount: state.productCount = count
             }))
         },
-        
-        removeItem: (id: any) => {
-            set((state: { lineItems: any }) => ({
-                lineItems: state.lineItems.filter((item: { id: any }) => item.id !== id)
+        removeItem: (id: string) => {
+            set((state: { lineItems: any[]}) => ({
+                lineItems: state.lineItems.filter((item: { id: string }) => item.id !== id)
             }))
         },
         selectedOption: [],
-        setSelectedOption: (selectedOption: any) => {
-            set((state: { selectedOption: any }) => ({
+        setSelectedOption: (selectedOption) => {
+            set((state: { selectedOption: Object[] }) => ({
                 selectedOption: state.selectedOption = selectedOption
             }))
         },
     })
 ),
-    {
-        name: "cart-storage", // name of item in the storage (must be unique)
-        getStorage: () => localStorage, // (optional) by default the 'localStorage' is used
-    }
-
-))
+{
+    name: "cart-storage", // name of item in the storage (must be unique)
+    getStorage: () => localStorage, // (optional) by default the 'localStorage' is used
+}
+)
+)

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-export function OurTeam() {
+export function OurTeam():JSX.Element {
     return (
         <>
             <div className="flex flex-col-reverse my-16 md:flex-row">

@@ -7,13 +7,13 @@ import toast from 'react-hot-toast'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { CUSTOMER_ADDRESS_CREATE } from '../../graphql/customerMutation'
 import { useCustomerStore } from '../../store/customerStore'
-import { AddressFormInput } from '../Types'
+import { FORM_ADDRESS_INPUT } from '../../types'
 
 export const FormElements = ({addAddress, setAddAddress}: any) => {
 
-    const [formData, setFormData] = React.useState<AddressFormInput>()
+    const [formData, setFormData] = React.useState<FORM_ADDRESS_INPUT>()
     const accessToken = useCustomerStore((state) => state.accessToken)
-    const { register, formState: { errors }, handleSubmit } = useForm<AddressFormInput>();
+    const { register, formState: { errors }, handleSubmit } = useForm<FORM_ADDRESS_INPUT>();
     const [isLoading, setIsLoading] = React.useState(false);
     const [country, setCountry] = React.useState('')
     const [region, setRegion] = React.useState('')
@@ -41,7 +41,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
             "customerAccessToken": accessToken,
         }
     })
-    const onSubmit: SubmitHandler<AddressFormInput> = inputdata => {
+    const onSubmit: SubmitHandler<FORM_ADDRESS_INPUT> = inputdata => {
         setFormData(inputdata);
         setIsLoading(true);
         setTimeout(() => {
@@ -65,7 +65,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
             <div className="w-full max-w-full py-8">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={`${addAddress ? "relative" : "hidden"} px-4 md:px-8 pb-8 mb-4 rounded`}>
-                        <h1 className="py-4 font-bold text-lg text-gray-800 dark:text-myGray">Address settings</h1>
+                        <h1 className="py-4 text-lg font-bold text-gray-800 dark:text-myGray">Address settings</h1>
                         <div className="flex gap-x-4">
                             <div className="w-1/2">
                                 <div className="mb-2">
@@ -78,7 +78,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-4">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="First name"
                                         {...register("firstname")}
@@ -97,7 +97,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="Last name"
                                         {...register("lastname")}
@@ -118,7 +118,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-4">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="company"
                                         {...register("company")}
@@ -138,7 +138,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="Address 1"
                                         {...register("address1")}
@@ -158,7 +158,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="Address 2"
                                         {...register("address2")}
@@ -178,7 +178,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="City"
                                         {...register("city")}
@@ -219,7 +219,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="Postal code"
                                         {...register("zip")}
@@ -239,7 +239,7 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 </div>
                                 <div className="mb-6">
                                     <input
-                                        className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                                        className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                                         type="text"
                                         placeholder="Phone"
                                         {...register("phone")}
@@ -258,9 +258,9 @@ export const FormElements = ({addAddress, setAddAddress}: any) => {
                                 >
                                     Save settings
                                 </button>) : (<button
-                                    className="flex bg-gray-400 hover:bg-gold-dark text-white font-normal text-sm px-4 py-2 rounded focus:outline-none focus:shadow-outline dark:text-gray-900" disabled
+                                    className="flex px-4 py-2 text-sm font-normal text-white bg-gray-400 rounded hover:bg-gold-dark focus:outline-none focus:shadow-outline dark:text-gray-900" disabled
                                 >
-                                    Processing...  <AiOutlineLoading3Quarters size={12} className="animate-spin  mt-1 ml-3" />
+                                    Processing...  <AiOutlineLoading3Quarters size={12} className="mt-1 ml-3 animate-spin" />
                                 </button>)
                             }
                         </div>

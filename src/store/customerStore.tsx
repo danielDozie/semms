@@ -1,26 +1,15 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
+import {CUSTOMER, CUSTOMER_DETAILS} from '../types/index'
 
-interface Customer {
-    accessToken: string
-    expiresAt: string
-    setAccessToken: (accessToken: string) => void
-    setExpiresAt: (expiresAt: string) => void
-}
-
-interface CustomerDetails {
-    customer: any,
-    setCustomer: (customer: {}) => void
-}
-
-export const useCustomerStore = create<Customer>(persist(
+export const useCustomerStore = create<CUSTOMER>(persist(
     set => ({
         accessToken: '',
         expiresAt: '',
-        setAccessToken: (accessToken: string) => set({
+        setAccessToken: (accessToken) => set({
             accessToken: accessToken
         }),
-        setExpiresAt: (expiresAt: string) => set({
+        setExpiresAt: (expiresAt) => set({
             expiresAt: expiresAt
         })
     }),
@@ -30,9 +19,25 @@ export const useCustomerStore = create<Customer>(persist(
     }
 ))
 
-export const useCustomerDetailsStore = create<CustomerDetails>(set => ({
-    customer: {},
-    setCustomer: (customer: any) => set({
+export const useCustomerDetailsStore = create<CUSTOMER_DETAILS>(set => ({
+    customer: {
+        defaultAddress: {
+            id: '',
+        },
+        addresses:{
+            edges:[]
+        },
+        orders: {
+            edges: [
+                {
+                    node: {
+                    name: '',
+                }
+            }
+            ]
+        },
+    },
+    setCustomer: (customer:any) => set({
         customer: customer
     })
 }))

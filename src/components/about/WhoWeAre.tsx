@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-export default function WhoWeAre() {
+export default function WhoWeAre():JSX.Element {
     return (
         <>
             <div className="flex flex-col-reverse my-16 md:flex-row">
