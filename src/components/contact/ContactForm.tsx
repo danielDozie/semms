@@ -1,7 +1,7 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaPaperPlane } from "react-icons/fa";
-import { ContactFormInput } from "../Types";
+import { ContactFormInput } from "../../../src/types";
 import emailjs from "@emailjs/browser";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import toast from "react-hot-toast";
@@ -42,8 +42,8 @@ export default function ContactForm() {
 
   return (
     <>
-      <div className="flex flex-col w-full md:w-1/2 mx-auto py-12 px-4 md:px-8">
-        <h1 className="text-xl text-gray-800 dark:text-myGray font-semibold">
+      <div className="flex flex-col w-full px-4 py-12 mx-auto md:w-1/2 md:px-8">
+        <h1 className="text-xl font-semibold text-gray-800 dark:text-myGray">
           How can we help you?
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-400">Our team of experts is just a message away</p>
@@ -54,7 +54,7 @@ export default function ContactForm() {
           >
             <div className="w-full max-w-full">
               <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-                <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded border dark:bg-black">
+                <div className="px-8 pt-6 pb-8 mb-4 bg-white border rounded dark:bg-black">
                   <div className="flex gap-x-4">
                     <div className="w-1/2">
                       <div className="mb-2">
@@ -67,7 +67,7 @@ export default function ContactForm() {
                       </div>
                       <div className="mb-4">
                         <input
-                          className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                          className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                           type="text"
                           placeholder="Fullname"
                           {...register("fullname", { required: true })}
@@ -90,7 +90,7 @@ export default function ContactForm() {
                       </div>
                       <div className="mb-6">
                         <input
-                          className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                          className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                           type="email"
                           placeholder="ex: name@example.com"
                           {...register("email", {
@@ -117,7 +117,7 @@ export default function ContactForm() {
                       </div>
                       <div className="mb-4">
                         <input
-                          className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                          className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                           type="text"
                           placeholder="+1 613-555-1212"
                           {...register("phone", {
@@ -144,7 +144,7 @@ export default function ContactForm() {
                       </div>
                       <div className="mb-6">
                         <input
-                          className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                          className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                           type="text"
                           placeholder="Provide a subject"
                           {...register("subject", {
@@ -170,7 +170,7 @@ export default function ContactForm() {
                       </div>
                       <div className="mb-4">
                         <textarea
-                          className="w-full px-3 py-2 font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900 text-sm"
+                          className="w-full px-3 py-2 text-sm font-light leading-tight text-gray-700 border rounded shadow appearance-none dark:border-gray-600 dark:text-myGray dark:bg-black focus:outline-none focus:shadow-outline dark:focus-within:bg-gray-900"
                           placeholder="Describe your requests in details."
                           {...register("message", { required: true })}
                         />
@@ -185,11 +185,11 @@ export default function ContactForm() {
                     {loading ? (
                       <button
                         type="submit"
-                        className="bg-gray-800 text-white font-normal text-sm px-4 py-2 rounded "
+                        className="px-4 py-2 text-sm font-normal text-white bg-gray-800 rounded "
                         disabled
                       >
                         Sending message...
-                        <AiOutlineLoading3Quarters className="animate-spin inline-block w-3 h-3 ml-2" />
+                        <AiOutlineLoading3Quarters className="inline-block w-3 h-3 ml-2 animate-spin" />
                       </button>
                     ) : (
                       <button
