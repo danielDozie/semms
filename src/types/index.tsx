@@ -14,7 +14,7 @@ export interface CARTSTORE {
    
 export interface COLLECTION_STORE {
     setCollections: () => void
-    collections: []
+    collections: any[]
 }
 
 export interface CUSTOMER {
