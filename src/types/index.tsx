@@ -149,7 +149,7 @@ export interface SearchText {
     searchText: string;
 }
 
-export interface IPASSWORDRESET {
+export interface PASSWORDRESET {
     email: string;
     password: string;
     confirm_password: string;
