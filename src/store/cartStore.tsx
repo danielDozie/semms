@@ -6,7 +6,7 @@ export const useCartStore = create<CARTSTORE>(persist(devtools(
     set => ({
         lineItems: [],
         addToCart: (lineItem) => {
-            set((state: { lineItems: Object[]}) => ({
+            set((state: { lineItems: any[]}) => ({
                 lineItems: [...state.lineItems, lineItem]
             }))
         },
