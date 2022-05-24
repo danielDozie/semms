@@ -11,10 +11,10 @@ export const Orders = () => {
   //ordering the array of orders in descending order by newest first
   const customer = _.orderBy(new_customer, [function (item) { return item.node.name; }], ['desc']);
   
-  const [itemToShow, setItemToShow] = React.useState<any>(customer);
+  const [itemToShow, setItemToShow] = React.useState(customer);
   
-  const toggleShowOrderDetails = (id:any) => {
-    //using the useState hook to create an object that will keep all the result ids as keys and a boolean value indicating if the comment should be shown or not.
+  const toggleShowOrderDetails = (id:string) => {
+    //using the useState hook to create an object that will keep all the result ids as keys and a boolean value indicating if the content should be shown or not.
     setItemToShow((prevItemToShow: any) => ({ 
       ...prevItemToShow, 
       [id]: !prevItemToShow[id] 
@@ -24,9 +24,9 @@ export const Orders = () => {
   
   return (
     <>
-      <div className="w-full shadow-md h-54 bg-myGray dark:bg-gray-900 rounded" id="orders">
+      <div className="w-full rounded shadow-md h-54 bg-myGray dark:bg-gray-900" id="orders">
         <div className="p-4 md:p-8 ">
-          <h1 className="text-xl font-semibold dark:text-myGray text-gray-800">
+          <h1 className="text-xl font-semibold text-gray-800 dark:text-myGray">
             Order history
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400">View and manage your orders</p>
@@ -34,38 +34,38 @@ export const Orders = () => {
         <div className="w-[90%] mx-auto my-8">
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 no-scrollbar">
-              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div className="overflow-hidden border-b border-gray-200 sm:rounded-lg">
                   <table className="min-w-full divide-y divide-gray-200 table-auto">
                     <thead className="bg-gold">
                       <tr>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium uppercase"
+                          className="px-6 py-3 text-xs font-medium text-left uppercase"
                         >
                           Order
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium uppercase"
+                          className="px-6 py-3 text-xs font-medium text-left uppercase"
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium uppercase"
+                          className="px-6 py-3 text-xs font-medium text-left uppercase"
                         >
                           Payment status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium uppercase"
+                          className="px-6 py-3 text-xs font-medium text-left uppercase"
                         >
                           Fulfillment Status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium uppercase"
+                          className="px-6 py-3 text-xs font-medium text-left uppercase"
                         >
                           Total
                         </th>
@@ -76,7 +76,7 @@ export const Orders = () => {
                         <tr key={order.node.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center" onClick={() => toggleShowOrderDetails(order.node.id)} id={order.node.name}>
-                              <div className="border rounded-xl px-4 shadow-sm py-1 cursor-pointer border-gray-400 dark:border-myGray">
+                              <div className="px-4 py-1 border border-gray-400 shadow-sm cursor-pointer rounded-xl dark:border-myGray">
                                 <div className="text-sm font-bold text-gray-800 dark:text-myGray">{order.node.name}</div>
                               </div>
                             </div>
@@ -84,9 +84,9 @@ export const Orders = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm font-normal text-gray-800 dark:text-myGray"><Moment format="MMM DD, YYYY" withTitle={true}>{order.node.processedAt}</Moment></div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal text-myGray">{order.node.financialStatus === "PAID" ? <p className="bg-green-700 text-center rounded-full text-xs italic">Paid</p> : <p className="bg-gold text-center rounded-full text-xs italic">Pending</p>}</div>
+                          <td className="px-6 py-4 text-sm whitespace-nowrap"><div className="text-sm font-normal text-myGray">{order.node.financialStatus === "PAID" ? <p className="text-xs italic text-center bg-green-700 rounded-full">Paid</p> : <p className="text-xs italic text-center rounded-full bg-gold">Pending</p>}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm"><div className="text-sm font-normal dark:text-myGray ">{order.node.fulfillmentStatus}</div>
+                          <td className="px-6 py-4 text-sm whitespace-nowrap"><div className="text-sm font-normal dark:text-myGray ">{order.node.fulfillmentStatus}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm font-normal text-gray-800 dark:text-myGray">${order.node.totalPriceV2.amount}</div>
@@ -94,29 +94,29 @@ export const Orders = () => {
                         </tr>
                         {itemToShow[order.node.id] ? 
                         <tr className={`relative`} id={order.node.name}>
-                          <th colSpan={5} className="text-gray-800 dark:text-myGray bg-white dark:bg-gray-800 rounded-lg">
+                          <th colSpan={5} className="text-gray-800 bg-white rounded-lg dark:text-myGray dark:bg-gray-800">
                             <div className="flex flex-col">
-                              <div className="flex  w-full justify-start mx-auto py-4 px-8">
+                              <div className="flex justify-start w-full px-8 py-4 mx-auto">
                                 <div className="flex-col">
-                                  <h1 className="text-sm text-left text-gray-800 dark:text-myGray font-semibold">
+                                  <h1 className="text-sm font-semibold text-left text-gray-800 dark:text-myGray">
                                     Order {order.node.name}
                                   </h1>
                                   <div className="flex gap-x-1">
-                                  <p className="text-xs text-gray-600 dark:text-gray-400 py-2 font-light">Placed ::</p> 
-                                  <Moment format="MMM DD, YYYY hh:mm A" className="text-xs text-gray-600 dark:text-gray-400 py-2 font-light">{ order.node.processedAt}</Moment>
+                                  <p className="py-2 text-xs font-light text-gray-600 dark:text-gray-400">Placed ::</p> 
+                                  <Moment format="MMM DD, YYYY hh:mm A" className="py-2 text-xs font-light text-gray-600 dark:text-gray-400">{ order.node.processedAt}</Moment>
                                   </div>
                                 </div>
                               </div>
 
-                              <div className="mb-8 px-8">
+                              <div className="px-8 mb-8">
                                 <table className="w-full border divide-y divide-gray-200 table-auto">
                                   <thead>
                                     <tr className={`px-8`}>
-                                      <th className="text-xs font-light text-gray-800 dark:text-myGray w-1/2">Product</th>
+                                      <th className="w-1/2 text-xs font-light text-gray-800 dark:text-myGray">Product</th>
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray">Size</th>
                                       <th className="text-xs font-light text-gray-800 dark:text-myGray">Price</th>
-                                      <th className=" text-xs font-light text-gray-800 dark:text-myGray">Quantity</th>
-                                      <th className=" text-xs font-light text-gray-800 dark:text-myGray">Total</th>
+                                      <th className="text-xs font-light text-gray-800 dark:text-myGray">Quantity</th>
+                                      <th className="text-xs font-light text-gray-800 dark:text-myGray">Total</th>
                                     </tr>
                                   </thead>
                                   <tbody className="w-full">

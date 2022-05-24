@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-export default function OurApproach() {
+export default function OurApproach():JSX.Element {
     return (
         <>
             <div className="flex flex-col my-16 md:flex-row">

@@ -3,10 +3,10 @@ import {FaShippingFast, FaPercent} from 'react-icons/fa'
 import {CgDesignmodo} from 'react-icons/cg'
 import { motion } from 'framer-motion'
 
-export default function BenefitSection() {
+export default function BenefitSection():JSX.Element {
     return (
         <>
-            <div className="h-full pb-24 w-full bg-gold dark:bg-black">
+            <div className="w-full h-full pb-24 bg-gold dark:bg-black">
                 <div className="flex flex-col md:flex-row flex-wrap w-[80%] mx-auto">
                     <div className="my-20 w-full md:w-[50%]">
                         <h1 className="text-3xl font-bold text-left text-gray-800 md:text-4xl dark:text-myGray">
@@ -38,7 +38,7 @@ Our collection of high-quality luggage, handbags, accessories, kids collections 
                         </div>
                     </div>
 
-                    <div className="w-full mx-auto flex flex-col py-12 md:py-0 md:flex-row lg:flex-row md:gap-x-4 gap-y-4">
+                    <div className="flex flex-col w-full py-12 mx-auto md:py-0 md:flex-row lg:flex-row md:gap-x-4 gap-y-4">
                         {banners.map((banner, index) => (
                             <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 w-[320px] md:w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
                             <div className="w-full h-full rounded-md bg-gray-900/80">

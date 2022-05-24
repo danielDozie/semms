@@ -2,7 +2,7 @@ import React from "react";
 import { FaShippingFast, FaPercent } from "react-icons/fa";
 import { CgDesignmodo } from "react-icons/cg";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { INEWSLETTER } from "../Types";
+import { NEWSLETTER } from "../../types";
 import emailjs from "@emailjs/browser";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -10,10 +10,10 @@ export default function Highlights() {
   const [subscriptionMessage, setSubscriptionMessage] = React.useState("");
   const [loading, setLoading]= React.useState(false);
   const formRef = React.useRef<any>()
-  const { register, reset, handleSubmit } = useForm<INEWSLETTER>();
-  const [formData, setFormData] = React.useState<INEWSLETTER>();
+  const { register, reset, handleSubmit } = useForm<NEWSLETTER>();
+  const [formData, setFormData] = React.useState<NEWSLETTER>();
   
-  const onSubmit: SubmitHandler<INEWSLETTER> = (inputData) => {
+  const onSubmit: SubmitHandler<NEWSLETTER> = (inputData) => {
     setFormData(inputData);
     setLoading(true)
   };
@@ -156,7 +156,7 @@ export default function Highlights() {
                       {loading ? <button
                     type="submit"
                     className="px-4 py-2 font-light text-white bg-gray-800"
-                  ><div className="flex gap-x-2"><AiOutlineLoading3Quarters size="15" className="animate-spin mt-1" /> Subscribing...</div> </button>:<button
+                  ><div className="flex gap-x-2"><AiOutlineLoading3Quarters size="15" className="mt-1 animate-spin" /> Subscribing...</div> </button>:<button
                   type="submit"
                   className="px-4 py-2 font-light text-white bg-gold hover:bg-gray-800 hover:text-white"
                 >Subscribe </button>}

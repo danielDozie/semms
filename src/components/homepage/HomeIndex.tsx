@@ -13,7 +13,7 @@ export default function HomeIndex() {
     <>
       <HeroSection/>
       <BenefitSection/>
-      <FeaturedProducts />
+      <FeaturedProducts/>
       <ParallaxSection/>  
       <HighlightSection/>
     </>

@@ -49,12 +49,6 @@ function Semms({ Component, pageProps }: AppProps) {
           `,
       }}
     />
-    <style global jsx>{`
-        body {
-          background: black;
-        }
-      `}
-    </style>
 
     <Head>
       <title>{process.env.storename}</title>

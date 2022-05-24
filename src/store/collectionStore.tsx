@@ -1,14 +1,11 @@
 import create from 'zustand'
 import { COLLECTIONS } from '../graphql/collectionsQuery';
 import { client } from '../utils/apolloClient';
+import {COLLECTION_STORE} from '../types/index'
 
 
-interface CollectionStore {
-    setCollections: () => void;
-    collections: any[]
-}
 
-export const useCollectionStore = create<CollectionStore>(set => ({
+export const useCollectionStore = create<COLLECTION_STORE>(set => ({
     collections: [],
     setCollections: async () => {
         const {data} = await client.query({
