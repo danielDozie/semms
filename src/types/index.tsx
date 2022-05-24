@@ -23,6 +23,9 @@ export interface CUSTOMER {
 
 export interface CUSTOMER_DETAILS {
     customer: {
+        id: string
+        firstName: string
+        lastName: string
         defaultAddress:{
             id:string,
             address1:string,
