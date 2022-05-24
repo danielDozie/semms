@@ -1,3 +1,4 @@
+//typescript types
 export interface CARTSTORE {
     lineItems: Object[],
     addToCart: (props: []) => void
@@ -7,7 +8,7 @@ export interface CARTSTORE {
     selectedOption: []
     setSelectedOption: (props: []) => void
 }
-
+   
 export interface COLLECTION_STORE {
     setCollections: () => void
     collections: []
