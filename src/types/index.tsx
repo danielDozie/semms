@@ -1,17 +1,17 @@
 //typescript types
 export interface CARTSTORE {
-    lineItems: Object[],
+    lineItems: any[],
     addToCart: (props: []) => void
     productCount: number,
     setProductCount: (props: number) => void
     removeItem: (props: string) => void
-    selectedOption: []
+    selectedOption: any
     setSelectedOption: (props: []) => void
 }
    
 export interface COLLECTION_STORE {
     setCollections: () => void
-    collections: []
+    collections: any[]
 }
 
 export interface CUSTOMER {
@@ -22,23 +22,7 @@ export interface CUSTOMER {
 }
 
 export interface CUSTOMER_DETAILS {
-    customer: {
-        defaultAddress:{
-            id:string,
-        },
-        addresses:{
-            edges:[]
-        },
-        orders: {
-            edges: [
-                {
-                    node: {
-                    name: string
-                }
-            }
-            ]
-        },
-    },
+    customer: any,
     setCustomer: (props: Object) => void
 }
 export interface PRODUCT_DATA {
@@ -116,11 +100,13 @@ export interface SEARCH_TOGGLE {
     toggleSearchResult: () => void
 }
 
-
 export interface COLLECTIONS {
     collection: {
         node: {
             title: string,
+            products: {
+                edges: []
+            }
         }
     }
 }
@@ -149,7 +135,7 @@ export interface SearchText {
     searchText: string;
 }
 
-export interface IPASSWORDRESET {
+export interface PASSWORDRESET {
     email: string;
     password: string;
     confirm_password: string;

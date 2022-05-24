@@ -15,7 +15,7 @@ import { useMutation } from "@apollo/client";
 import { useCustomerDetailsStore, useCustomerStore } from "../../store/customerStore";
 import React from "react";
 import router from "next/router";
-import { useLoginOutStore, useLoginStore } from "../../store/store";
+//import { useLoginOutStore, useLoginStore } from "../../store/store";
 
 //Cart
 export default function Cart({ isCart, cartToggle }: any) {

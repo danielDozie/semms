@@ -20,23 +20,7 @@ export const useCustomerStore = create<CUSTOMER>(persist(
 ))
 
 export const useCustomerDetailsStore = create<CUSTOMER_DETAILS>(set => ({
-    customer: {
-        defaultAddress: {
-            id: '',
-        },
-        addresses:{
-            edges:[]
-        },
-        orders: {
-            edges: [
-                {
-                    node: {
-                    name: '',
-                }
-            }
-            ]
-        },
-    },
+    customer: {},
     setCustomer: (customer:any) => set({
         customer: customer
     })
