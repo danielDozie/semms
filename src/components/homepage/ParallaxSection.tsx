@@ -5,7 +5,7 @@ const parallax = "https://res.cloudinary.com/semms-luxury/image/upload/v16450757
 
 export default function ParallaxSection():JSX.Element {
     return (
-        <div className="bg-fixed bg-center bg-no-repeat bg-cover max-w-7xl" style={{ backgroundImage: `url(${parallax})` }}>
+        <div className="w-full bg-fixed bg-center bg-no-repeat bg-cover" style={{ backgroundImage: `url(${parallax})` }}>
             <div className="w-full h-full pt-20 bg-black bg-opacity-50">
 
                 <div className="w-[80%] mx-auto px-0 md:px-4 py-16">

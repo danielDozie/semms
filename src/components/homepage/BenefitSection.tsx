@@ -40,7 +40,7 @@ Our collection of high-quality luggage, handbags, accessories, kids collections 
 
                     <div className="flex flex-col w-full py-12 mx-auto md:py-0 md:flex-row lg:flex-row md:gap-x-4 gap-y-4">
                         {banners.map((banner, index) => (
-                            <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 w-[320px] md:w-[320px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
+                            <motion.div animate={{opacity: 1,}} whileHover={{opacity:1, scale: 0.95, transition:{duration: .3}}} whileTap={{opacity:1, scale: 0.95, transition:{duration: .3}}} className="bg-top bg-cover dark:bg-gray-900 drop-shadow-xl rounded-md h-40 w-[320px] md:w-[320px] lg:w-[370px]" style={{ backgroundImage:`url(${banner.image})`}} key={index}>
                             <div className="w-full h-full rounded-md bg-gray-900/80">
                             <div className="p-4">
                                 <h1 className="text-lg font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-gold to-gray-200 drop-shadow-lg">

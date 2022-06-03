@@ -65,8 +65,6 @@ export function ProductDetails({ product }: any) {
         setIsCare(!isCare);
     }
     
-
-    
     //get cart item & price
     const selectedProduct = selectedOption[0]?.node
     const q = quantity

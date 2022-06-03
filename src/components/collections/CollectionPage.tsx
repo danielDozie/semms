@@ -43,7 +43,7 @@ export function CollectionPage({
 
   return (
     <>
-      <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
+      <div className="w-full items-center justify-center h-full pt-24 mx-auto">
         <Breadcrumbs
           title={collection.node.title}
           crumbmenus={crumbmenus}

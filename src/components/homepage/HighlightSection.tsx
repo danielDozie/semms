@@ -79,7 +79,7 @@ export default function Highlights() {
 
   return (
     <>
-      <div className="h-full max-w-7xl bg-myGray dark:bg-black">
+      <div className="w-full h-full bg-myGray dark:bg-black">
         <div className="container px-4 py-24 mx-auto">
           <div className="flex flex-wrap">
             <div className="w-full p-3 md:w-1/2 lg:w-1/3">

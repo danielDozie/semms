@@ -13,7 +13,7 @@ export default function index() {
                 <meta name="description" content="Collections" />
                 <meta name="keywords" content="Collections" />
             </Head>
-            <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
+            <div className="items-center justify-center h-full pt-24 mx-auto w-full">
                 <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
             </div>
             
