@@ -16,7 +16,7 @@ export default function index({products}:any) {
       <meta name="description" content="Discover Products" />
       <meta name="keywords" content="Discover Products" />
     </Head>
-    <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
+    <div className="items-center justify-center h-full pt-24 mx-auto w-full">
       <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
     </div>
     

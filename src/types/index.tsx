@@ -43,6 +43,13 @@ export interface PRODUCT_DATA {
                     }
                 }[]
             },
+            images: {
+                edges: {
+                    node:{
+                        src:string,
+                    }
+                }[]
+            },
             vendor: string,
             ratings:{
                 value: string

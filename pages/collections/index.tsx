@@ -18,7 +18,7 @@ export default function index({ collections }: any) {
         <meta name="description" content="Collections" />
         <meta name="keywords" content="Collections" />
       </Head>
-      <div className="max-w-7xl mx-auto justify-center items-center h-full pt-24">
+      <div className="w-full mx-auto justify-center items-center h-full pt-24">
         <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
         <Collections collections={collections} />
       </div>

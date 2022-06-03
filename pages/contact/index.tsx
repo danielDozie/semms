@@ -13,11 +13,11 @@ export default function index() {
                 <meta name="description" content="Contact" />
                 <meta name="keywords" content="Contact" />
             </Head>
-            <div className="items-center justify-center h-full pt-24 mx-auto max-w-7xl">
+            <div className="items-center justify-center h-full pt-24 mx-auto w-full">
                 <Breadcrumbs title={title} crumbmenus={crumbmenus} bg_url={bg_url} />
             </div>
 
-            <div className="max-w-7xl mx-auto ">
+            <div className="w-full mx-auto ">
             <div className="flex flex-col md:flex-row w-100">
                 <GoogleMap />
                 <ContactForm />
