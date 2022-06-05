@@ -7,7 +7,7 @@ import { useCartStore } from '../../../store/cartStore';
 export const DesktopImages = ({ product }: any) => {
     const selectedOption = useCartStore(state => state.selectedOption)
     const sortedProductImages = _.sortBy(product.node.images.edges, function (item){
-        if(selectedOption[0]?.node?.image.src === item.node.src ) {
+        if(selectedOption[0]?.node?.image.src === item.node.src) {
             return item.node.src
         }
     } )

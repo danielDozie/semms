@@ -28,7 +28,7 @@ export default function index({products}:any) {
         </div>
       </div>
       <div className="w-full mx-auto">
-      {/* products  */}
+      {/* products  */} 
       <Products data={products} />
       {/* discover banner */}
       <ProductsPageBanner/>
