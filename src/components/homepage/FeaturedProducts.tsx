@@ -45,7 +45,7 @@ export default function FeaturedProducts():JSX.Element {
                                 </div>
                                 <motion.div initial="initial" animate="animate" whileHover="hover" whileTap="hover" variants={productImageVariant} className="drop-shadow-md">
                                     <div className="items-center justify-center w-full mx-auto text-center">
-                                        <Image className="" src={product?.node?.images?.edges[4].node.src} alt={product?.node.media.edges[0].node.previewImage.altText} height="250" width="250" />
+                                        <Image className="" src={product?.node.media.edges[0].node.previewImage.src} alt={product?.node.media.edges[0].node.previewImage.altText} height="250" width="250" />
                                     </div>
                                 </motion.div>
                                 {/* bottom half */}
