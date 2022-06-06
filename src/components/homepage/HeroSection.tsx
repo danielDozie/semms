@@ -41,9 +41,9 @@ export default function Hero():JSX.Element {
                         </div>
                         {/* Slide Images */}
                         <div className="flex pt-24 gap-x-4 md:pt-8 md:flex md:flex-wrap md:pl-16">
-                            {slideImage.map(({image, title, cls, animate}:any) => 
+                            {slideImage.map(({image, title, cls, animate, width, height}:any) => 
                             <motion.div initial="hidden" animate={animate} variants={boxVariants} className={cls} key={animate}>
-                                <Image src={image} alt={title} className="md:-mt-2 md:ml-2" width="170" height="243" priority={true} placeholder="blur" blurDataURL={process.env.blurDataURL} />
+                                <Image src={image} alt={title} className="md:-mt-2 md:ml-2" width={width} height={height} priority={true} placeholder="blur" blurDataURL={process.env.blurDataURL} />
                             </motion.div>
                             )}
                         </div>
@@ -61,6 +61,8 @@ type SlideImage = {
     title: string,
     cls: string,
     animate: string,
+    width: string,
+    height: string
 }[]
 
 const slideImage: SlideImage = [
@@ -69,18 +71,26 @@ const slideImage: SlideImage = [
         title: 'Brown',
         cls: 'mt-8 md:-mt-16',
         animate: 'box1',
+        width: '170',
+        height: '243',
     },
     {
-        image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/red_iva9pp.png',
+        //image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645073488/semms%20luxury/red_iva9pp.png',
+        //image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1654474191/semms%20luxury/red3sets_ynewxs.png',
+        image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1654475285/semms%20luxury/RedSetOf3x_o29zt5.png',
         title: 'Red',
         cls: 'md:ml-52 md:-mt-32',
         animate: 'box2',
+        width: '220',
+        height: '300',
     },
     {
         image: 'https://res.cloudinary.com/semms-luxury/image/upload/v1645073487/semms%20luxury/pink_cneyus.png',
         title: 'Pink',
         cls: 'mt-8 md:ml-2 md:-mt-16',
         animate: 'box3',
+        width: '170',
+        height: '243',
     },
     
 ]
