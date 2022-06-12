@@ -17,7 +17,7 @@ export default function Footer() {
                 <img src={logo} alt="footer logo" />
               </div>
               <div className="flex gap-2 pb-3 text-gold">
-                <MdLocationPin size="25" />
+                <MdLocationPin size="23" />
                 <p className="text-gray-300 font-light text-[15px]">1810 First Oaks St, Richmond, TX 77406</p>
               </div>
               <div className="flex gap-2 pb-3 text-gold">
@@ -45,7 +45,7 @@ export default function Footer() {
                     <Link href="/products">Products</Link>
                   </li>
                   <li className="text-gray-300 font-light text-[15px] pb-2">
-                    <Link href="#">Our Story</Link>
+                    <Link href="/service-and-repairs">Service & Repairs</Link>
                   </li>
                 </ul>
               </div>
@@ -65,7 +65,7 @@ export default function Footer() {
                     <a href="/delivery">Delivery</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
-                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
                   </li>
                   <li className=" font-light text-[15px] pb-2">
                     <a href="/terms">Terms & Conditions</a>
