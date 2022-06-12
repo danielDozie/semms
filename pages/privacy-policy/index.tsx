@@ -31,6 +31,6 @@ export default function index() {
         },
         {
             name: 'Privacy Policy',
-            link: '/privacy-Policy'
+            link: '/privacy-policy'
         }
     ]
