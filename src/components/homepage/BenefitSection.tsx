@@ -4,6 +4,7 @@ import {CgDesignmodo} from 'react-icons/cg'
 import { motion } from 'framer-motion'
 
 export default function BenefitSection():JSX.Element {
+    
     return (
         <>
             <div className="w-full h-full pb-24 bg-gold dark:bg-black">
